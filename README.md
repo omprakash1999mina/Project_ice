@@ -1,11 +1,7 @@
-#  Rest APIs
+#  Project Ice
 This application 
 ## Introduction
-In this task you will be working on a todo application made using basic HTML, CSS and JS. The main motive of this task is to make you familiar with:
-- Rest APIs
-- AJAX
-- Manipulating DOM using JavaScript
-oject was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In this project we are creating a ecommerce ice-cream parlour website with user login system .
 
 ## Available Scripts
 
