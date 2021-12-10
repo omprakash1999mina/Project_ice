@@ -2,7 +2,21 @@
 This application 
 ## Introduction
 In this project we are creating a ecommerce ice-cream parlour website with user login system .
+## Steps
+### 1.
+```properties
+npm install
+``` 
+### 2.
+```properties
+create a .env file 
+``` 
 
+### 3.
+```properties
+add variable API_URL=writeYourApiUrl ( in my case API_URL=https://rest-apis-by-opdevelopers.herokuapp.com/api/ )
+``` 
+ 
 ## Available Scripts
 
 In the project directory, you can run:
