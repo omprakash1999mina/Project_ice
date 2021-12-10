@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../CartContext';
-let API_URL = "https://apis.opdevelopers.live/api/";
- 
+import env from "react-dotenv";
+const API_URL = env.API_URL;
+
 const Cart = () => {
     let total = 0;
     const [products, setProducts] = useState([]);

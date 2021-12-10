@@ -4,9 +4,9 @@ import { AdminContext } from '../AdminContext';
 import axios from "axios";
 import { useLocation  } from 'react-router-dom';
 // import { useDispatch, useSelector } from 'react-redux';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
-
-let API_URL = "https://apis.opdevelopers.live/api/";
 let id;
 let img_error = true;
 

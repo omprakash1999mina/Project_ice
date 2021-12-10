@@ -1,6 +1,6 @@
 import React from "react";
 
-const Access_denied = () => {
+const Maintenance = () => {
   return (
     <div>
       <section className="text-black-600 h-screen body-font">
@@ -24,4 +24,4 @@ const Access_denied = () => {
   );
 };
 
-export default Access_denied;
+export default Maintenance;

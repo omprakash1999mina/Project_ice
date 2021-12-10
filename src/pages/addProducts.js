@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 
 let error_message ;
@@ -47,7 +49,6 @@ class addProducts extends Component {
     }
 
       submitHandler = (e) =>{
-        const API_URL = "https://apis.opdevelopers.live/api/";
         e.preventDefault();
         // console.log(this.state);
         // console.log(this.handleValidation())

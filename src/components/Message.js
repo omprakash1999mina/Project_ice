@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
-
-let API_URL = "https://apis.opdevelopers.live/api/";
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YTdmODRjMThiMjE0YTRlMjBiN2MiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2MjYyNDMxNjEsImV4cCI6MTY1NzgwMDc2MX0.dfkr1CTsIAh-X1yWN-puO5nXyYUJuzvWR3137Lr1p-s';
 let modal = false;
 

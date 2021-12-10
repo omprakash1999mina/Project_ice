@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Loader from '../components/Loader';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 let error_message ;
 let loading = false;
@@ -23,7 +25,6 @@ class Login extends Component {
     }
 
     submitHandler = (e) =>{
-        const API_URL = "https://apis.opdevelopers.live/api/";
         e.preventDefault();
         // console.log(this.state);
         const config = {

@@ -24,7 +24,7 @@ import { RefundPolicy } from "./pages/RefundPolicy";
 import { Terms } from "./pages/Terms";
 import Contact from "./components/Contact";
 import UpdateProfile from './pages/UpdateProfile';
-
+import Maintenance from './pages/Maintenance';
 const App = () => { 
     let temp;
     const [ role, setRole ] = useState('customer');
@@ -82,6 +82,7 @@ const App = () => {
                             <Route path="/cart" component={Cart} exact></Route>
                             <Route path="/updateprofile" component={UpdateProfile} exact></Route>
                             <Route path="/terms" component={Terms} exact></Route>
+                            <Route path="/maintenance" component={Maintenance} exact></Route>
                             <Route path="/RefundPolicy" component={RefundPolicy} exact></Route>
                             <Route path="/support" component={Contact} exact></Route>
                             {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}

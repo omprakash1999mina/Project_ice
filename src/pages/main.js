@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 const login = {
 
@@ -13,7 +15,6 @@ const login = {
         }
     },
     submitHandler = (e) =>{
-        const API_URL = "https://api.opdevelopers.live/api/";
         e.preventDefault();
         // console.log(this.state);
 

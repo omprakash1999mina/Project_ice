@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from "axios";
 // import { Link } from 'react-router-dom';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 // let error_message ;
 let res_error = false;
 let url = null;
 let id;
-let API_URL = "https://apis.opdevelopers.live/api/";
 let formdata;
 // function userMessage(){
 //     error_message = `*  ${res_error} please try again with correct details !!`;
@@ -74,7 +75,6 @@ export class UpdateProfile extends Component {
     }
 
     submitHandler = (e) =>{
-        const  API_URL = "https://apis.opdevelopers.live/api/";
         e.preventDefault();
         // console.log(this.state);
         // console.log(this.handleValidation())

@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { CartContext } from '../CartContext';
-import { Link, useLocation } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import {  useLocation } from 'react-router-dom';
 
 const Product = (props) => {
     const [isAdding, setIsAdding] = useState(false);
@@ -17,24 +16,24 @@ const Product = (props) => {
         adminpanel = true;
     }
 
-    const Notification = () =>{
-        toast.success("Success Notification !", {
-            position: toast.POSITION.TOP_CENTER
-          });
-    }
+    // const Notification = () =>{
+    //     toast.success("Success Notification !", {
+    //         position: toast.POSITION.TOP_CENTER
+    //       });
+    // }
 
     const addToCart = (event, product) => {
         event.preventDefault();
 
         // const notify = () => {
-            toast.success("Success Notification !", {
-                position: toast.POSITION.TOP_CENTER
-              });
+            // toast.success("Success Notification !", {
+            //     position: toast.POSITION.TOP_CENTER
+            //   });
               
-              toast("Custom Style Notification with css class!", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-                className: 'foo-bar'
-              });
+            //   toast("Custom Style Notification with css class!", {
+            //     position: toast.POSITION.BOTTOM_RIGHT,
+            //     className: 'foo-bar'
+            //   });
 
         // let _cart = {...cart}; // { items: {}}
         const _cart = {...cart} ; // { items: {}}
@@ -88,8 +87,8 @@ const Product = (props) => {
                             </div> 
                             <div className="flex justify-between items-center mt-4">
                                 <span className="pl-4"> <i className="fa fa-rupee"></i>  { product.price }</span>
-                                {/* <button disabled={isAdding} onClick={(e) => { addToCart(e, product) }} className={`${ isAdding ? 'bg-green-500': 'bg-yellow-500' } py-1 px-4 rounded-full font-bold`}>ADD{isAdding ? 'ED': ''}</button>  */}
-                                <button disabled={isAdding} onClick={Notification} className={`${ isAdding ? 'bg-green-500': 'bg-yellow-500' } py-1 px-4 rounded-full font-bold`}>ADD{isAdding ? 'ED': ''}</button> 
+                                <button disabled={isAdding} onClick={(e) => { addToCart(e, product) }} className={`${ isAdding ? 'bg-green-500': 'bg-yellow-500' } py-1 px-4 rounded-full font-bold`}>ADD{isAdding ? 'ED': ''}</button> 
+                                {/* <button disabled={isAdding} onClick={Notification} className={`${ isAdding ? 'bg-green-500': 'bg-yellow-500' } py-1 px-4 rounded-full font-bold`}>ADD{isAdding ? 'ED': ''}</button>  */}
                             </div>
                         </div>
                         :

@@ -1,13 +1,14 @@
-
-import Product from './Product';
-import { useState, useEffect } from 'react';
 import React from 'react';
+import { useState, useEffect } from 'react';
+import Product from './Product';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 const Products = () => {
 
 const [products, setProducts] = useState([]);
 useEffect(() => {
-   fetch('https://apis.opdevelopers.live/api/products')
+   fetch(`${API_URL}products`)
    .then(response => response.json())
    .then(products => {
     setProducts(products);

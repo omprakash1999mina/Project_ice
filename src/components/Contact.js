@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 let error_message ;
 let res_error;
@@ -19,9 +21,8 @@ export default class Contact extends Component {
              message: '',
         }
     }
-    
+     
     handleClick=(e)=>{
-            const API_URL = "https://apis.opdevelopers.live/api/";
             e.preventDefault();
             // console.log(this.state);
             // console.log(this.handleValidation())

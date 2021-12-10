@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 const SingleProduct = () => {
     const [product, setProduct] = useState({});
@@ -8,7 +10,7 @@ const SingleProduct = () => {
     const history = useHistory();
 
     useEffect(() => {
-        fetch(`https://apis.opdevelopers.live/api/products/${params._id}`)
+        fetch(`${API_URL}products/${params._id}`)
         .then(res => res.json())
         .then(product => {
             setProduct(product);

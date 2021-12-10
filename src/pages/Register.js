@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 // import FormData from 'form-data';
+import env from "react-dotenv";
+const API_URL = env.API_URL;
 
 let error_message ;
 let res_error;
@@ -74,7 +76,6 @@ class Register extends Component {
     }
 
       submitHandler = (e) =>{
-        const  API_URL = "https://apis.opdevelopers.live/api/";
         e.preventDefault();
         console.log(this.state);
         // console.log(this.handleValidation())
