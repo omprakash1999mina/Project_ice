@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Footer from './components/Footer';
-import DeleteModal from './components/DeleteModal';
+// import DeleteModal from './components/DeleteModal';
 import Register from './pages/Register';
 import NavBar from './components/NavBar';
 import Admin from './pages/Admin';
@@ -25,15 +25,15 @@ import { Terms } from "./pages/Terms";
 import Contact from "./components/Contact";
 import UpdateProfile from './pages/UpdateProfile';
 import Maintenance from './pages/Maintenance';
+import Loader from './components/Loader';
 const App = () => { 
-    let temp;
     const [ role, setRole ] = useState('customer');
     const [ cart, setCart ] = useState({});
 
     // Fetch cart from local storage
     useEffect(() => {
         getCart().then(cart => {
-        temp = JSON.parse(cart);
+        const temp = JSON.parse(cart);
         setCart(temp);
     
         });
@@ -60,7 +60,6 @@ const App = () => {
         <>
 
             <Router>
-                {/* <CartContext.Provider value={{ cart, setCart }}> */}
                 <AdminContext.Provider value={{ role, setRole }}>
                 <CartContext.Provider value={{ cart, setCart }}>
 
@@ -77,7 +76,7 @@ const App = () => {
                             <Route path="/dashboard" component={Dashboard} exact></Route>
                             <Route path="/login" component={Login} exact></Route>
                             <Route path="/register" component={Register} exact></Route>
-                            <Route path="/error" component={DeleteModal} exact></Route>
+                            {/* <Route path="/error" component={} exact></Route> */}
                             <Route path="/products/:_id" component={SingleProduct}></Route>
                             <Route path="/cart" component={Cart} exact></Route>
                             <Route path="/updateprofile" component={UpdateProfile} exact></Route>
@@ -85,6 +84,7 @@ const App = () => {
                             <Route path="/maintenance" component={Maintenance} exact></Route>
                             <Route path="/RefundPolicy" component={RefundPolicy} exact></Route>
                             <Route path="/support" component={Contact} exact></Route>
+                            <Route path="/loader" component={Loader} exact></Route>
                             {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
                             <Route component={NotFound} />
                     </Switch>

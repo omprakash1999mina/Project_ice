@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import env from "react-dotenv";
+
 const API_URL = env.API_URL;
 
 const SingleProduct = () => {

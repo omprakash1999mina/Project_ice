@@ -37,7 +37,7 @@ const Home = (props) => {
                 <div className='p-4'>
                 <a className="text-black active:bg-blue-700 hover:bg-gray-700 hover:rounded-lg hover:text-white px-3 py-2  font-medium" href="/error" target="_blank" rel="noopener noreferrer">YouTube</a>&nbsp;&nbsp;|&nbsp;&nbsp;
                 <a className="text-black active:bg-blue-700 hover:bg-gray-700 hover:rounded-lg hover:text-white px-3 py-2  font-medium" href="https://in.linkedin.com/in/om-prakash-bairwa-a82a2b203?trk=people-guest_people_search-card" target="_blank" rel="noopener noreferrer">LinkedIn</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                <a className="text-black active:bg-blue-700 hover:bg-gray-700 hover:rounded-lg hover:text-white px-3 py-2  font-medium" href="https://www.instagram.com/royal_iitian_06/?r=nametag" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a className="text-black active:bg-blue-700 hover:bg-gray-700 hover:rounded-lg hover:text-white px-3 py-2  font-medium" href="https://www.instagram.com/royal_iitian/?r=nametag" target="_blank" rel="noopener noreferrer">Instagram</a>
 
                 </div>
                 <h4 className='text-black pb-2'>Young TEDx speaker and #1 Online JEE Educator | Founder of 5 YouTube Channels with 2.5 million young hustlers. </h4>

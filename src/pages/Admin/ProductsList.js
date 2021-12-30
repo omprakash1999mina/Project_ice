@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Products from '../../components/Products';
-// import { hashHistory } from 'react-router';
-// import { browserHistory } from 'react-router-dom'
-// let role = 'customer';
 
 class ProductsList extends Component {
   constructor(props) {

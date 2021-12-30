@@ -29,18 +29,6 @@ class Admin extends Component {
      }
        
    }
-//    handleClick=()=>{
-//        try{
-//         this.props.history.push({
-//             pathname: '/admin/addproducts',
-//             state: {id: "adminAddNewProducts"} 
-    
-//         })
-//        }catch(e){
-//         console.log("error in try block")
-//        }
-     
-// }
 
 handleProductClick=()=>{
            
@@ -90,32 +78,10 @@ handleClick=(BtnNo,e)=>{
 }
 
     render() {
-        
-//     }
-// }
-
-
-
-// const Admin = () => {
-        // const [key,setKey] = useState('key');
-        // useEffect(() => {
-        //     return console.log(key);
-        // }, [key])
-   
-            // console.log(key)
-
-            // function change(value) {
-            //     setKey(value);  
-            //   }
-
-            
-
-
-    return (
+return (
         <>
         
             <div className="flex bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
-
                 <div className='relative'>
                 <div className="bg-gray-800  shadow-xl md:relative z-10 w-full md:w-48">
 
@@ -149,43 +115,12 @@ handleClick=(BtnNo,e)=>{
                         </ul>
                     </div>
 
-
                 </div>
                  </div>
 
                 <div id="adminpanel" className="main-content flex-1 ">
                     
                     <Analytics/>
-
-                    {/* {(()=> {
-                        switch (key) {
-                            case 'analytics':
-                                console.log(key)
-                               return <Analytics/> 
-                                
-                            case 'payments':
-                                console.log(key)
-                               return <Payments/> 
-                                
-                            case 'message':
-                                console.log(key)
-                               return <Message/> 
-                                
-                            case 'products':
-                                console.log(key)
-                               return <Products/> 
-                                
-                        
-                            default:
-                            return <Products/>
-                                
-                        }
-                    })()
-                        
-                    } */}
-                 
-                    {/* <Analytics/>   */}
-
                 </div>
                 </div>
 

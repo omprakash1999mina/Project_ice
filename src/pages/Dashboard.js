@@ -1,10 +1,11 @@
 import React, { useState, useEffect ,useContext } from "react";
 import { AdminContext } from '../AdminContext';
-
 import axios from "axios";
 import { useLocation  } from 'react-router-dom';
 // import { useDispatch, useSelector } from 'react-redux';
 import env from "react-dotenv";
+import  '../styles/loader.css';
+
 const API_URL = env.API_URL;
 
 let id;
@@ -18,7 +19,7 @@ const Dashboard = props => {
     
     // const fake = useDispatch();
     
-    const [data, setdata] = useState([]);
+    const [data, setdata] = useState(false);
    
 
     useEffect(()=>{
@@ -42,10 +43,10 @@ const Dashboard = props => {
     // console.log(id);
 
     const getalldata = ()=> {
-        const storedata = JSON.parse(window.localStorage.getItem('userSetting'));
+        const { atoken} = JSON.parse(window.localStorage.getItem('userSetting'));
         const config = {
             headers: {
-                'Authorization': `Bearer ${storedata.atoken}`,
+                'Authorization': `Bearer ${atoken}`,
                 'Content-Type': 'application/json'
                 
             }
@@ -58,19 +59,6 @@ const Dashboard = props => {
                 _role = 'admin';
                 // console.log(" role in dashboard" + _role)
                 setRole(_role) ;
-
-                const resdata ={
-                    role: response.data.role,
-                }
-
-                const userSetting = JSON.stringify(resdata);
-                window.localStorage.setItem('adminsettings',userSetting);
-
-                // props.history.push({
-                //     pathname: '/admin/analytics',
-                //     state: {id: "adminAnalytics"}
-            
-                // })
             }
             const data = response.data;
             setdata(data);
@@ -192,38 +180,18 @@ const Dashboard = props => {
                         <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Name </h2>
                             <p className="leading-relaxed text-base mb-4">{data.name}</p>
-                            {/* <Link to="/updateProfile" className="text-green-500 inline-flex items-center" href="" >Edit
-                            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
-                            </Link> */}
                         </div>
                         <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Gender</h2>
                             <p className="leading-relaxed text-base mb-4">{data.gender}</p>
-                            {/* <Link to="#" onClick={updateHandler} className="text-green-500 inline-flex items-center">Edit
-                            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
-                            </Link> */}
                         </div>
                         <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Age</h2>
                             <p className="leading-relaxed text-base mb-4">{data.age}</p>
-                            {/* <Link to="/updateProfile"  className="text-green-500 inline-flex items-center">Edit
-                            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
-                            </Link> */}
                         </div>
                         <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Email -Id</h2>
                             <p className="leading-relaxed text-base mb-4">{data.email}</p>
-                            {/* <Link to="/updateProfile"  className="text-green-500 inline-flex items-center">Edit
-                            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
-                            </Link> */}
                         </div>
                         </div>
                         <section className='flex flex-wrap justify-center md:px-4  mt-10 md:mt-16' >
@@ -269,6 +237,20 @@ const Dashboard = props => {
                 </form>
         </div>
         
+        }
+
+        { !data &&
+                <div  className="min-w-screen bg-gray-200 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
+                    <div className="bg-white border shadow-2xl py-2 px-5 rounded-lg flex items-center flex-col">
+                        <div className="loader-dots block relative w-20 h-5 mt-2">
+                        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div className="text-gray-500 text-xs font-light mt-2 text-center">Please wait...</div>
+                    </div>
+                    </div>
         }
         </>
         

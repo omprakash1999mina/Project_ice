@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import Messages from '../../components/Messages';
 
 
-
-// const Messages = () => {
-// let role ;
-
 export class Message extends Component {
 
 constructor(props) {
@@ -15,7 +11,6 @@ constructor(props) {
     // console.log(role + 'this is role')
 
     try {
-        console.log(this.props)
         if( this.props.location.state.id !=="adminMessages" || role !=='admin' ){
             this.props.history.push({
                 pathname: '/notAuthorized',

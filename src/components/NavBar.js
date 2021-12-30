@@ -67,7 +67,7 @@ const shareHandler = () => {
     // window.Clipboard.setCopy();
     // window.clipboardData.setData("Text",url);
     // navigator.clipboard.writeText(url);
-    window.navigator.share({url: url, text: 'great website '})
+    window.navigator.share({url: url, text: 'Op-Developers Project '})
     // console.log(url);
     // setCopy(true);
 

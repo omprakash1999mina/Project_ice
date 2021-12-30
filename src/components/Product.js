@@ -16,24 +16,8 @@ const Product = (props) => {
         adminpanel = true;
     }
 
-    // const Notification = () =>{
-    //     toast.success("Success Notification !", {
-    //         position: toast.POSITION.TOP_CENTER
-    //       });
-    // }
-
     const addToCart = (event, product) => {
         event.preventDefault();
-
-        // const notify = () => {
-            // toast.success("Success Notification !", {
-            //     position: toast.POSITION.TOP_CENTER
-            //   });
-              
-            //   toast("Custom Style Notification with css class!", {
-            //     position: toast.POSITION.BOTTOM_RIGHT,
-            //     className: 'foo-bar'
-            //   });
 
         // let _cart = {...cart}; // { items: {}}
         const _cart = {...cart} ; // { items: {}}

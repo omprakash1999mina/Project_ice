@@ -2,17 +2,20 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Product from './Product';
 import env from "react-dotenv";
+import axios from 'axios';
 const API_URL = env.API_URL;
 
 const Products = () => {
 
 const [products, setProducts] = useState([]);
 useEffect(() => {
-   fetch(`${API_URL}products`)
-   .then(response => response.json())
-   .then(products => {
-    setProducts(products);
-   });
+    axios.get(`${API_URL}products`,).then(response => {
+        console.log(response.data)
+        setProducts(response.data)
+    }).catch(error =>{
+        console.log(error)
+    })
+
 }, []);
     // console.log(products)
 

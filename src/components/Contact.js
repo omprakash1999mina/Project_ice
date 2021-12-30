@@ -10,7 +10,6 @@ function userMessage(){
     return error_message;
 }
 
-
 export default class Contact extends Component {
     constructor(props) {
         super(props)
@@ -25,8 +24,6 @@ export default class Contact extends Component {
     handleClick=(e)=>{
             e.preventDefault();
             // console.log(this.state);
-            // console.log(this.handleValidation())
-            
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,9 +50,7 @@ export default class Contact extends Component {
                     this.setState({name: '', message: '', email: ''})
                     res_error='';
                 },1000)
-                // <Dashboard id = {resdata.id}/>
             //     this.props.history.push( {pathname: "/welcome",
-            //     state: { employee:"Steven" }});
             })
             .catch(error =>{
                 // console.log("in error block ")

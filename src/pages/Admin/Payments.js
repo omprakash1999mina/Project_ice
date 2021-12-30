@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-// let role;
-const role = window.localStorage.getItem('Role');
+ 
 export class Payments extends Component {
     constructor(props) {
+        const role = window.localStorage.getItem('Role');
         super(props)
         try{
             console.log("payment page : " + role + "  " + this.props.location.state.id)

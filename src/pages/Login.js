@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -38,7 +37,6 @@ class Login extends Component {
         
         try{
 
-        // axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
         axios.post(API_URL+"login", this.state, config)
         .then(response => {
             error_message = 0;
@@ -52,29 +50,13 @@ class Login extends Component {
             const userSetting = JSON.stringify(resdata);
             // console.log(userSetting)
             window.localStorage.setItem('userSetting',userSetting);
-            
-            // console.log(window.localStorage.getItem('userSetting'));
-            // <Redirect to="/dashboard"/>
-            // setTimeout(() => {
-            //     Loader();
-            // }, 10000);
-            // loading = true;
-            
-            // if(resdata.role === 'admin'){
-            //     this.props.history.push({
-            //         pathname: '/admin',
-            //         state: {id: resdata.id} 
-                    
-            //     }) 
-            // }
+           
             this.props.history.push({
                 pathname: '/dashboard',
                 state: {id: resdata.id} 
                 
             }) 
-            // <Dashboard id = {resdata.id}/>
-        //     this.props.history.push( {pathname: "/welcome",
-        //     state: { employee:"Steven" }});
+     
         })
         .catch(error =>{
             console.log(error)

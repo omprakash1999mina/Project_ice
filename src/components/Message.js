@@ -3,13 +3,14 @@ import axios from "axios";
 import env from "react-dotenv";
 const API_URL = env.API_URL;
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YTdmODRjMThiMjE0YTRlMjBiN2MiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2MjYyNDMxNjEsImV4cCI6MTY1NzgwMDc2MX0.dfkr1CTsIAh-X1yWN-puO5nXyYUJuzvWR3137Lr1p-s';
 let modal = false;
-
+let token;
 class Message extends Component {
 constructor(props) {
     super(props)
-
+    const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+    token = atoken;
+    // console.log(atoken)
     this.state = {
          data: ""
     }
@@ -27,7 +28,7 @@ confirmModal= () =>{
 // const Message = (props) => {
 
     // console.log('this is message destructuring page ' + message)
-    // console.log(props);
+    // console.log(token);
     deleteHandler= (id,e) =>{
 
         const config = {
