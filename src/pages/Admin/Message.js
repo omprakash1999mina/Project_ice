@@ -7,6 +7,7 @@ export class Message extends Component {
 
 constructor(props) {
     super(props)
+    window.scrollTo(0,0);
     const role  = window.localStorage.getItem('Role');
     // console.log(role + 'this is role')
 
@@ -30,7 +31,7 @@ constructor(props) {
         return (
             <>
         
-            <div className="flex bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
+            <div className="flex pt-16 bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
 
             <div className=" shadow-xl md:relative z-10 w-full md:w-48">
 
@@ -70,7 +71,7 @@ constructor(props) {
                 <div id="adminpanel" className="main-content flex-1">
 
                 <div>
-                        <div className=" pt-3">
+                        <div>
                             <div className="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
                                 <h3 className="font-bold pl-2">Message</h3>
                             </div>

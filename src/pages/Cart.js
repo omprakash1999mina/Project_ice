@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../CartContext';
 const  API_URL = process.env.REACT_APP_API_URL;
 
-const Cart = () => {
+const Cart = (props) => {
     let total = 0;
+    window.scrollTo(0,0);
     const [products, setProducts] = useState([]);
     const { cart, setCart } = useContext(CartContext);
 
@@ -80,20 +81,20 @@ const Cart = () => {
     return (
         !products.length
         ? 
-        <div className=" ">
+        <div className=" pt-14 ">
                 <h1 className="font-semibold font-serif animate-wiggle text-center mt-10 text-2xl mb-2">Cart is Empty</h1>
-            <img className="mx-auto w-1/2 mt-12" src="/images/empty-cart.png" alt="" />
+            <img className="mx-auto w-1/3 mt-8" src="/images/empty-cart.png" alt="empty" />
             
             <div className="container mx-auto lg:w-1/2 w-full">
                 <h1 className="text-bold text-center mt-4 md:text-2xl  text-sm">Please choose some delicious iteams and order now .</h1>
                 <h1 className="text-bold text-center md:text-2xl text-sm"> Get instant Cashback !!</h1>
             </div>
             <div className="text-center m-6 mt-4">
-                <button onClick={()=> console.log('back')} className="bg-gray-600 text-white px-4 py-2 rounded-lg shawod-lg">Go Back</button>
+                <button onClick={()=> props.history.push('/')} className="bg-gray-600 text-white px-4 py-2 rounded-lg shawod-lg">Go Back</button>
             </div>
         </div> 
         :
-        <div className="container relative mx-4 md:mx-auto lg:w-1/2 w-auto  pb-24">
+        <div className="container relative mx-4 md:mx-auto lg:w-1/2 w-auto pt-20 pb-24">
             <h1 className="my-12 font-bold border-b font-serif">Cart items</h1>
             <ul className="m-2">
                 {

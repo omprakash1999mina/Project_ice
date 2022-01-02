@@ -17,6 +17,7 @@ export class UpdateProfile extends Component {
     constructor(props) {
         // console.log(props)
         super(props)
+        window.scrollTo(0,0);
         this.state = { name: '', age: '', gender: '', email: '', password: '', image: null, imgsrc: null, confirmed: false, error_image: false,   error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, updated: false, error_message: 'Error in server please contact to our team !' }
         this.intialstate = {...this.state}
         
@@ -244,7 +245,7 @@ export class UpdateProfile extends Component {
     render() {
         const {name, age, gender , email, error_name , error_age, error_email, error_gender, error_image, error_password, password, confirmed, updated} = this.state;
     return (
-        <div>
+        <div className='pt-10'>
     
             <section className="flex sm:mt-16 sm:mb-24 items-center justify-center" >
                 <div className="bg-gray-100 rounded-xl p-5">

@@ -11,6 +11,7 @@ let id;
 let img_error = true;
 
 const Dashboard = props => {
+    window.scrollTo(0,0);
     // console.log(props); this page re rendered 3 time currently
     const { role, setRole } = useContext(AdminContext);
     let _role = {...role}; // { items: {}}
@@ -149,7 +150,7 @@ const Dashboard = props => {
             :
 
         <div>   
-                <div className="flex flex-wrap justify-center pt-5 ">
+                <div className="flex flex-wrap justify-center pt-20 ">
                 {/* <img className="rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="user image" /> */}
                
                 <div className="mt-1 flex items-center">

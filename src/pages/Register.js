@@ -15,6 +15,8 @@ function userMessage(){
 class Register extends Component {
     constructor(props) {
         super(props)
+        window.scrollTo(0,0);
+
         this.state = {name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false,   error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false , error_repassword: false,  confirm: false, submited: false }
         this.intialstate = {...this.state}
 
@@ -183,10 +185,9 @@ class Register extends Component {
     render() {
         const {name, age, gender, repeat_password, email , password, confirm, error_image, error_age, error_gender , error_email, error_name, error_password, error_repassword,  submited,  } = this.state;
     return (
-            // <form onSubmit={this.submitHandler} >
         <div>    
-            <section className="text-gray-600 body-font">
-                <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
+            <section className=" pt-32 text-gray-600 body-font">
+                <div className="container px-5 pb-24 mx-auto flex flex-wrap items-center">
                 <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
                     <h1 className="title-font font-medium text-3xl text-gray-900">Be a Member of our Op-Developers club and make orders fluently with exciting offers !!</h1>
                     <p className="leading-relaxed mt-4">Don’t let your ice cream melt and drip without getting the chance to eat it. Life is the same, you have to enjoy it before you lose it.</p>
@@ -194,10 +195,6 @@ class Register extends Component {
                 <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
                     <h2 className="text-gray-900 text-lg font-medium text-center title-font mb-2">Sign Up</h2>
                     
-                    {/* <div className="py-2 text-red-600 ">
-                        {error_message && userMessage()}
-                    </div> */}
-
                     <div>
                     <label className="block text-sm font-medium text-gray-700">
                         Photo
@@ -272,9 +269,9 @@ class Register extends Component {
                 </div>
                 </div>
             </section>
-        :
+        
             
-            { confirm &&
+        { confirm &&
             
             <div  className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
             <div className="absolute shadow-2xl rounded-2xl ">
@@ -312,7 +309,6 @@ class Register extends Component {
 
 
     </div>
-    // </form>
 
 
     )

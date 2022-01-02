@@ -153,7 +153,7 @@ const shareHandler = () => {
     return (
         <>
 
-                    <nav ref={ref} className=" bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 sticky top-0  z-50">
+                    <nav ref={ref} className=" bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 fixed top-0 left-0 right-0 z-50">
                                 <div className="px-2 sm:px-6 lg:px-8">
                                 <div className="relative flex items-center justify-between h-16">
 

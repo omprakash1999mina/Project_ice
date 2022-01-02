@@ -4,9 +4,10 @@ import Contact from '../components/Contact';
 
 
 const Home = (props) => {
+    window.scrollTo(0,0);
     return (
         <section >
-        <div className="hero py-16 mx-4">
+        <div className="hero py-16 mx-4 pt-32 ">
             <div className="container mx-auto flex items-center justify-between">
                 <div className="w-1/2">
                     <h6 className="md:text-lg text-sm"><em>Are you hungry?</em></h6>

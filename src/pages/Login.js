@@ -15,7 +15,7 @@ function userMessage(){
 class Login extends Component {
     constructor(props) {
         super(props)
-        
+        window.scrollTo(0,0);
         this.state = {
             email: '',
             password: ''
@@ -99,12 +99,11 @@ class Login extends Component {
         return (
         <>
         {loading === true ?  <Loader/>  :
-        <div className="lg:flex">
+        <div className="lg:flex ">
             {/* <div className="lg:w-1/2 xl:max-w-screen-sm"> */}
-            <div className="lg:w-1/2 h-screen xl:max-w-screen-sm">
+            <div className=" pt-32 lg:w-1/2 h-screen xl:max-w-screen-sm">
                 <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
-                    <h2 className="text-center text-4xl text-gray-900 font-display font-semibold lg:text-left xl:text-5xl
-                    xl:text-bold">Log in</h2>
+                    <h2 className="text-center text-4xl text-gray-900 font-display font-semibold lg:text-center xl:text-5xl xl:text-bold">Log in</h2>
                     <div className="mt-12">
                         <form  onSubmit={this.submitHandler}>
                         <div className="py-2 text-red-600 ">
@@ -144,7 +143,7 @@ class Login extends Component {
             </div>
             
             
-                <div className="hidden lg:flex items-center justify-center bg-gray-100 flex-1 h-screen">
+                <div className="hidden pt-32 lg:flex items-center justify-center bg-gray-100 flex-1 h-screen">
                     <div className="max-w-xs transform duration-200 hover:scale-110 cursor-pointer">
                         <svg className="w-5/6 mx-auto" xmlns="http://www.w3.org/2000/svg" id="f080dbb7-9b2b-439b-a118-60b91c514f72" data-name="Layer 1" viewBox="0 0 528.71721 699.76785">
                             <title>Login</title>

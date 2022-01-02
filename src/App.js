@@ -29,7 +29,7 @@ import Loader from './components/Loader';
 const App = () => { 
     const [ role, setRole ] = useState('customer');
     const [ cart, setCart ] = useState({});
-
+    console.log('updated')
     // Fetch cart from local storage
     useEffect(() => {
         getCart().then(cart => {

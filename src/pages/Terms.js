@@ -1,8 +1,9 @@
 import React from 'react';
 
 export const Terms = () => {
+    window.scrollTo(0,0);
     return (
-        <div className=" m-4 " >
+        <div className="pt-14 m-4 " >
             <headline className="text-3xl sm:text-6xl rounded-lg font-semibold font-serif mt-6 border shadow-lg iteams-center border-gray-300 flex justify-center " >  
                 <h1 className="m-4 font-serif ">Terms of Service</h1>
             </headline>

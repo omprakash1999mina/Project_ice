@@ -12,12 +12,8 @@ function userMessage(){
 export default class Contact extends Component {
     constructor(props) {
         super(props)
-    
-        this.state = {
-             name: '',
-             email: '',
-             message: '',
-        }
+        window.scrollTo(0,0);
+        this.state = { name: '', email: '', message: ''}
     }
      
     handleClick=(e)=>{

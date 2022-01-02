@@ -8,7 +8,6 @@ let res_error;
 let url = null;
 let formdata;
 let role;
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4YTdmODRjMThiMjE0YTRlMjBiN2MiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2MjYyNDMxNjEsImV4cCI6MTY1NzgwMDc2MX0.dfkr1CTsIAh-X1yWN-puO5nXyYUJuzvWR3137Lr1p-s';
 
 function userMessage() {
     error_message = `*  ${res_error} please try again with correct details !!`;
@@ -19,6 +18,7 @@ function userMessage() {
 class addProducts extends Component {
     constructor(props) {
         super(props)
+        window.scrollTo(0,0);
         // console.log(this.props.location.state.id)
         if (this.props.location.state.id !== "adminAddNewProducts" && role !== 'admin') {
             this.props.history.push({
@@ -40,13 +40,14 @@ class addProducts extends Component {
 
     submitHandler = (e) => {
         e.preventDefault();
+        const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
         // console.log(this.state);
         // console.log(this.handleValidation())
         if (this.handleValidation() === true) {
 
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${atoken}`,
                     'Accept': 'application/json',
                     'Content-Type': 'multipart/form-data'
                 }
@@ -179,28 +180,18 @@ class addProducts extends Component {
         const { name, price, size, currency } = this.state;
         return (
 
-            <div className="main-content flex-1  pb-24 md:pb-5">
+            <div className="main-content flex-1 pt-16 pb-24 md:pb-5">
 
-                <section className="text-gray-600  body-font">
-                    <div className="container px-5 pb-24 pt-10 mx-auto flex flex-wrap items-center">
-                        <div className='container w-1/2' ><h1 className="text-3xl md:text-4xl font-bold text-black mx-6"> Want to Launch new Product !</h1>
-                            {/* <h6 className="text-lg"><em>Are you hungry?</em></h6> */}
-                        </div>
+                <section className="pt-8 text-gray-600 body-font">
+                        <h1 className="text-3xl md:text-4xl font-bold text-black mx-6"> Want to Launch new Product !</h1>
+                    <div className="container px-5 pb-24 flex lg:flex-row flex-col justify-between items-center">
 
-                        {/* <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"> */}
-                        {/* <div className="md:w-96 xl:w-96 p-6 "> */}
-
-                        <div className="flex flex-wrap  ">
-
+                        <div className="flex sm:flex-row flex-col justify-between items-center">
 
                             <div className="m-4 p-6 bg-gray-100 w-56 rounded-lg ">
-                                {/* <label className="block py-4 text-sm font-bold text-gray-700"> */}
                                 <h2 className="block pb-4  font-bold text-gray-900" > Preview of Product </h2>
-                                {/* </label> */}
                                 <div className="container bg-gray-100 items-center rounded-tl-3xl ">
                                     <span className="inline-block h-44 w-44 rounded-lg overflow-hidden ">
-
-
                                         {url !== null ?
                                             <img className="object-scale-down object-center" alt="" src={this.state.imgsrc} />
 
@@ -218,42 +209,29 @@ class addProducts extends Component {
                                 <div className="text-center">
                                     <h2 className="text-lg font-bold py-2">{this.state.name !== '' ? this.state.name : "Ice-Cream"}</h2>
                                     <label className="block text-sm font-medium text-gray-700">
-                                        {/* Awailable in : <span className="bg-gray-200 py-1 rounded-full text-sm px-4">{op ? op : "type"}</span> */}
-                                        Awailable in : <span className="bg-gray-200 py-1 rounded-full text-sm px-4">{this.state.size}</span>
-                                        {/* {this.state.size.forEach(element => {
-                                            // console.log(element)
-                                        op = element;
-                                        return ele();
-                                        
-                                            
-                                        })   
-                                        
-                                        }  */}
-
+                                        Awailable in : <span className="bg-gray-200 py-1 rounded-full text-sm px-4">{this.state.size ? this.state.size : "type"}</span>
+                                        {/* Awailable in : <span className="bg-gray-200 py-1 rounded-full text-sm px-4">{this.state.size}</span> */}
                                     </label>
 
                                 </div>
                                 <div className="flex justify-between items-center mt-4">
                                     <span>{this.state.currency !== '' ? this.state.currency : '$'} {this.state.price !== '' ? this.state.price : '000'}</span>
-                                    {/* <button  onClick={(e) => { addToCart(e, product) }} className={`${   'bg-green-500': 'bg-yellow-500' } py-1 px-4 rounded-full font-bold`}>ADD{isAdding ? 'ED': ''}</button> */}
                                 </div>
-                                {/* <div className="flex justify-between items-center mt-4">
-                                <button disabled={isAdding} onClick={(e) => { addToCart(e, product) }} className={`${ isAdding ? 'bg-green-500': 'bg-red-600' } py-1 px-4 rounded-full font-bold`}>Delete{isAdding ? 'ED': ''}</button>
-                            </div> */}
 
                             </div>
 
-                            <points className="container w-1/2 py-2 pl-10">
-                                <h2 className="block py-4  font-bold text-black">Important Points *</h2>
+                            <points className="p-4 sm:w-1/2">
+                                <h2 className="block py-4  font-bold text-black text-center">Important Points *</h2>
                                 <ul className="list-disc">
 
                                     <li>Image should be in png format for batter viewBox</li>
                                     <li>You can select multiple sizes for product (which are Awailable)</li>
-                                    <li>Currency can be changed into Doller to Rupee</li>
+                                    <li>Choose your Currency type mandatory*.</li>
                                 </ul>
                             </points>
 
                         </div>
+
 
                         <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
                             <h2 className="text-gray-900 text-lg font-medium text-center title-font mb-2">Add Product</h2>

@@ -5,6 +5,7 @@ import Products from '../../components/Products';
 class ProductsList extends Component {
   constructor(props) {
       super(props)
+      window.scrollTo(0,0);
       console.log(this.props)
       try{
         const role = window.localStorage.getItem('Role');
@@ -36,7 +37,7 @@ class ProductsList extends Component {
     render() {
         return (
             <>
-                <div className="flex bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
+                <div className="flex pt-16 bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
 
                 <div className="shadow-xl  md:relative  z-10 w-full md:w-48">
 
@@ -75,13 +76,10 @@ class ProductsList extends Component {
 
                     <div id="adminpanel" className="main-content flex-1 ">
                         
-                        <div className="pt-3">
-                                <div className="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-                                    <h3 className="font-bold pl-2">Products</h3>
-                                </div>
+                        <div className="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 pt-4 px-4 shadow text-2xl text-white">
+                            <h3 className="font-bold pl-2">Products</h3>
                         </div>
-                        
-                        <div className=" bg-gradient-to-r from-blue-900 to-gray-800 text-center p-4 shadow text-2xl text-green">
+                        <div className=" bg-gradient-to-r from-blue-900 to-gray-800 text-center pb-4 shadow text-2xl text-green">
                                <button onClick={this.handleNewProductClick} className="transform motion-safe motion-reduce:transform-none hover:scale-110 rounded-full  hover:text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white inline-flex items-center justify-center p-2 bg-green-300  font-bold px-4 ">Add New Product</button>
                                 {/* <h3 className="font-bold pl-2">Products</h3> */}
                         </div>

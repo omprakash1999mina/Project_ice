@@ -8,6 +8,7 @@ let role = 'customer';
 class Admin extends Component {
    constructor(props) {
        super(props)
+       window.scrollTo(0,0);
        try{
         // const data = JSON.parse(window.localStorage.getItem('Role'));
         role = window.localStorage.getItem('Role');
@@ -81,7 +82,7 @@ handleClick=(BtnNo,e)=>{
 return (
         <>
         
-            <div className="flex bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
+            <div className="flex pt-16 bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
                 <div className='relative'>
                 <div className="bg-gray-800  shadow-xl md:relative z-10 w-full md:w-48">
 

@@ -9,7 +9,7 @@ const Products = () => {
 const [products, setProducts] = useState([]);
 useEffect(() => {
     axios.get(`${API_URL}products`,).then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         setProducts(response.data)
     }).catch(error =>{
         console.log(error)

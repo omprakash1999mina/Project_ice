@@ -6,8 +6,8 @@ import "./styles/tailwind.css";
 // import { Provider } from 'react-redux';
 
 ReactDOM.render(
-    // <div className="h-screen flex flex-col justify-between">
-        <App />,
-    // </div>,
+    <div className="h-screen relative flex flex-col justify-between">
+        <App />
+    </div>,
     document.getElementById('root')
 );

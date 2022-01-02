@@ -1,8 +1,9 @@
 import React from 'react';
 
 export const RefundPolicy = () => {
+    window.scrollTo(0,0);
     return (
-        <div className="m-4 sm:h-screen">
+        <div className="m-4 pt-10 sm:h-screen">
             <headline className="my-6 mt-10 text-3xl sm:text-6xl font-semibold font-serif rounded-lg border shadow-lg border-gray-200 flex  justify-center">
                 <h1 className="m-2 sm:m-4">Order Cancellation and Refund Policy</h1>
             </headline>
