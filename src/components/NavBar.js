@@ -4,8 +4,7 @@ import { useHistory } from 'react-router';
 import { CartContext } from '../CartContext';
 import { AdminContext } from '../AdminContext';
 import React, { useState, useRef,useEffect , useContext } from 'react';
-import env from "react-dotenv";
-const API_URL = env.API_URL;
+const  API_URL = process.env.REACT_APP_API_URL;
 
 const NavBar = props => {
     // const { history } = props;

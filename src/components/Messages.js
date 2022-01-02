@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import Message from './Message';
 import axios from "axios";
-import env from "react-dotenv";
-const API_URL = env.API_URL;
+const  API_URL = process.env.REACT_APP_API_URL;
 
 const Messages = () => {
 const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));

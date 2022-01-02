@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Product from './Product';
-import env from "react-dotenv";
 import axios from 'axios';
-const API_URL = env.API_URL;
+const  API_URL = process.env.REACT_APP_API_URL;
 
 const Products = () => {
 

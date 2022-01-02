@@ -2,11 +2,10 @@ import React, { useState, useEffect ,useContext } from "react";
 import { AdminContext } from '../AdminContext';
 import axios from "axios";
 import { useLocation  } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
-import env from "react-dotenv";
 import  '../styles/loader.css';
+const  API_URL = process.env.REACT_APP_API_URL;
 
-const API_URL = env.API_URL;
+// const API_URL = env.API_URL;
 
 let id;
 let img_error = true;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import env from "react-dotenv";
-const API_URL = env.API_URL;
+const  API_URL = process.env.REACT_APP_API_URL;
 
 let modal = false;
 let token;

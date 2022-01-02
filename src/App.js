@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { AdminContext } from './AdminContext';
 import { getRole, storeRole,getCart, storeCart } from './helpers';
-import SingleProduct from './pages/SingleProduct';
+// import SingleProduct from './pages/SingleProduct';
 import Home from './pages/Home';
 // import Loader from './pages/Loader';
 import addProducts from './pages/addProducts';
@@ -77,7 +77,7 @@ const App = () => {
                             <Route path="/login" component={Login} exact></Route>
                             <Route path="/register" component={Register} exact></Route>
                             {/* <Route path="/error" component={} exact></Route> */}
-                            <Route path="/products/:_id" component={SingleProduct}></Route>
+                            {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
                             <Route path="/cart" component={Cart} exact></Route>
                             <Route path="/updateprofile" component={UpdateProfile} exact></Route>
                             <Route path="/terms" component={Terms} exact></Route>
