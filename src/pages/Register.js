@@ -189,7 +189,7 @@ class Register extends Component {
             <section className=" pt-32 text-gray-600 body-font">
                 <div className="container px-5 pb-24 mx-auto flex flex-wrap items-center">
                 <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-                    <h1 className="title-font font-medium text-3xl text-gray-900">Be a Member of our Op-Developers club and make orders fluently with exciting offers !!</h1>
+                    <h1 className="title-font font-medium text-3xl text-gray-900">Be a Member of our Royal_IITian's club and make orders fluently with exciting offers !!</h1>
                     <p className="leading-relaxed mt-4">Don’t let your ice cream melt and drip without getting the chance to eat it. Life is the same, you have to enjoy it before you lose it.</p>
                 </div>
                 <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">

@@ -12,6 +12,8 @@ const NavBar = props => {
     // console.log(props)
     const history = useHistory();
     const ref = useRef();
+    const ref2 = useRef();
+    const ref3 = useRef();
     // const ref = createRef();
     
     const [isLogin, setIsLogin] = useState(false);
@@ -25,8 +27,6 @@ const NavBar = props => {
     // console.log(role);
 
     let _role = role; // { items: {}}
-
-
     let _id ='errorinid';
 
     try{
@@ -45,10 +45,6 @@ const NavBar = props => {
         if(btn === 'mb') { setDropdownActivemb( !dropdownActivemb ) }
         if(btn === 'st') {  setDropdownActivest (!dropdownActivest ) }
         
-        // history.push({
-        //     pathname: '/', 
-        // })
- 
         try{
             const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
             if(atoken){ setIsLogin(true) };
@@ -117,51 +113,43 @@ const shareHandler = () => {
                 // console.log(error.response.headers);
                 
             }
-        })
-        
+        })  
 
     }
    
-
         useEffect(() => {
             const checkIfClickedOutside = (e) => {
               // If the menu is open and the clicked target is not within the menu,
               // then close the menu
-            //   console.log('inside function')
               if ( ref.current && !ref.current.contains(e.target)) {
-                // setIsMenuOpen(false)
-                // console.log('inside state change')
-                setDropdownActivent (false);
                 setDropdownActivest (false);
+              }
+              if ( ref2.current && !ref2.current.contains(e.target)) {
                 setDropdownActivemb (false);
               }
-              else{
-                  
+              if ( ref3.current && !ref3.current.contains(e.target)) {
+                setDropdownActivent (false);
               }
-            
+        
             }
+            console.log('nav update')
             // checkIfClickedOutside();
             document.addEventListener("mousedown", checkIfClickedOutside);
             return () => {
               // Cleanup the event listener
               document.removeEventListener("mousedown", checkIfClickedOutside)
             }
-        //   }, [ dropdownActivent, dropdownActivest])
-        }, [ dropdownActivent , dropdownActivest])
-
+        }, [ ref, ref2, ref3])
 
     return (
         <>
 
-                    <nav ref={ref} className=" bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 fixed top-0 left-0 right-0 z-50">
-                                <div className="px-2 sm:px-6 lg:px-8">
-                                <div className="relative flex items-center justify-between h-16">
-
-                            
-                        
-                            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                                {/* <!-- Mobile menu button--> */}
-                                <button  type="button" onClick={(e)=> { dropdownhandler( e,'mb') } } className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                    <nav className=" bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 fixed top-0 left-0 right-0 z-50">
+                        <div className="px-2 sm:px-6 lg:px-8">
+                            <div className="relative flex items-center justify-between h-16">
+                            {/* <!-- Mobile menu button--> */}
+                            <div ref={ref2} className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                                <button type="button" onClick={(e)=> { dropdownhandler( e,'mb') } } className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
                     
                                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -173,36 +161,27 @@ const shareHandler = () => {
                                 </svg>
                                 </button>
                             </div>
-                            
 
                             <div className="flex items-center sm:items-stretch sm:justify-start">
-                            
-
-
                                 <div className="hidden sm:block sm:ml-6">
-
-
-                                <div className="flex items-center space-x-4">
-
-                                    <div className="flex items-center  mr-2 sm:items-stretch sm:justify-start ">
-                                        <Link to= "/">
-                                            <img className='h-16 block w-auto' src="/images/logo3.ico" alt="logo" />
-                                        </Link>
+                                    <div className="flex items-center space-x-4">
+                                        <div className="flex items-center  mr-2 sm:items-stretch sm:justify-start ">
+                                            <Link to= "/">
+                                                <img className='h-16 block w-auto' src="/images/logo3.ico" alt="logo" />
+                                            </Link>
+                                        </div>
+                                        <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to="/" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</NavLink>
+                            
+                                        <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/login" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</NavLink>
+                            
+                                        <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/register" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUP</NavLink>
+                                        {
+                                            
+                                            _role === 'admin' ?  <NavLink  to={'/admin'} activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Admin</NavLink>
+                                            : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 rounded-md text-sm font-medium">Admin</NavLink>
+                                            
+                                        }
                                     </div>
-
-                                    <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to="/" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</NavLink>
-                        
-                                    <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/login" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</NavLink>
-                        
-                                    <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/register" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUP</NavLink>
-                                    {
-                                        
-                                        _role === 'admin' ?  <NavLink  to={'/admin'} activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Admin</NavLink>
-                                        : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 rounded-md text-sm font-medium">Admin</NavLink>
-                                        
-                                    }
-
-                                </div>
                                 </div>     
                             </div>
                             
@@ -217,7 +196,7 @@ const shareHandler = () => {
 
                             <div className=" flex items-center justify-between sm:items-stretch sm:justify-end">
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto  sm:ml-6 sm:pr-0">
-                                <div   className="relative hidden sm:block  text-left">
+                                <div ref={ref3} className="relative hidden sm:block  text-left">
                                 
                                     <button onClick={(e)=> { dropdownhandler(e,'nt') } } className="bg-gray-800 p-1 mx-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                         <span className="sr-only">View notifications</span>
@@ -228,9 +207,9 @@ const shareHandler = () => {
                                         </svg>
                                     </button>
 
-                                    { dropdownActivent  &&   
+                                    { dropdownActivent  &&  
                                     
-                                    <div  className="origin-top-right absolute right-0 mt-2 w-96 rounded-2xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+                                    <div className="origin-top-right absolute right-0 mt-2 w-96 rounded-2xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
                                         <div className="py-1" role="none">
                                             <span className="sr-only">View notifications</span>
                                             <span  className="text-gray-700 block px-4 border-b-2 border-bg-gray-200 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">New Offer for you </span>
@@ -241,7 +220,7 @@ const shareHandler = () => {
                                     
                                     }
 
-                                    </div>
+                                </div>
 
                                     <div className="relative inline-block text-left">
                                             <Link to="/cart">
@@ -254,17 +233,15 @@ const shareHandler = () => {
                                                 </div>
                                             </Link>
                                     </div>
-                                <div  className="relative inline-block text-left">
-
-                                    <div>
-                                        <button  onClick={(e)=> { dropdownhandler( e,'st') } } className="bg-gray-800 p-1 mx-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                    
+                                <div ref={ref} className="relative inline-block text-left">
+                                        <button onClick={(e)=> { dropdownhandler( e,'st') } } className="bg-gray-800 p-1 mx-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="hover:animate-spin" viewBox="0 0 16 16">
                                                 <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
                                                 <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
                                             </svg>
                                         </button>
 
-                                    </div>
                                     { dropdownActivest &&   
                                      
                                     <div className="origin-top-right absolute right-0 ml-4 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
@@ -272,8 +249,6 @@ const shareHandler = () => {
                                             {  _role === 'admin' &&  <span className="text-center text-green-700 block border-b-2 border-bg-gray-300 px-4 py-2 text-sm" >Admin*</span> }
                                             {  _role !== 'admin' && <span className="text-center text-green-700 block border-b-2 border-bg-gray-300 px-4 py-2 text-sm" >Controls</span> }
                                             {/* <br/> */}
-                                            {/* <Link  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">Account settings</Link> */}
-                                            {/* { isLogin === true && <Link  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0">Signed in as Anushkha</Link> } */}
                                             { isLogin === true && <Link to={ { pathname: '/dashboard', state: {id: _id}  } } className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Profile</Link> }
                                             <Link to="/support"  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">Support</Link>
                                             <Link to="#"  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">License</Link>
@@ -292,39 +267,34 @@ const shareHandler = () => {
                                     
                                     }
                                     
-                                    </div>
-               
-                            {/* adfasdfasd */}
+                                </div>
                             </div>
                             </div>
-
-
                             </div>
                         </div>
                         
-                        {/* <!-- Mobile menu, show/hide based on menu state. --> */}
-                       { dropdownActivemb && 
-                       
-                       <div className="sm:hidden" id="mobile-menu">
-                            <div className="px-2 pt-2 pb-3 space-y-1">
-                            {/* <Link to="/" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</Link>
-                        
-                            <Link to="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</Link>
-                            <Link to="/register" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">SignUP</Link>
-                            <Link to="/Admin" aria-disabled className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Admin</Link> */}
-                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to="/" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
-                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/login" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Login</NavLink>
-                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/register" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">SignUP</NavLink>
-                            {
-                                
-                                _role === 'admin' ?  <NavLink  to={'/admin'} activeClassName ="bg-gray-900 text-white px-3 py-2 block rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
-                                : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
-                                
+                            
+                            {/* <!-- Mobile menu, show/hide based on menu state. --> */}
+                            {  dropdownActivemb &&
+                                <div>
+                                    <div className="sm:hidden" id="mobile-menu">
+                                            <div className="px-2 pt-2 pb-3 space-y-1">
+                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to="/" onClick={(e) => dropdownhandler(e, 'mb') } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/login" onClick={(e) => dropdownhandler(e, 'mb') } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Login</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/register" onClick={(e) => dropdownhandler(e, 'mb') } className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">SignUP</NavLink>
+                                            {
+                                                
+                                                _role === 'admin' ?  <NavLink  to={'/admin'} onClick={(e) => dropdownhandler(e, 'mb') } activeClassName ="bg-gray-900 text-white px-3 py-2 block rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
+                                                : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
+                                                
+                                            }
+                                            </div>
+                                        </div> 
+                                </div>
                             }
-                            </div> 
-                        </div> 
-                        
-                        }
+                            
+
+
                         </nav>
 
 
