@@ -167,7 +167,7 @@ const Dashboard = props => {
                 </div>
                 </div>
                 
-                <form   >
+                <form >
 
                 <section className="text-gray-600 body-font">
                 <div className="container px-5 py-2 mx-auto">
@@ -175,25 +175,25 @@ const Dashboard = props => {
                         <h2 className="text-xs text-green-500 tracking-widest font-medium title-font mb-1">Profile Details</h2>
                         <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Welcome {data.name} this is your profile</h1>
                         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Apparently, ice cream contains vitamin K, which prevents blood clotting. Let's not forget that ice cream also contains niacin, thiamine, and riboflavin. Not only does ice cream have nutritional value, but it also is an incredible source of energy.</p>
-                        </div>
-                        <div className="flex flex-wrap">
-                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+                    </div>
+                    <div className="flex lg:flex-row flex-col">
+                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-b-2 border-t-2 lg:border-t-0 lg:border-b-0 lg:border-l-2 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Name </h2>
                             <p className="leading-relaxed text-base mb-4">{data.name}</p>
                         </div>
-                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-b-2 lg:border-l-2 lg:border-b-0 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Gender</h2>
                             <p className="leading-relaxed text-base mb-4">{data.gender}</p>
                         </div>
-                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-b-2 lg:border-l-2 lg:border-b-0 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Age</h2>
                             <p className="leading-relaxed text-base mb-4">{data.age}</p>
                         </div>
-                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+                        <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-b-2 lg:border-l-2 lg:border-b-0 border-gray-200 border-opacity-60">
                             <h2 className="text-lg sm:text-xl text-gray-900 font-medium title-font mb-2">Email -Id</h2>
                             <p className="leading-relaxed text-base mb-4">{data.email}</p>
                         </div>
-                        </div>
+                    </div>
                         <section className='flex flex-wrap justify-center md:px-4  mt-10 md:mt-16' >
                             <button onClick={handlelogout} className="md:m-8 m-4 text-white bg-green-500 border-0 py-2 md:px-8 px-4 focus:outline-none hover:bg-green-600 rounded text-lg"> Logout </button>
                             <button onClick={()=> props.history.push({pathname: '/updateprofile',state: {id: id} })} className="md:m-8 m-4 text-white bg-green-500 border-0 py-2 md:px-8 px-4 focus:outline-none hover:bg-green-600 rounded text-lg">Edit</button>

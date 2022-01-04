@@ -101,7 +101,7 @@ class Login extends Component {
         {loading === true ?  <Loader/>  :
         <div className="lg:flex ">
             {/* <div className="lg:w-1/2 xl:max-w-screen-sm"> */}
-            <div className=" pt-32 lg:w-1/2 h-screen xl:max-w-screen-sm">
+            <div className=" pt-32 pb-12 lg:pb-0 lg:w-1/2 xl:max-w-screen-sm">
                 <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
                     <h2 className="text-center text-4xl text-gray-900 font-display font-semibold lg:text-center xl:text-5xl xl:text-bold">Log in</h2>
                     <div className="mt-12">
