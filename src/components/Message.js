@@ -45,14 +45,6 @@ confirmModal= () =>{
             modal = false;
             // this.setState({data: ''});
             window.location.reload();
-            // const data = response.data;
-
-            // this.props.history.push({
-            //     pathname: '/admin/messages',
-            //     state: {id: "adminMessages"} 
-        
-            // })
-            // console.log("under the push")
 
             
         })
@@ -67,8 +59,13 @@ confirmModal= () =>{
                 
             }
         });
-        // console.log(e)
     }
+
+    formatDate = (dateString) => {
+        const options = { year: "numeric", month: "long", day: "numeric" }
+        return new Date(dateString).toLocaleDateString(undefined, options)
+    }
+
     render() {
         const {message} = this.props;
         // console.log(message._id)
@@ -77,12 +74,10 @@ confirmModal= () =>{
             <div className="pb-10 mx-2">
             <div className="shadow-xl mx-2 ">
                 <section className="block rounded-lg bg-white py-3 border-t pb-4">
-                    <div className="px-4 py-2 flex  justify-between">
+                    <div className="px-4 py-2 flex flex-col sm:flex-row justify-center items-center sm:justify-between">
                         <span className="text-sm font-semibold text-gray-900">{message.name}</span>
                         <span className="text-sm font-semibold text-gray-900">{message.email}</span>
-                        <div className="flex">
-                            <span className="px-4 text-sm font-semibold text-gray-600">{message.createdAt}</span>
-                        </div>
+                            <span className="px-4 text-sm font-semibold text-gray-600">{this.formatDate(message.createdAt)}</span>
                     </div>
                     <p className="px-4 py-2 text-sm font-semibold text-gray-700">{message.message}</p>
                     <div className="px-4 py-2 flex  justify-between">
