@@ -34,7 +34,7 @@ const NavBar = props => {
         _id = id;
         // console.log(_id)
     }catch(err){
-        console.log("currently not logged in")
+        // console.log("currently not logged in")
 
     }
 
@@ -62,6 +62,7 @@ const shareHandler = () => {
     // window.Clipboard.setCopy();
     // window.clipboardData.setData("Text",url);
     // navigator.clipboard.writeText(url);
+    setDropdownActivest (false)
     window.navigator.share({url: url, text: "Royal_IITian's Project "})
     // console.log(url);
     // setCopy(true);
@@ -132,7 +133,7 @@ const shareHandler = () => {
               }
         
             }
-            console.log('nav update')
+            // console.log('nav update')
             // checkIfClickedOutside();
             document.addEventListener("mousedown", checkIfClickedOutside);
             return () => {
@@ -144,24 +145,45 @@ const shareHandler = () => {
     return (
         <>
 
-                    <nav className=" bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 fixed top-0 left-0 right-0 z-50">
-                        <div className="px-2 sm:px-6 lg:px-8">
-                            <div className="relative flex items-center justify-between h-16">
+                <nav className=" bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 fixed top-0 left-0 right-0 z-50">
+                    <div className="relative flex items-center justify-center sm:justify-between h-16">
+                        <div ref={ref2} className='sm:hidden inline-block absolute left-0'>
                             {/* <!-- Mobile menu button--> */}
-                            <div ref={ref2} className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                                <button type="button" onClick={(e)=> { dropdownhandler( e,'mb') } } className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                                <span className="sr-only">Open main menu</span>
-                    
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                
-                                <svg className="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                            <div className="flex mx-2 items-center sm:hidden">
+                                <button type="button" onClick={(e)=> { dropdownhandler( e,'mb') } } className="inline-flex border border-gray-500 items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                                <span className="sr-only">Menu</span>
+                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><title>Menu</title><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
                                 </button>
                             </div>
+                            {/* <div class="relative mx-4 inline-block lg:hidden">
+                                <button onClick={(e)=> { dropdownhandler( e,'mb') } } class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-white hover:border-white">
+                                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                                </button>
+                            </div> */}
 
+                            
+                        {/* <!-- Mobile menu, show/hide based on menu state. --> */}
+                            {  dropdownActivemb &&
+                                <div className="absolute left-0 top-12 w-screen bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600" >
+                                    <div className="sm:hidden py-1" id="mobile-menu">
+                                            <div className="px-2 pt-2 pb-3 space-y-1">
+                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to={"/"} onClick={()=>setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to={"/login"} onClick={()=> setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Login</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to={"/register"} onClick={()=> setDropdownActivemb(false) } className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">SignUP</NavLink>
+                                            {
+                                                
+                                                _role === 'admin' ?  <NavLink  to={'/admin'} onClick={() => setDropdownActivemb(false) } activeClassName ="bg-gray-900 text-white px-3 py-2 block rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
+                                                : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
+                                                
+                                            }
+                                            </div>
+                                        </div>
+                                </div>
+                            }
+                        </div>
+
+                            
+                            
                             <div className="flex items-center sm:items-stretch sm:justify-start">
                                 <div className="hidden sm:block sm:ml-6">
                                     <div className="flex items-center space-x-4">
@@ -249,13 +271,11 @@ const shareHandler = () => {
                                             {  _role === 'admin' &&  <span className="text-center text-green-700 block border-b-2 border-bg-gray-300 px-4 py-2 text-sm" >Admin*</span> }
                                             {  _role !== 'admin' && <span className="text-center text-green-700 block border-b-2 border-bg-gray-300 px-4 py-2 text-sm" >Controls</span> }
                                             {/* <br/> */}
-                                            { isLogin === true && <Link to={ { pathname: '/dashboard', state: {id: _id}  } } className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Profile</Link> }
-                                            <Link to="/support"  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">Support</Link>
+                                            { isLogin === true && <Link to={ { pathname: '/dashboard', state: {id: _id}  } } onClick={ ()=> setDropdownActivest(false) } className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Profile</Link> }
+                                            <Link to="/support" onClick={()=> setDropdownActivest(false) } className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">Support</Link>
                                             <Link to="#"  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">License</Link>
-                                            <div className="flex justify-between">
-                                            <Link to="#"  onClick={shareHandler} className=" text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">Share </Link>
-                                            </div>
-                                            { isLogin === false &&<Link to={'/login'} className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-4">Login</Link> }
+                                            <Link to="#" onClick={shareHandler} className=" text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">Share </Link>
+                                            { isLogin === false &&<Link to={'/login'} onClick={()=> setDropdownActivest(false) } className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-4">Login</Link> }
                                             <Link to="#"  className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-5">Download App</Link>
                                             { isLogin === true && 
                                                 <button   onClick={(e)=> handlelogout(e) } className="text-gray-700 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">
@@ -271,27 +291,9 @@ const shareHandler = () => {
                             </div>
                             </div>
                             </div>
-                        </div>
                         
                             
-                            {/* <!-- Mobile menu, show/hide based on menu state. --> */}
-                            {  dropdownActivemb &&
-                                <div>
-                                    <div className="sm:hidden" id="mobile-menu">
-                                            <div className="px-2 pt-2 pb-3 space-y-1">
-                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to="/" onClick={(e) => dropdownhandler(e, 'mb') } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
-                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/login" onClick={(e) => dropdownhandler(e, 'mb') } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Login</NavLink>
-                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to="/register" onClick={(e) => dropdownhandler(e, 'mb') } className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">SignUP</NavLink>
-                                            {
-                                                
-                                                _role === 'admin' ?  <NavLink  to={'/admin'} onClick={(e) => dropdownhandler(e, 'mb') } activeClassName ="bg-gray-900 text-white px-3 py-2 block rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
-                                                : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
-                                                
-                                            }
-                                            </div>
-                                        </div> 
-                                </div>
-                            }
+                            
                             
 
 
