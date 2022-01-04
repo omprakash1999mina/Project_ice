@@ -5,26 +5,37 @@ import Loader from '../components/Loader';
 const  API_URL = process.env.REACT_APP_API_URL;
 
 let error_message ;
-let loading = false;
+let alreadyLogin = false;
 let res_error;
 function userMessage(){
     error_message=`* ${res_error} please try again with correct details and if forgot then  reset your email or password  !!`;
     return error_message;
 }
 
+let _id ='errorinid';
+
 class Login extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0,0);
-        this.state = {
-            email: '',
-            password: ''
+        this.state = { email: '', password: '', loading: false }
+        
+        try{
+            const { id } = JSON.parse(window.localStorage.getItem('userSetting'));
+            _id = id;
+            alreadyLogin = true;
+            // console.log(_id)
+        }catch(err){
+            // console.log("currently not logged in")
+            alreadyLogin = false;
+            
         }
     }
 
     submitHandler = (e) =>{
         e.preventDefault();
         // console.log(this.state);
+        // this.setState({loading: true})
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -32,11 +43,13 @@ class Login extends Component {
             }
         }
         
-        
-        
         try{
+            const data = {
+                email: this.state.email,
+                password: this.state.password,
+            }
 
-        axios.post(API_URL+"login", this.state, config)
+        axios.post(API_URL+"login", data, config)
         .then(response => {
             error_message = 0;
             
@@ -83,7 +96,7 @@ class Login extends Component {
            
         })
     }catch(err){ 
-        console.log("in catch section")    
+        console.log("failed to login")    
     }
 
        
@@ -94,7 +107,7 @@ class Login extends Component {
    
 
     render() {
-        const {email , password} = this.state;
+        const {email , password, loading,} = this.state;
     
         return (
         <>
@@ -179,6 +192,25 @@ class Login extends Component {
                         </svg>
                     </div>
                 </div>
+
+                {  alreadyLogin &&
+                    <div  className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
+                        <div className="absolute shadow-2xl rounded-2xl ">
+                        <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
+                        
+                            <div className="text-center p-5 flex-auto justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-gray-500 mx-auto" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    </svg>
+                                    <h2 className="text-xl font-bold py-4 ">You are Already Login !!</h2> 
+                                    <p className="text-sm text-gray-500 px-8 pb-4">Just want to go to the profile page click here Down-below</p>
+                                    <Link to={ { pathname: '/dashboard', state: {id: _id}  } } className="bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-gray-600">Go Back to Profile</Link>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                }
             </div>
 
             }

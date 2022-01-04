@@ -256,7 +256,7 @@ const shareHandler = () => {
                                             </Link>
                                     </div>
                                     
-                                <div ref={ref} className="relative inline-block text-left">
+                                <div ref={ref} className="relative inline-block text-left mr-4">
                                         <button onClick={(e)=> { dropdownhandler( e,'st') } } className="bg-gray-800 p-1 mx-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="hover:animate-spin" viewBox="0 0 16 16">
                                                 <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
