@@ -56,18 +56,18 @@ const NavBar = props => {
 
     }
 
-const shareHandler = () => {
-    const url = window.location.href;
-    // document.execCommand('copy');
-    // window.Clipboard.setCopy();
-    // window.clipboardData.setData("Text",url);
-    // navigator.clipboard.writeText(url);
-    setDropdownActivest (false)
-    window.navigator.share({url: url, text: "Royal_IITian's Project "})
-    // console.log(url);
-    // setCopy(true);
+    const shareHandler = () => {
+        const url = window.location.href;
+        // document.execCommand('copy');
+        // window.Clipboard.setCopy();
+        // window.clipboardData.setData("Text",url);
+        // navigator.clipboard.writeText(url);
+        setDropdownActivest (false)
+        window.navigator.share({url: url, text: "Royal_IITian's Project "})
+        // console.log(url);
+        // setCopy(true);
 
-}
+    }
     const handlelogout = (e)=> {
         e.preventDefault();
 
