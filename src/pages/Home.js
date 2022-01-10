@@ -42,12 +42,12 @@ const Home = (props) => {
                 <a className="text-black active:bg-blue-700 hover:bg-gray-700 hover:rounded-lg hover:text-white px-3 py-2  font-medium" href="https://www.instagram.com/royal_iitian/?r=nametag" target="_blank" rel="noopener noreferrer">Instagram</a>
 
                 </div>
-                <h4 className='text-black pb-2'>Young TEDx speaker and #1 Online JEE Educator | Founder of 5 YouTube Channels with 2.5 million young hustlers. </h4>
+                <h4 className='text-black pb-2'>Young IITian and Web-Developer  </h4>
                 <br/>
-                <p className="mb-8 leading-relaxed">I help students across India find their right career path. I have been a guest speaker at 22 Colleges including Top IITs, BITS Pilani, IIIT's, NIT's, SRCC, Jadavpur University etc. I am the #1 Educator of JEE on India's biggest online platform
-                and I believe that everyone has the right to quality education and with the help of my social media platforms, I have helped millions of students find their path to success in the last 5 years. In the next few decades, India will rise
-                as the leader of the world with the maximum young workforce, but for this, we need some good pilots who can take us through this. I help these young hustlers find their true potential so that they can fly us to victory.</p>
-                
+                <p className="mb-8 leading-relaxed">
+                    Pursuing a B.Tech + M.Tech Dual degree [ IDD ] in Electrical Engineering and a specialization in Power-Electronics udergraduate at IIT BHU, Varanasi. I'm interested in collaborate with others and build something exciting.I build some projects with team work and the experience was amazing .I have a good command on C,C++,Data-Structures and Web-Development with MERN stack. I enjoy bringing projects alive from scratch, from designing the UI, laying out the REST-API'S and developing secure, fast Database and debugging to completion.
+                    Want to Develope something Secure Don't wait just contact me i'm here for you, collaborate with me . 
+                </p>
                 </div>
             </div>
             </section>
