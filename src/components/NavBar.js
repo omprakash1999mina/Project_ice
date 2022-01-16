@@ -189,7 +189,7 @@ const NavBar = props => {
                                     <div className="flex items-center space-x-4">
                                         <div className="flex items-center  mr-2 sm:items-stretch sm:justify-start ">
                                             <Link to= "/">
-                                                <img className='h-16 block w-auto' src="/images/logo3.ico" alt="logo" />
+                                                <img className='h-16 block w-auto' src="/favicon.ico" alt="logo" />
                                             </Link>
                                         </div>
                                         <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to="/" className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</NavLink>
@@ -209,7 +209,7 @@ const NavBar = props => {
                             
                             <div className="flex items-center sm:hidden  mr-2 sm:items-stretch sm:justify-start ">
                                 <Link to= "/">
-                                    <img className='h-16 block w-auto' src="/images/logo3.ico" alt="logo" />
+                                    <img className='h-16 block w-auto' src="/favicon.ico" alt="logo" />
                                 </Link>
                                 {/* <img className="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow"/>
                                 <img className="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow"/> */}
@@ -248,10 +248,9 @@ const NavBar = props => {
                                             <Link to="/cart">
                                                 <div className='flex bg-gray-800 p-1 mx-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
                                                     <span className='mx-2'>{ cart.totalItems ? cart.totalItems : 0 }</span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-cart4" viewBox="0 0 16 16">
+                                                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                                                         <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                                                     </svg>
-                                                    {/* <img className="ml-2" src="/images/cart.png" alt="cart-icon" /> */}
                                                 </div>
                                             </Link>
                                     </div>
