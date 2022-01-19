@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from 'react';
+import {React, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { AdminContext } from './AdminContext';
 import { getRole, storeRole,getCart, storeCart } from './helpers';
@@ -26,6 +25,8 @@ import Contact from "./components/Contact";
 import UpdateProfile from './pages/UpdateProfile';
 import Maintenance from './pages/Maintenance';
 import Loader from './components/Loader';
+import Orders from "./pages/Admin/Orders";
+
 const App = () => { 
     const [ role, setRole ] = useState('customer');
     const [ cart, setCart ] = useState({});
@@ -66,6 +67,7 @@ const App = () => {
                     <NavBar  />
                     <Switch>
                             <Route path="/" component={Home} exact></Route>
+                            <Route path="/admin/orders" component={Orders} exact></Route>
                             <Route path="/admin/addproducts" component={addProducts} exact></Route>
                             <Route path="/admin/payments" component={Payments} exact></Route>
                             <Route path="/admin/messages" component={Message} exact></Route>
@@ -86,7 +88,7 @@ const App = () => {
                             <Route path="/support" component={Contact} exact></Route>
                             <Route path="/loader" component={Loader} exact></Route>
                             {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
-                            <Route component={NotFound} />
+                            <Route path="*" component={NotFound} />
                     </Switch>
                 </CartContext.Provider>
                 </AdminContext.Provider>
