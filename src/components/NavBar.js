@@ -167,12 +167,12 @@ const NavBar = props => {
                                 <div className="absolute left-0 top-12 w-screen bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600" >
                                     <div className="sm:hidden py-1" id="mobile-menu">
                                             <div className="px-2 pt-2 pb-3 space-y-1">
-                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" exact to={"/"} onClick={()=>setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
-                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to={"/login"} onClick={()=> setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Login</NavLink>
-                                            <NavLink activeClassName ="bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium" to={"/register"} onClick={()=> setDropdownActivemb(false) } className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">SignUP</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white" exact to={"/"} onClick={()=>setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white" to={"/login"} onClick={()=> setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Login</NavLink>
+                                            <NavLink activeClassName ="bg-gray-900 text-white" to={"/register"} onClick={()=> setDropdownActivemb(false) } className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">SignUP</NavLink>
                                             {
                                                 
-                                                _role === 'admin' ?  <NavLink  to={'/admin'} onClick={() => setDropdownActivemb(false) } activeClassName ="bg-gray-900 text-white px-3 py-2 block rounded-lg text-sm font-medium"  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
+                                                _role === 'admin' ?  <NavLink  to={'/admin'} onClick={() => setDropdownActivemb(false) } activeClassName ="bg-gray-900 text-white block "  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
                                                 : <NavLink onClick={(e)=> e.preventDefault() }  to='#'  className=" opacity-50 cursor-not-allowed  text-gray-300  px-3 py-2 block rounded-md text-base font-medium">Admin</NavLink>
                                                 
                                             }

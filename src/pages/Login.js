@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import Loader from '../components/Loader';
 const  API_URL = process.env.REACT_APP_API_URL;
 
 let error_message ;
@@ -18,7 +17,8 @@ class Login extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0,0);
-        this.state = { email: '', password: '', loading: false }
+        this.state = { email: '', password: '', processing: false }
+        this.initialstate = {...this.state}
         
         try{
             const { id } = JSON.parse(window.localStorage.getItem('userSetting'));
@@ -35,7 +35,7 @@ class Login extends Component {
     submitHandler = (e) =>{
         e.preventDefault();
         // console.log(this.state);
-        // this.setState({loading: true})
+        this.setState({processing: true})
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -49,71 +49,63 @@ class Login extends Component {
                 password: this.state.password,
             }
 
-        axios.post(API_URL+"login", data, config)
-        .then(response => {
-            error_message = 0;
+            axios.post(API_URL+"login", data, config)
+            .then(response => {
+                error_message = 0;
+                // console.log(response.data);
+                const resdata = {
+                    atoken:  response.data.access_token,
+                    rtoken:  response.data.refresh_token,
+                    id    :  response.data.id
+                }
+                const userSetting = JSON.stringify(resdata);
+                // console.log(userSetting)
+                window.localStorage.setItem('userSetting',userSetting);
             
-            // console.log(response.data);
-            const resdata = {
-                atoken:  response.data.access_token,
-                rtoken: response.data.refresh_token,
-                id    :    response.data.id
-            }
-            const userSetting = JSON.stringify(resdata);
-            // console.log(userSetting)
-            window.localStorage.setItem('userSetting',userSetting);
-           
-            this.props.history.push({
-                pathname: '/dashboard',
-                state: {id: resdata.id} 
-                
-            }) 
-     
-        })
-        .catch(error =>{
-            console.log(error)
-            if(!error.response){
                 this.props.history.push({
-                    pathname: '/error',
-                })
-            }
-            
-            if(error.response){
-                console.log(error.response);
-                // const error_message = error.response.data.message;
-                // console.log("in error response block")
-                const obj2 =  {}
-                error_message=1;
-                setTimeout(() => {
-                    this.setState(obj2);
-
-                }, 10);
-                res_error = error.response.data.message;
-                console.log(error.response.data.message);
-                // console.log(error.response.headers);
+                    pathname: '/dashboard',
+                    state: {id: resdata.id} 
+                    
+                }) 
+        
+            })
+            .catch(error =>{
+                console.log(error)
+                if(!error.response){
+                    this.props.history.push({
+                        pathname: '/error',
+                    })
+                }
                 
-            }
+                if(error.response){
+                    error_message=1;
+                    setTimeout(() => {
+                        this.setState(this.initialstate);
+                    }, 10);
+                    res_error = error.response.data.message;
+                    // console.log(error.response.data.message);
+                    // console.log(error.response.headers);
+                    
+                }
            
-        })
-    }catch(err){ 
-        console.log("failed to login")    
-    }
+            })
+        }catch(err){ 
+            console.log("failed to login")    
+        }
 
        
     }
-      changeHandler = (e) =>{
+    changeHandler = (e) =>{
         this.setState( {[e.target.name]: e.target.value} );  
-      }
+    }
    
 
     render() {
-        const {email , password, loading,} = this.state;
+        const {email , password, processing} = this.state;
     
         return (
         <>
-        {loading === true ?  <Loader/>  :
         <div className="lg:flex ">
-            {/* <div className="lg:w-1/2 xl:max-w-screen-sm"> */}
             <div className=" pt-32 pb-12 lg:pb-0 lg:w-1/2 xl:max-w-screen-sm">
                 <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
                     <h2 className="text-center text-4xl text-gray-900 font-display font-semibold lg:text-center xl:text-5xl xl:text-bold">Log in</h2>
@@ -124,7 +116,7 @@ class Login extends Component {
                         </div>
                             <div>
                                 <div className="text-sm font-bold text-gray-700 tracking-wide">Email Address</div>
-                                <input className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="email" name="email" value={email} onChange={this.changeHandler} placeholder="example@gmail.com"/>
+                                <input className="w-full text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="email" name="email" value={email} onChange={this.changeHandler} placeholder="example@gmail.com"/>
                             </div>
                             <div className="mt-8">
                                 <div className="flex justify-between items-center">
@@ -138,14 +130,22 @@ class Login extends Component {
                                         </Link>
                                     </div>
                                 </div>
-                                <input className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" name="password" value={password} onChange={this.changeHandler} placeholder="Enter your password"/>
+                                <input className="w-full text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="password" name="password" value={password} onChange={this.changeHandler} placeholder="Enter your password"/>
                             </div>
                             <div className="mt-10">
-                                <button  className="bg-gray-700 text-gray-100 p-4 w-full rounded-full tracking-wide
-                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-gray-800
-                                shadow-lg" type="submit">
-                                    Log In
-                                </button>
+                                { processing ? 
+                                    <div className="flex items-center justify-center">
+                                        <button type="button" className="inline-flex items-center justify-center p-4 font-semibold leading-6 text-sm shadow rounded-md text-white bg-gray-700 transition ease-in-out duration-150 cursor-not-allowed bg-gray-700 text-gray-100 w-full rounded-full" disabled="">
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Processing...
+                                        </button>
+                                    </div>
+                                :
+                                    <button  className="bg-gray-700 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-gray-800 shadow-lg" type="submit">Log In</button>
+                                }
                             </div>
                         </form>
                         <div className="mt-12 text-sm font-display font-semibold text-gray-500 text-center">
@@ -213,7 +213,7 @@ class Login extends Component {
                 }
             </div>
 
-            }
+            
         </>
 
         )

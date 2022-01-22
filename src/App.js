@@ -5,7 +5,7 @@ import { getRole, storeRole,getCart, storeCart } from './helpers';
 // import SingleProduct from './pages/SingleProduct';
 import Home from './pages/Home';
 // import Loader from './pages/Loader';
-import addProducts from './pages/addProducts';
+import AddProducts from './pages/AddProducts';
 import Payments from './pages/Admin/Payments';
 import ProductsList from './pages/Admin/ProductsList';
 import Message from './pages/Admin/Message';
@@ -68,7 +68,7 @@ const App = () => {
                     <Switch>
                             <Route path="/" component={Home} exact></Route>
                             <Route path="/admin/orders" component={Orders} exact></Route>
-                            <Route path="/admin/addproducts" component={addProducts} exact></Route>
+                            <Route path="/admin/addproducts" component={AddProducts} exact></Route>
                             <Route path="/admin/payments" component={Payments} exact></Route>
                             <Route path="/admin/messages" component={Message} exact></Route>
                             <Route path="/admin/analytics" component={Admin} exact></Route>

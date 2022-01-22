@@ -5,7 +5,7 @@ import Contact from '../components/Contact';
 
 const Home = (props) => {
     // window.scrollTo(0,0);
-    console.log('home')
+    // console.log('home')
     return (
         <section >
         <div className="hero py-16 mx-4 pt-32 ">

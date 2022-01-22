@@ -219,7 +219,7 @@ export class UpdateProfile extends Component {
         changeHandler = (e) =>{
                 // console.log(this.state)
                 res_error = false;
-            this.setState( {[e.target.name]: e.target.value, error_name: false, error_age: false, error_gender: false, error_email: false, error_password: false, error_image: false,  } );    
+                this.setState( {[e.target.name]: e.target.value, error_name: false, error_age: false, error_gender: false, error_email: false, error_password: false, error_image: false,  } );    
         }
         confirmationHandler = () =>{
             // console.log(this.handleValidation())
@@ -258,13 +258,12 @@ export class UpdateProfile extends Component {
                             </div>
                                     :
                             <div className="rounded-full overflow-hidden transition duration-500 ease-in-out h-12 w-12 py-3 border-2 bg-teal-600 border-teal-600">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user-plus ">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-user-plus ">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="8.5" cy="7" r="4"></circle>
                                     <line x1="20" y1="8" x2="20" y2="14"></line>
                                     <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
+                                </svg>
                             </div>
                         }
                             <div className="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-teal-600">Account</div>
