@@ -20,9 +20,7 @@ useEffect(() => {
             // console.log(response.data);
             setMessages(response.data);
             
-        })
-        
-        .catch(error =>{
+        }).catch(error =>{
             if(error.response){
                 // console.log(error.response.status);
                 console.log(error.response.data.message);

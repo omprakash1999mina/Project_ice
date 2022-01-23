@@ -14,7 +14,7 @@ create a .env file
 
 ### 3.
 ```properties
-add variable API_URL=writeYourApiUrl ( in my case API_URL=https://rest-apis-by-opdevelopers.herokuapp.com/api/ )
+add variable REACT_APP_API_URL=writeYourApiUrl ( in my case REACT_APP_API_URL=https://rest-apis-by-opdevelopers.herokuapp.com/api/ )
 ``` 
  
 ## Available Scripts
