@@ -42,7 +42,7 @@ class Orders extends Component {
     }
 
     render() {
-        const { orders } = this.state;
+        // const { orders } = this.state;
         return (
             <div className="flex pt-16 bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 flex-col md:flex-row">
                 <Menubar />

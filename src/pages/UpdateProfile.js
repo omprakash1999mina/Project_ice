@@ -355,7 +355,7 @@ export class UpdateProfile extends Component {
             <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
             
                 <div className="text-center p-5 flex-auto justify-center">
-                    {   updated === false ?
+                    {   !updated ?
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-gray-500 mx-auto"  viewBox="0 0 16 16">
                             <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 5.146a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2z"/>
@@ -366,14 +366,14 @@ export class UpdateProfile extends Component {
                             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
                         </svg>
                     }
-                        { updated === false && <h2 className="text-xl font-bold py-4 ">Are you sure?</h2> }
+                        {!updated && <h2 className="text-xl font-bold py-4 ">Are you sure?</h2> }
                         { updated && <h2 className="text-xl text-green-400 pt-4 ">Successfully Updated !!</h2> }
                         {/* { updated && <h2 className="text-xl text-gray-400 py-4 ">Now you can go back </h2> } */}
-                        { updated === false && <p className="text-sm text-gray-500 px-8"> {name} Do you really want to change your details ? This process cannot be undone</p>   }
+                        {!updated && <p className="text-sm text-gray-500 px-8"> {name} Do you really want to change your details ? This process cannot be undone</p>   }
                         { res_error && <p className="text-sm text-red-600 pt-8"> {this.state.error_message} </p>   }
 
                 </div>
-                { updated === false &&
+                { !updated &&
                     <div className="w-full mx-2 flex-1 svelte-1l8159u">
                     <div className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">confim with password</div>
                         <div className={`${error_password ? 'border-red-500': 'border-gray-200'} bg-white mt-2 p-1 flex border rounded svelte-1l8159u`}>
@@ -384,8 +384,8 @@ export class UpdateProfile extends Component {
                 }
                 
                 <div className="p-3 justify-end mt-2 text-center space-x-4 md:block">
-                    { updated === false && <button onClick={()=>{ this.setState({confirmed: false})}} className="mb-2 m-4 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">Cancel</button>}
-                    { updated === false && <button onClick={this.passwordValidation} className="mb-2 m-4 md:mb-0 bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">Confim</button>}
+                    {!updated && <button onClick={()=>{ this.setState({confirmed: false})}} className="mb-2 m-4 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">Cancel</button>}
+                    {!updated && <button onClick={this.passwordValidation} className="mb-2 m-4 md:mb-0 bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">Confim</button>}
                     { updated && <button onClick={this.cancleHandler} className="mb-2  bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">Go Back to Profile</button>}
                 </div>
             </div>

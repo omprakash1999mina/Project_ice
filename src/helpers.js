@@ -6,7 +6,6 @@ export const getCart = () => {
             const temp = { items: {}, totalItems: 0 }
             const fake = JSON.stringify(temp)
             window.localStorage.setItem('cart' ,fake );
-            // console.log('if')
             // cart = window.localStorage.getItem('cart');
             // console.log(cart)
         }

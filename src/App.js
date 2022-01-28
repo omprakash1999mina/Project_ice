@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { AdminContext } from './AdminContext';
 import { getRole, storeRole,getCart, storeCart } from './helpers';
 // import SingleProduct from './pages/SingleProduct';
-import Home from './pages/Home';
 // import Loader from './pages/Loader';
+// import DeleteModal from './components/DeleteModal';
+import Home from './pages/Home';
 import AddProducts from './pages/AddProducts';
 import Payments from './pages/Admin/Payments';
 import ProductsList from './pages/Admin/ProductsList';
@@ -13,7 +14,6 @@ import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Footer from './components/Footer';
-// import DeleteModal from './components/DeleteModal';
 import Register from './pages/Register';
 import NavBar from './components/NavBar';
 import Admin from './pages/Admin';
@@ -26,6 +26,8 @@ import UpdateProfile from './pages/UpdateProfile';
 import Maintenance from './pages/Maintenance';
 import Loader from './components/Loader';
 import Orders from "./pages/Admin/Orders";
+import Cartelement from './pages/Cartelement';
+import orders from './pages/orders';
 
 const App = () => { 
     const [ role, setRole ] = useState('customer');
@@ -88,6 +90,8 @@ const App = () => {
                             <Route path="/support" component={Contact} exact></Route>
                             <Route path="/loader" component={Loader} exact></Route>
                             {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
+                            <Route path="/placeorders" component={Cartelement} />
+                            <Route path="/orders" component={orders} />
                             <Route path="*" component={NotFound} />
                     </Switch>
                 </CartContext.Provider>

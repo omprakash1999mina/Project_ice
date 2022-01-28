@@ -164,7 +164,7 @@ const NavBar = props => {
                             
                         {/* <!-- Mobile menu, show/hide based on menu state. --> */}
                             {  dropdownActivemb &&
-                                <div className="absolute left-0 top-12 w-screen bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600" >
+                                <div className="absolute left-0 top-12 w-screen bg-gradient-to-r from-gray-700 via-gray-900 to-gray-600 rounded-lg" >
                                     <div className="sm:hidden py-1" id="mobile-menu">
                                             <div className="px-2 pt-2 pb-3 space-y-1">
                                             <NavLink activeClassName ="bg-gray-900 text-white" exact to={"/"} onClick={()=>setDropdownActivemb(false) } className="text-gray-300 active:bg-blue-700 hover:bg-gray-700 hover:text-white px-3 py-2 block rounded-md text-base font-medium">Home</NavLink>
