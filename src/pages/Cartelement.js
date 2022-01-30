@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import { CartContext } from '../CartContext';
 import axios from "axios";
-// const  API_URL = process.env.REACT_APP_API_URL;
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = 'http://localhost:5000/api';
 
 export class Cartelement extends Component {
+    static contextType = CartContext;
     constructor(props) {
         super(props)
         try {
             const { totalgrand, items } = props.location.state;
             // console.log(props.location.state);
-            this.state = { error: false, shipping: true, placed: false, payment: false, processing: false, totalgrand: totalgrand, items: items, name: '', address: '', state: '', city: '', postalcode: '', phone: '',taxes: Number((totalgrand * 0.18).toFixed(2)) }
+            this.state = { error: false, shipping: true, placed: false, payment: false, processing: false, totalgrand: totalgrand, items: items, name: '', address: '', state: '', city: '', postalcode: '', phone: '', taxes: Number((totalgrand * 0.18).toFixed(2)) }
         } catch (error) {
             this.props.history.push('/error')
         }
@@ -50,16 +52,23 @@ export class Cartelement extends Component {
     changeHandler = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     }
-    handleBack=()=> {
+    clearCart = {
+        setItem: function (temp) {
+            return Promise.resolve().then(function () {
+                // localStorage.setItem(key, value);
+            });
+        }
+    }
+    handleBack = () => {
         const temp = { items: {}, totalItems: 0 }
-        window.localStorage.setItem('cart',JSON.stringify(temp) );
+        const { setCart } = this.context;
+        setCart(temp);
         this.props.history.push('/cart')
-        // window.localStorage.removeItem('cart');
     }
     render() {
         const { taxes, error, payment, processing, totalgrand, name, phone, city, postalcode, state, address, placed, shipping } = this.state
         return (
-            <div className="bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
+            <div className="my-24 mx-4 bg-opacity-50 h-screen flex justify-center items-center ">
                 <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
                     {shipping && <p className="font-bold mt-3 text-center text-gray-700 ">Shipping Information</p>}
                     {
@@ -88,7 +97,7 @@ export class Cartelement extends Component {
                                         </div>
                                         <div className='flex flex-wrap border-b-2 font-bold py-4 justify-between'>
                                             <h2>Total grand</h2>
-                                            <h2><i className="fa fa-rupee text-sm p-1"></i>{ ( 25 + taxes+ totalgrand).toFixed(2) }</h2>
+                                            <h2><i className="fa fa-rupee text-sm p-1"></i>{(25 + taxes + totalgrand).toFixed(2)}</h2>
                                         </div>
                                         {processing ?
                                             <button type="button" className="inline-flex items-center justify-center mb-2 m-4 md:mb-0 p-2 text-sm shadow-sm font-medium border text-white bg-gray-700 rounded-full cursor-not-allowed" disabled>
@@ -115,24 +124,24 @@ export class Cartelement extends Component {
 
                             <p className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">address</p>
                             <textarea name='address' value={address} onChange={this.changeHandler} className="w-full py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" placeholder="address" />
-                            <div className='flex flwx-wrap justify-between'>
+                            <div className='flex flex-col sm:flex-row justify-between'>
                                 <div className='mx-1'>
                                     <p className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">city</p>
-                                    <input name='city' value={city} onChange={this.changeHandler} className=" py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="text" placeholder="name" />
+                                    <input name='city' value={city} onChange={this.changeHandler} className="w-full py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="text" placeholder="city" />
                                 </div>
                                 <div className='mx-1'>
                                     <p className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">State</p>
-                                    <input name='state' value={state} onChange={this.changeHandler} className=" py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="text" placeholder="name" />
+                                    <input name='state' value={state} onChange={this.changeHandler} className="w-full py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="text" placeholder="state" />
                                 </div>
                             </div>
-                            <div className='flex flwx-wrap justify-between'>
+                            <div className='flex flex-col sm:flex-row justify-between'>
                                 <div className='mx-1'>
                                     <p className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">postal Code</p>
-                                    <input name='postalcode' value={postalcode} onChange={this.changeHandler} className=" py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="number" placeholder="name" />
+                                    <input name='postalcode' value={postalcode} onChange={this.changeHandler} className="w-full py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="number" placeholder="postal code" />
                                 </div>
                                 <div className='mx-1'>
                                     <p className="font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase">phone</p>
-                                    <input name='phone' value={phone} onChange={this.changeHandler} className=" py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="text" placeholder="name" />
+                                    <input name='phone' value={phone} onChange={this.changeHandler} className="w-full py-2 px-3 border border-gray-200 focus:outline-none focus:border-indigo-500 rounded-lg" type="text" placeholder="phone" />
                                 </div>
                             </div>
 

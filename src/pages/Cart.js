@@ -5,7 +5,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const Cart = (props) => {
     let total = 0;
-    window.scrollTo(0, 0);
     const [products, setProducts] = useState([]);
     const [login, setLogin] = useState(true);
     const { cart, setCart } = useContext(CartContext);
@@ -20,7 +19,7 @@ const Cart = (props) => {
                 }
             }
             if (Object.keys(cart.items).length === 0) {
-                axios.get(API_URL + 'orders/'+ id, config)
+                axios.get(API_URL + 'orders/' + id, config)
                     .then(response => {
                         const res = response.data;
                         // console.log(response.data);
@@ -38,23 +37,22 @@ const Cart = (props) => {
                         }
                     });
             }
-            else {
+            if (Object.keys(cart.items).length !== 0) {
                 const data = JSON.stringify({ ids: Object.keys(cart.items) })
-                // console.log(data);
+                // console.log(Object.keys(cart.items));
                 axios.post(API_URL + 'products/cart-items', data, config)
                     .then(response => {
-                        // const res = response.data;
                         setProducts(response.data);
                     }).catch(error => {
                         if (error.response) {
-                            // console.log(error.response.status);
-                            window.alert("Opp's there is some problem, so please login again !!");
+                            window.alert("Opp's there is some problem, so please login again !!!");
                             console.log(error.response.data.message);
                         }
                     });
             }
         } catch (error) {
-            window.alert("Opp's there is some problem, so please login again !!");
+            window.alert("Opp's there is some problem, so please login again !!!!");
+            console.log(error);
             setLogin(false);
         }
 
@@ -99,7 +97,10 @@ const Cart = (props) => {
         const updatedProductsList = products.filter((product) => product._id !== productId);
         setProducts(updatedProductsList);
     }
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
 
 
     return (

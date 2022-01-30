@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 let role = 'customer';
 
-class Orders extends Component {
+class Ordersadmin extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
@@ -96,5 +96,5 @@ class Orders extends Component {
     }
 }
 
-export default Orders;
+export default Ordersadmin;
 

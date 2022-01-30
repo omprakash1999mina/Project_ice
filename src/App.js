@@ -25,13 +25,14 @@ import Contact from "./components/Contact";
 import UpdateProfile from './pages/UpdateProfile';
 import Maintenance from './pages/Maintenance';
 import Loader from './components/Loader';
-import Orders from "./pages/Admin/Orders";
+import Ordersadmin from "./pages/Admin/Ordersadmin";
 import Cartelement from './pages/Cartelement';
-import orders from './pages/orders';
+import Orders from './pages/Orders';
+import Order from './pages/Order';
 
 const App = () => { 
     const [ role, setRole ] = useState('customer');
-    const [ cart, setCart ] = useState({});
+    const [ cart, setCart ] = useState({ items: {}, totalItems: 0 });
     // console.log('updated')
     // Fetch cart from local storage
     useEffect(() => {
@@ -69,7 +70,7 @@ const App = () => {
                     <NavBar  />
                     <Switch>
                             <Route path="/" component={Home} exact></Route>
-                            <Route path="/admin/orders" component={Orders} exact></Route>
+                            <Route path="/admin/orders" component={Ordersadmin} exact></Route>
                             <Route path="/admin/addproducts" component={AddProducts} exact></Route>
                             <Route path="/admin/payments" component={Payments} exact></Route>
                             <Route path="/admin/messages" component={Message} exact></Route>
@@ -91,7 +92,8 @@ const App = () => {
                             <Route path="/loader" component={Loader} exact></Route>
                             {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
                             <Route path="/placeorders" component={Cartelement} />
-                            <Route path="/orders" component={orders} />
+                            <Route path="/orders" component={Orders} />
+                            <Route path="/order" component={Order} />
                             <Route path="*" component={NotFound} />
                     </Switch>
                 </CartContext.Provider>
