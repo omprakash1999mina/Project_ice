@@ -17,12 +17,12 @@ import Register from './pages/Register';
 import NavBar from './components/NavBar';
 import Admin from './pages/Admin';
 import Cart from './pages/Cart';
+import Terms from "./pages/Terms";
+import RefundPolicy from "./pages/RefundPolicy";
 import { CartContext } from './CartContext';
-import { RefundPolicy } from "./pages/RefundPolicy";
-import { Terms } from "./pages/Terms";
 import Contact from "./components/Contact";
 import UpdateProfile from './pages/UpdateProfile';
-import Maintenance from './pages/Maintenance';
+import Maintenance from './components/Maintenance';
 import Loader from './components/Loader';
 import Ordersadmin from "./pages/Admin/Ordersadmin";
 import NotAuthorized from './components/NotAuthorized';
@@ -34,16 +34,13 @@ import test from './pages/test';
 const App = () => { 
     const [ role, setRole ] = useState('customer');
     const [ cart, setCart ] = useState({ items: {}, totalItems: 0 });
-    // console.log('updated')
+
     // Fetch cart from local storage
     useEffect(() => {
         getCart().then(cart => {
         const temp = JSON.parse(cart);
         setCart(temp);
-    
         });
-        // setCart(temp);
-    
         getRole().then(role => {
             setRole(role);
         });
@@ -56,7 +53,6 @@ const App = () => {
     
     useEffect(() => {
         storeCart(JSON.stringify(cart));
-        // console.log(JSON.stringify(cart))
     }, [cart]);
 
 

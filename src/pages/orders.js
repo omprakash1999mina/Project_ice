@@ -5,7 +5,6 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 let dataFetched = {};
 
-
 export class Orders extends Component {
     constructor(props) {
         super(props)

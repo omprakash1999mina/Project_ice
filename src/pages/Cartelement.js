@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CartContext } from '../CartContext';
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
-// const API_URL = 'http://localhost:5000/api';
 
 export class Cartelement extends Component {
     static contextType = CartContext;
@@ -10,7 +9,6 @@ export class Cartelement extends Component {
         super(props)
         try {
             const { totalgrand, items } = props.location.state;
-            // console.log(props.location.state);
             this.state = { error: false, shipping: true, placed: false, payment: false, processing: false, totalgrand: totalgrand, items: items, name: '', address: '', state: '', city: '', postalcode: '', phone: '', taxes: Number((totalgrand * 0.18).toFixed(2)) }
         } catch (error) {
             this.props.history.push('/error')
@@ -36,11 +34,11 @@ export class Cartelement extends Component {
             axios.post(API_URL + '/orders', data, config)
                 .then(response => {
                     // console.log(response.data);
-                    this.setState({ placed: true, payment: false });
+                    this.setState({ placed: true, payment: false , processing: false});
 
                 }).catch(error => {
                     if (error.response) {
-                        this.setState({ placed: true, payment: false, error: error.response.data.message });
+                        this.setState({ placed: true, payment: false, error: error.response.data.message, processing: false });
                         console.log(error.response.data.message);
                     }
                 });
@@ -52,12 +50,45 @@ export class Cartelement extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
     handleBack = () => {
-        const temp = { items: {}, totalItems: 0 }
-        const { setCart } = this.context;
-        if(!this.state.error){
-            setCart(temp);
+        if (this.state.error) {
+            this.props.history.push('/cart')
         }
-        this.props.history.push('/cart')
+        else {
+            try {
+                this.setState({ processing: true })
+                const temp = { items: {}, totalItems: 0 }
+                const { cart, setCart } = this.context;
+                const { id, atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+                const config = {
+                    headers: {
+                        'Authorization': `Bearer ${atoken}`,
+                        'Content-Type': 'application/json'
+                    }
+                }
+                axios.get(API_URL + 'orders/' + id, config)
+                    .then(response => {
+                        const res = response.data;
+                        if (res.length > 0) {
+                            if (!this.state.error) {
+                                setCart(temp);
+                            }
+                            this.props.history.push({
+                                pathname: '/orders',
+                                state: res
+                            })
+                        }
+                    }).catch(error => {
+                        if (error.response) {
+                            window.alert("Opp's there is some problem, so please login again !!");
+                            console.log(error.response.data.message);
+                        }
+                    });
+            } catch (error) {
+                window.alert("Opp's there is some problem, so please login again !!!!");
+                console.log(error);
+            }
+        }
+
     }
     render() {
         const { taxes, error, payment, processing, totalgrand, name, phone, city, postalcode, state, address, placed, shipping } = this.state
@@ -160,7 +191,17 @@ export class Cartelement extends Component {
                             {error && <p className="text-sm text-gray-500 px-8 p-2">Sorry for Inconvenience please go back and try again .</p>}
                             {!error && <h2 className="text-xl text-green-400 pt-4 ">Order Placed Successfully !!</h2>}
                             {!error && <p className="text-sm text-gray-500 px-8 p-2">go back to the cart page and check the order status or click here bellow .</p>}
-                            <button onClick={this.handleBack} className="m-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">{error ? 'Go Back' : 'Order Summary'}</button>
+                            {processing ?
+                                <button type="button" className="inline-flex items-center justify-center m-2 border border-white px-5 py-2 text-sm tracking-wider text-white shadow-lg bg-gray-700 rounded-full cursor-not-allowed" disabled>
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </button>
+                                :
+                                <button onClick={this.handleBack} className="m-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">{error ? 'Go Back' : 'Order Summary'}</button>
+                            }
                         </div>
                     }
                 </div>

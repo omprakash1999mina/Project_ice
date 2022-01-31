@@ -1,16 +1,12 @@
 export const getCart = () => {
     return new Promise((resolve, reject) => {
         let cart = window.localStorage.getItem('cart');
-        // console.log(cart)
         if(cart === null || cart === 'undefined'){
             const temp = { items: {}, totalItems: 0 }
             const fake = JSON.stringify(temp)
             window.localStorage.setItem('cart' ,fake );
-            // cart = window.localStorage.getItem('cart');
-            // console.log(cart)
         }
         cart = window.localStorage.getItem('cart');
-        // console.log(cart)
         resolve(cart);
     })
 }
