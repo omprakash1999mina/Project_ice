@@ -6,6 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const Cart = (props) => {
     let total = 0;
     const [products, setProducts] = useState([]);
+    const [orders, setOrders] = useState(false);
     const [login, setLogin] = useState(true);
     const { cart, setCart } = useContext(CartContext);
 
@@ -22,12 +23,12 @@ const Cart = (props) => {
                 axios.get(API_URL + 'orders/' + id, config)
                     .then(response => {
                         const res = response.data;
-                        // console.log(response.data);
                         if (res.length > 0) {
-                            props.history.push({
-                                pathname: '/orders',
-                                state: res
-                            })
+                            // props.history.push({
+                            //     pathname: '/orders',
+                            //     state: res
+                            // })
+                            setOrders(response.data);
                         }
                     }).catch(error => {
                         if (error.response) {
@@ -114,8 +115,9 @@ const Cart = (props) => {
                     <h1 className="text-bold text-center mt-4 md:text-2xl  text-sm">Please choose some delicious iteams and order now .</h1>
                     <h1 className="text-bold text-center md:text-2xl text-sm"> Get instant Cashback !!</h1>
                 </div>
-                <div className="text-center m-6 mt-4">
-                    <button onClick={() => props.history.push('/')} className="bg-gray-600 text-white px-4 py-2 rounded-lg shawod-lg">Go Back</button>
+                <div className="text-center flex flex-col sm:flex-row justify-center m-6 mt-4">
+                    <button onClick={() => props.history.push('/')} className="m-4 bg-gray-600 text-sm sm:text-md hover:bg-gray-800 hover:shadow-xl text-white px-4 py-2 rounded-lg shawod-lg">Go Back</button>
+                    {orders && <button onClick={() => props.history.push({pathname: '/orders', state: orders})} className="m-4 bg-gray-600 text-sm sm:text-md hover:bg-gray-800 hover:shadow-xl text-white px-4 py-2 rounded-lg shawod-lg">Order Summary</button> }
                 </div>
             </div>
             :

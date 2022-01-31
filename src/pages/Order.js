@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-let total = 0;
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
     return new Date(dateString).toLocaleDateString(undefined, options)
@@ -10,30 +9,32 @@ const formatTime = (dateString) => {
     const options = { hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleTimeString([], options);
 }
-
+const getTotal = (products, order) => {
+    let total = 0;
+    products.forEach(product => {
+        total = total + Number(order.items[product._id] * product.price);
+    });
+    return total;
+}
 export class Order extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
-        // this.state = { time: '12:30 PM', date: '12 Jen 2022', open: false, status: 'placed', order: {}, products: {} }
+        this.state = { time: '12:30 PM', date: '12 Jen 2022', open: false, status: 'placed', order: {}, products: {} }
+    }
+    componentDidMount(){
         try {
             const { order, items } = this.props.location.state;
-            this.state = { open: true, time: formatTime(order.createdAt), date: formatDate(order.createdAt), status: order.status, order: order, products: items };
+            console.log(items);
+            this.setState({ subtotal: getTotal(items, order), open: true, time: formatTime(order.createdAt), date: formatDate(order.createdAt), status: order.status, order: order, products: items });
         } catch (error) {
+            this.props.history.push('/error')
             console.log(error);
         }
     }
 
-    getSum = (productId, price) => {
-        const sum = price * this.state.order.items[productId];
-        total = total + sum;
-        console.log(total)
-        return sum;
-    }
-
     render() {
-        const { open, status, date, time, order, products } = this.state;
-        console.log(products);
+        const { subtotal, open, status, date, time, order, products } = this.state;
         return (
             <section className='px-2 pt-24'>
                 <p className='font-serif border-b-2 font-medium py-2 md:p-4 px-2'>Order Summary</p>
@@ -168,12 +169,10 @@ export class Order extends Component {
                                                 <div className='flex items-center w-full'>
                                                     <p className='font-sans font-medium px-4 w-1/3'>{product.name}</p>
                                                     <p className='font-sans font-medium px-2 text-right w-1/3'>Quantity : {order.items[product._id]}</p>
-                                                    <p className='font-sans font-medium px-2 text-left w-1/3'>Price : ${this.getSum(product._id, product.price)}</p>
+                                                    <p className='font-sans font-medium px-2 text-left w-1/3'>Price : ${(product.price * order.items[product._id])}</p>
                                                 </div>
                                             </li>
                                         )}
-
-
                                         <div className='inline-flex m-2 font-sans'>
                                             <h1 className='font-bold text-sm text-center'>${order.totalgrand}</h1>
                                         </div>
@@ -196,11 +195,11 @@ export class Order extends Component {
                                     <div className='text-left p-2 px-4'>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='text-sm'>Subtotal</h1>
-                                            <h1 className='text-sm px-2'>${total}</h1>
+                                            <h1 className='text-sm px-2'>${subtotal}</h1>
                                         </li>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='text-sm'>Taxes(%18)</h1>
-                                            <h1 className='text-sm px-2'>${(total * 0.18).toFixed(2)}</h1>
+                                            <h1 className='text-sm px-2'>${(subtotal * 0.18).toFixed(2)}</h1>
                                         </li>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='text-sm'>Shippiing fee </h1>
@@ -213,7 +212,6 @@ export class Order extends Component {
                                     </div>
                                 </div>
                             </ul>
-
                         </div>
                         <div className='flex flex-row justify-center items-center p-4 pb-10'>
                             <Link to={'/cart'} className='bg-gray-600 hover:bg-gray-800 px-4 py-2 text-white shadow-md hover:shadow-lg rounded-lg'>Go Back</Link>
@@ -230,13 +228,12 @@ export class Order extends Component {
                                 {products.map((product) =>
                                     <li key={product._id} className='flex flex-row pt-2 bg-gray-200 py-4 px-2 m-2 shadow-md border-b-2 rounded-lg py-4 justify-between items-center'>
                                         <div className="flex justify-center box-content h-16 w-32 items-center">
-                                            {/* <img className='h-16' src='/images/pizza.png' alt="products" /> */}
                                             <img className='h-16' src={product.image} alt="products" />
                                         </div>
                                         <div className='flex flex-col justify-start p-2 text-left w-2/3'>
                                             <p className='inline-flex px-2 items-center font-sans font-medium'>{product.name}</p>
                                             <p className='font-sans font-medium px-2 text-left'>Quantity : {order.items[product._id]}</p>
-                                            <p className='font-sans font-medium px-2'>Price: ${this.getSum(product._id, product.price)}</p>
+                                            <p className='font-sans font-medium px-2'>Price: ${(product.price * order.items[product._id])}</p>
                                         </div>
                                     </li>
                                 )}
@@ -262,11 +259,11 @@ export class Order extends Component {
                             <div className='text-left p-2 px-4'>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='text-sm'>Subtotal</h1>
-                                    <h1 className='text-sm px-2'>${total}</h1>
+                                    <h1 className='text-sm px-2'>${subtotal}</h1>
                                 </li>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='text-sm'>Taxes(%18)</h1>
-                                    <h1 className='text-sm px-2'>${(total * 0.18).toFixed(2)}</h1>
+                                    <h1 className='text-sm px-2'>${(subtotal * 0.18).toFixed(2)}</h1>
                                 </li>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='text-sm'>Shippiing fee </h1>
@@ -283,8 +280,6 @@ export class Order extends Component {
                         </div>
                     </div>
                 }
-
-
             </section>
         )
     }

@@ -62,14 +62,16 @@ export class Cartelement extends Component {
     handleBack = () => {
         const temp = { items: {}, totalItems: 0 }
         const { setCart } = this.context;
-        setCart(temp);
+        if(!this.state.error){
+            setCart(temp);
+        }
         this.props.history.push('/cart')
     }
     render() {
         const { taxes, error, payment, processing, totalgrand, name, phone, city, postalcode, state, address, placed, shipping } = this.state
         return (
             <div className="my-24 mx-4 bg-opacity-50 h-screen flex justify-center items-center ">
-                <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
+                <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-gray-100 ">
                     {shipping && <p className="font-bold mt-3 text-center text-gray-700 ">Shipping Information</p>}
                     {
                         payment &&
@@ -92,7 +94,7 @@ export class Cartelement extends Component {
                                             <h2><i className="fa fa-rupee text-sm p-1"></i>{taxes}</h2>
                                         </div>
                                         <div className='flex flex-wrap border-b-2 py-4 justify-between'>
-                                            <h2>Shipping Charges</h2>
+                                            <h2>Shipping Fee</h2>
                                             <h2><i className="fa fa-rupee text-sm p-1"></i>25</h2>
                                         </div>
                                         <div className='flex flex-wrap border-b-2 font-bold py-4 justify-between'>

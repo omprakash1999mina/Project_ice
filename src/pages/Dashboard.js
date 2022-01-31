@@ -233,7 +233,7 @@ const Dashboard = props => {
                 </div>
 
             }
-
+ 
             {!data &&
                 <div className="min-w-screen bg-gray-200 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
                     <div className="bg-white border shadow-2xl py-2 px-5 rounded-lg flex items-center flex-col">

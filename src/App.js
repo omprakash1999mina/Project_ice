@@ -4,7 +4,6 @@ import { AdminContext } from './AdminContext';
 import { getRole, storeRole,getCart, storeCart } from './helpers';
 // import SingleProduct from './pages/SingleProduct';
 // import Loader from './pages/Loader';
-// import DeleteModal from './components/DeleteModal';
 import Home from './pages/Home';
 import AddProducts from './pages/AddProducts';
 import Payments from './pages/Admin/Payments';
@@ -26,9 +25,11 @@ import UpdateProfile from './pages/UpdateProfile';
 import Maintenance from './pages/Maintenance';
 import Loader from './components/Loader';
 import Ordersadmin from "./pages/Admin/Ordersadmin";
+import NotAuthorized from './components/NotAuthorized';
 import Cartelement from './pages/Cartelement';
 import Orders from './pages/Orders';
 import Order from './pages/Order';
+import test from './pages/test';
 
 const App = () => { 
     const [ role, setRole ] = useState('customer');
@@ -78,22 +79,22 @@ const App = () => {
                             <Route path="/admin/products" component={ProductsList} exact></Route>
                             <Route path="/admin" component={Admin} exact></Route>
                             {/* <Route path="/loader" component={Loader} exact></Route> */}
+                            {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
                             <Route path="/dashboard" component={Dashboard} exact></Route>
                             <Route path="/login" component={Login} exact></Route>
                             <Route path="/register" component={Register} exact></Route>
-                            {/* <Route path="/error" component={} exact></Route> */}
-                            {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
                             <Route path="/cart" component={Cart} exact></Route>
                             <Route path="/updateprofile" component={UpdateProfile} exact></Route>
                             <Route path="/terms" component={Terms} exact></Route>
-                            <Route path="/maintenance" component={Maintenance} exact></Route>
+                            <Route path="/error" component={Maintenance} exact></Route>
                             <Route path="/RefundPolicy" component={RefundPolicy} exact></Route>
                             <Route path="/support" component={Contact} exact></Route>
                             <Route path="/loader" component={Loader} exact></Route>
-                            {/* <Route path="/products/:_id" component={SingleProduct}></Route> */}
                             <Route path="/placeorders" component={Cartelement} />
                             <Route path="/orders" component={Orders} />
                             <Route path="/order" component={Order} />
+                            <Route path="/test" component={test} />
+                            <Route path="/notauthorized" component={NotAuthorized} />
                             <Route path="*" component={NotFound} />
                     </Switch>
                 </CartContext.Provider>

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import Loader from '../components/Loader';
 import axios from "axios";
+
 const API_URL = process.env.REACT_APP_API_URL;
+let dataFetched = {};
 
 
 export class Orders extends Component {
@@ -9,13 +12,18 @@ export class Orders extends Component {
         window.scrollTo(0, 0);
         try {
             const orders = props.location.state;
-            this.state = { data: orders, open: false, products: [], }
+            this.state = { data: orders, products: {}, loading: false, ready: false, }
+
         } catch (error) {
             console.log(error);
         }
     }
 
-    getItems = (order) => {
+    componentDidMount() {
+        this.getItems(this.state.data)
+    }
+
+    getItems = async (orders) => {
         try {
             const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
             const config = {
@@ -24,51 +32,35 @@ export class Orders extends Component {
                     'Content-Type': 'application/json'
                 }
             }
-            console.log(order);
-            // this.state.data.map(product => {
-            const data = JSON.stringify({ ids: Object.keys(order.items) })
-            axios.post(API_URL + 'products/cart-items', data, config)
-                .then(response => {
-                    // console.log(response.data);
-                    // if(response.data.lenght > 0){
-                    this.props.history.push({
-                        pathname: '/order',
-                        state: { order: order, items: response.data }
-                    })
-                    // }
-                }).catch(error => {
-                    if (error.response) {
-                        // console.log(error.response.status);
-                        window.alert("Opp's there is some problem, so please login again !!");
-                        console.log(error.response.data.message);
-                    }
-                });
-            // })
-            // const tem = await fetch(API_URL+ 'products/cart-items', {method: 'POST',headers: {
-            //     'Authorization': `Bearer ${atoken}`,
-            //     'Content-Type': 'application/json'
-            // }, body:data})
-            //     .then(response => response.json())
-            //     .then(data =>  cartitems =  data
-            //     );
+            let promises = [];
+            orders.map(order => {
+                const data = JSON.stringify({ ids: Object.keys(order.items) })
+                promises.push(axios.post(API_URL + 'products/cart-items', data, config)
+                    .then(response => {
+                        dataFetched[`${order._id}`] = response.data;
+                    }).catch(error => {
+                        if (error.response) {
+                            window.alert("Opp's there is some problem, so please login again !!");
+                            console.log(error.response.data.message);
+                        }
+                    }))
+            })
+            await Promise.all(promises).then(() => this.setState({ products: dataFetched, ready: true }))
+            // console.log(dataFetched);
         } catch (error) {
             window.alert("Opp's there is some problem, So please contact to the teachnical team or leave a message through contact-us section !!");
-            // this.props.history.push('/error')
+            this.props.history.push('/error')
             console.log(error);
         }
-        // console.log(cartitems);
-        // return cartitems
-
+        return;
     }
 
     totalItems = (res) => {
         let items = 0;
-        // const res = this.props.data;
         const array = Object.values(res)
         array.forEach(element => {
             items += element;
         });
-        // console.log(array)
         return items;
     }
     formatDate = (dateString) => {
@@ -79,40 +71,49 @@ export class Orders extends Component {
         const options = { hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleTimeString([], options);
     }
-
+    producthandler = (order, items) => {
+        this.props.history.push({
+            pathname: '/order',
+            state: { order: order, items: items }
+        })
+    }
     render() {
-        const { data, open } = this.state;
-        // console.log(data);
+        const { data, ready, products, loading } = this.state;
+        // console.log(products);
         return (
-            <section className='px-2 pt-24'>
+            <section className='px-2 my-24'>
                 <p className='font-serif border-b-2 font-medium py-2 md:p-4 px-2'>Order Summary</p>
-                {/* <Order state={data[1]} /> */}
-                {
+                {!ready && <Loader />}
+                {ready &&
                     data.map(order => {
-                        // const res = this.get();
-                        // console.log(res);
                         return (
                             <div key={order._id}>
-                                {/* {!open && */}
-                                {/* // <Order order={order} items={res}/>
-                                    // this.getItems(order)
-                                    // :
-                                    // <div onClick={() => this.setState({ open: true })} id='desktopmenu' className='relative bg-gray-100 flex flex-row justify-between m-4 p-4 bg-white rounded-lg shadow-lg hover:shadow-xl'> */}
-                                <div onClick={() => this.getItems(order)} id='desktopmenu' className='relative bg-gray-100 flex flex-row justify-between m-4 p-4 bg-white rounded-lg shadow-lg hover:shadow-xl'>
+                                <div onClick={() => this.producthandler(order, products[order._id])} id='desktopmenu' className='relative bg-gray-100 flex flex-row justify-between m-4 p-4 rounded-lg shadow-lg hover:shadow-xl'>
                                     <span className="bg-gray-500 rounded text-white px-3 py-1 tracking-widest text-xs absolute left-0 top-0 rounded-bl">OrderID : OD{order._id}</span>
                                     <div className="flex justify-center p-4 items-center">
                                         <div className="flex justify-center box-content h-16 w-32 items-center">
                                             <img className='h' src='images/pizza.png' alt="products" />
-                                            {/* <img className='h' src={res[0].image } alt="products" /> */}
+                                            {/* <img className='h' src={products[0][0].image } alt="products" /> */}
 
                                         </div>
                                         <div className='flex flex-col '>
-                                            <p className='font-sans font-bold px-4 py-2'>Vanilla </p>
+                                            <p className='font-sans font-bold px-4 py-2'>Vanilla ...</p>
                                             <p className='font-sans font-bold px-4 '>items : {this.totalItems(order.items)}</p>
                                         </div>
                                     </div>
                                     <div className='flex flex-col justify-center'>
-                                        <h1 className='font-bold text-sm'>${order.totalgrand}</h1>
+                                        {
+                                            // loading ?
+                                            //     <div type="button" className="inline-flex items-center justify-center text-sm font-medium rounded-full cursor-not-allowed" disabled>
+                                            //         <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                            //             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            //             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            //         </svg>
+                                            //         Processing...
+                                            //     </div>
+                                            //     :
+                                            <h1 className='font-bold text-sm'>${order.totalgrand}</h1>
+                                        }
                                     </div>
                                     <div className='flex flex-col items-start m-4'>
                                         <div className='flex items-center'>
@@ -125,7 +126,8 @@ export class Orders extends Component {
                                         <h1 className='text-left pl-4 font-bold text-sm'>On : {this.formatDate(order.createdAt)}</h1>
                                     </div>
                                 </div>
-                            </div>)
+                            </div>
+                        )
                     })
                 }
             </section>
