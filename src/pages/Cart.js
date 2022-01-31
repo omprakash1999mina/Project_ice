@@ -27,18 +27,14 @@ const Cart = (props) => {
                     .then(response => {
                         const res = response.data;
                         if (res.length > 0) {
-                            // props.history.push({
-                            //     pathname: '/orders',
-                            //     state: res
-                            // })
                             setOrders(response.data);
                             setLoading(false)
                         }
                     }).catch(error => {
                         if (error.response) {
-                            // console.log(error.response.status);
                             window.alert("Opp's there is some problem, so please login again !!");
                             console.log(error.response.data.message);
+                            props.history.push('/login')
                         }
                     });
             }
@@ -52,12 +48,14 @@ const Cart = (props) => {
                     }).catch(error => {
                         if (error.response) {
                             window.alert("Opp's there is some problem, so please login again !!!");
+                            props.history.push('/login')
                             console.log(error.response.data.message);
                         }
                     });
             }
         } catch (error) {
             window.alert("Opp's there is some problem, so please login again !!!!");
+            props.history.push('/login')
             console.log(error);
             setLogin(false);
         }
