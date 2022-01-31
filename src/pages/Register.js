@@ -21,7 +21,6 @@ class Register extends Component {
         this.intialstate = { ...this.state }
 
     }
-    // const Register = (props) => {
 
     handleValidation() {
         // console.log(typeof(this.state.image))
@@ -72,13 +71,11 @@ class Register extends Component {
             return false;
         }
         return true;
-
     }
 
     submitHandler = (e) => {
         e.preventDefault();
         console.log(this.state);
-        // console.log(this.handleValidation())
         if (this.handleValidation() === true) {
 
             const config = {
@@ -98,50 +95,25 @@ class Register extends Component {
                 formdata.append('repeat_password', this.state.repeat_password);
                 formdata.append('image', this.state.image);
             }
-
             // console the all filled deatils in formdata
 
-            // for (var key of formdata.entries()) {
-            //     console.log(key[0] + ', ' + key[1]);
-            // }
-            // console.log(formdata);
-            // axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
             axios.post(API_URL + "register", formdata, config)
                 .then(response => {
                     error_message = false;
-                    // console.log("in response block")
-                    // this.setState(this.intialstate)
                     this.setState({ submited: true, confirm: true });
-                    // console.log(response.data);
                     const resdata = {
                         atoken: response.data.access_token,
                         rtoken: response.data.refresh_token,
-
                     }
                     const userSetting = JSON.stringify(resdata);
-                    // console.log(userSetting)
                     window.localStorage.setItem('userSetting', userSetting);
-
-                    // console.log(window.localStorage.getItem('userSetting'));
-
-                    // <Dashboard id = {resdata.id}/>
-                    //     this.props.history.push( {pathname: "/welcome",
-                    //     state: { employee:"Steven" }});
                 })
                 .catch(error => {
-                    // console.log("in error block ")
                     this.setState({ confirm: true })
-                    // this.setState(this.intialstate)
                     if (error.response) {
                         console.log(error.response);
-                        // const error_message = error.response.data.message;
                         error_message = true;
-                        // setTimeout(() => {
-                        //           this.setState(this.intialstate);
-                        // }, 10);
                         res_error = error.response.data.message
-                        // console.log(error.response.headers);
-
                     }
 
                 })
@@ -152,7 +124,6 @@ class Register extends Component {
     handleImagePreview = (e) => {
         // Assuming only image
         try {
-
             var file = this.refs.file.files[0];
             var reader = new FileReader();
             url = reader.readAsDataURL(file);
@@ -162,22 +133,16 @@ class Register extends Component {
                     imgsrc: [reader.result],
                 })
             }.bind(this);
-            // console.log(url) // Would see a path?   // TODO: concat files
         } catch (err) {
-            // console.log(err);
             console.log("image field is Empty , Please select a image ");
         }
 
         let image_as_files = e.target.files[0]
-        // this.setState({error_image: false});
         this.setState({
             image: image_as_files,
         })
-        // console.log(image_as_files)
-        // console.log(this.state)
     }
     changeHandler = (e) => {
-        // console.log(this.state)
         this.setState({ [e.target.name]: e.target.value, error_name: false, error_age: false, error_gender: false, error_email: false, error_password: false, error_repassword: false, error_image: false, });
     }
 
@@ -299,7 +264,7 @@ class Register extends Component {
                                 <div className="pb-3 px-3 justify-end mt-2 text-center space-x-4 md:block">
                                     {submited && <Link to="/login" className="mb-2 bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">Go Back</Link>}
                                     {!submited && <button onClick={(e) => { this.setState({ confirm: false }) || this.submitHandler(e) }} className="mb-2  bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-green-500">Retry</button>}
-                                    {!submited && <button onClick={(e) => { this.setState(this.intialstate) }} className="mb-2  bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-green-500">Cancle</button>}
+                                    {!submited && <button onClick={() => { this.setState(this.intialstate) }} className="mb-2  bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-green-500">Cancle</button>}
                                 </div>
                             </div>
                         </div>

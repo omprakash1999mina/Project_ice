@@ -12,7 +12,7 @@ export class Orders extends Component {
         window.scrollTo(0, 0);
         try {
             const orders = props.location.state;
-            this.state = { data: orders, products: {}, loading: false, ready: false, }
+            this.state = { data: orders, products: {}, ready: false, }
 
         } catch (error) {
             console.log(error);
@@ -78,7 +78,7 @@ export class Orders extends Component {
         })
     }
     render() {
-        const { data, ready, products, loading } = this.state;
+        const { data, ready, products} = this.state;
         // console.log(products);
         return (
             <section className='px-2 my-24'>

@@ -40,7 +40,6 @@ export class Cartelement extends Component {
 
                 }).catch(error => {
                     if (error.response) {
-                        // console.log(error.response.status);
                         this.setState({ placed: true, payment: false, error: error.response.data.message });
                         console.log(error.response.data.message);
                     }
@@ -51,13 +50,6 @@ export class Cartelement extends Component {
     }
     changeHandler = (e) => {
         this.setState({ [e.target.name]: e.target.value });
-    }
-    clearCart = {
-        setItem: function (temp) {
-            return Promise.resolve().then(function () {
-                // localStorage.setItem(key, value);
-            });
-        }
     }
     handleBack = () => {
         const temp = { items: {}, totalItems: 0 }
