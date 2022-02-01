@@ -10,8 +10,6 @@ const Product = (props) => {
     let adminpanel = false;
     const role = window.localStorage.getItem('Role');
 
-    // console.log( props.history.listen() )
-    // console.log( location.pathname)
     if(location.pathname === '/admin/products' && role === 'admin' ){
         adminpanel = true;
     }
@@ -34,13 +32,11 @@ const Product = (props) => {
             _cart.totalItems = 0;
         }
         _cart.totalItems += 1;
-        // console.log(_cart)
         setCart(_cart);
         setIsAdding(true);
         setTimeout(() => {
             setIsAdding(false);
         }, 1000);
-        //
         // const cart = {
         //     items: {
         //         '608c2960e165f6137f02b552': 2,
