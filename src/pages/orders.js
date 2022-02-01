@@ -99,7 +99,7 @@ export class Orders extends Component {
                                         </div>
                                     </div>
                                     <div className='flex flex-col justify-center'>
-                                        <h1 className='font-bold text-sm'>${order.totalgrand}</h1>
+                                        <h1 className='font-bold text-sm'><i className="fa fa-rupee text-sm p-1"></i>{order.totalgrand}</h1>
                                     </div>
                                     <div className='flex flex-col items-start m-4'>
                                         <div className='flex items-center'>
@@ -126,7 +126,7 @@ export class Orders extends Component {
                                             <div className='pl-3'>
                                                 <p className='text-xs truncate font-bold w-2/3'>{products[order._id][0].name}</p>
                                                 <p className='text-xs font-bold  '>items : {this.totalItems(order.items)}</p>
-                                                <p className='font-bold text-xs'> Price : ${order.totalgrand}</p>
+                                                <p className='font-bold text-xs'> Price : <i className="fa fa-rupee text-sm p-1"></i>{order.totalgrand}</p>
                                             </div>
                                         </div>
                                     </div>

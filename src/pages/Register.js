@@ -18,7 +18,6 @@ class Register extends Component {
         window.scrollTo(0, 0);
         this.state = { name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false, processing: false }
         this.intialstate = { ...this.state }
-
     }
 
     handleValidation() {
@@ -96,12 +95,6 @@ class Register extends Component {
                 .then(response => {
                     error_message = false;
                     this.setState({ submited: true, confirm: true, processing: false });
-                    const resdata = {
-                        atoken: response.data.access_token,
-                        rtoken: response.data.refresh_token,
-                    }
-                    const userSetting = JSON.stringify(resdata);
-                    window.localStorage.setItem('userSetting', userSetting);
                 })
                 .catch(error => {
                     if (error.response) {

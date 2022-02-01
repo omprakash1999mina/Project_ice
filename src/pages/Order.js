@@ -201,12 +201,12 @@ export class Order extends Component {
                                                 <div className='flex items-center w-full'>
                                                     <p className='font-sans font-medium px-4 w-1/3'>{product.name}</p>
                                                     <p className='font-sans font-medium px-2 text-right w-1/3'>Quantity : {order.items[product._id]}</p>
-                                                    <p className='font-sans font-medium px-2 text-left w-1/3'>Price : ${(product.price * order.items[product._id])}</p>
+                                                    <p className='font-sans font-medium px-2 text-left w-1/3'>Price : <i className="fa fa-rupee text-sm p-1"></i>{(product.price * order.items[product._id])}</p>
                                                 </div>
                                             </li>
                                         )}
                                         <div className='inline-flex m-2 font-sans'>
-                                            <h1 className='font-bold text-sm text-center'>${order.totalgrand}</h1>
+                                            <h1 className='font-bold text-sm text-center'><i className="fa fa-rupee text-sm p-1"></i>{order.totalgrand}</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -227,19 +227,19 @@ export class Order extends Component {
                                     <div className='text-left p-2 px-4'>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='text-sm'>Subtotal</h1>
-                                            <h1 className='text-sm px-2'>${subtotal}</h1>
+                                            <h1 className='text-sm px-2'><i className="fa fa-rupee text-sm p-1"></i>{subtotal}</h1>
                                         </li>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='text-sm'>Taxes(%18)</h1>
-                                            <h1 className='text-sm px-2'>${(subtotal * 0.18).toFixed(2)}</h1>
+                                            <h1 className='text-sm px-2'><i className="fa fa-rupee text-sm p-1"></i>{(subtotal * 0.18).toFixed(2)}</h1>
                                         </li>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='text-sm'>Shippiing fee </h1>
-                                            <h1 className='text-sm px-2'>$25</h1>
+                                            <h1 className='text-sm px-2'><i className="fa fa-rupee text-sm p-1"></i>25</h1>
                                         </li>
                                         <li className='flex flex-wrap py-2 font-sans justify-between'>
                                             <h1 className='font-bold text-sm'>Total Grand</h1>
-                                            <h1 className='text-sm px-2 font-bold'>${order.totalgrand}</h1>
+                                            <h1 className='text-sm px-2 font-bold'><i className="fa fa-rupee text-sm p-1"></i>{order.totalgrand}</h1>
                                         </li>
                                     </div>
                                 </div>
@@ -275,12 +275,12 @@ export class Order extends Component {
                                         <div className='flex flex-col justify-start p-2 text-left w-2/3'>
                                             <p className='inline-flex px-2 items-center font-sans font-medium'>{product.name}</p>
                                             <p className='font-sans font-medium px-2 text-left'>Quantity : {order.items[product._id]}</p>
-                                            <p className='font-sans font-medium px-2'>Price: ${(product.price * order.items[product._id])}</p>
+                                            <p className='font-sans font-medium px-2'>Price: <i className="fa fa-rupee text-sm p-1"></i>{(product.price * order.items[product._id])}</p>
                                         </div>
                                     </li>
                                 )}
                                 <div className='inline-flex py-2 font-sans'>
-                                    <h1 className='font-bold text-sm'>${order.totalgrand}</h1>
+                                    <h1 className='font-bold text-sm'><i className="fa fa-rupee text-sm p-1"></i>{order.totalgrand}</h1>
                                 </div>
                             </div>
                         </div>
@@ -301,19 +301,19 @@ export class Order extends Component {
                             <div className='text-left p-2 px-4'>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='text-sm'>Subtotal</h1>
-                                    <h1 className='text-sm px-2'>${subtotal}</h1>
+                                    <h1 className='text-sm px-2'><i className="fa fa-rupee text-sm p-1"></i>{subtotal}</h1>
                                 </li>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='text-sm'>Taxes(%18)</h1>
-                                    <h1 className='text-sm px-2'>${(subtotal * 0.18).toFixed(2)}</h1>
+                                    <h1 className='text-sm px-2'><i className="fa fa-rupee text-sm p-1"></i>{(subtotal * 0.18).toFixed(2)}</h1>
                                 </li>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='text-sm'>Shippiing fee </h1>
-                                    <h1 className='text-sm px-2'>$25</h1>
+                                    <h1 className='text-sm px-2'><i className="fa fa-rupee text-sm p-1"></i>25</h1>
                                 </li>
                                 <li className='flex flex-wrap py-2 font-sans justify-between'>
                                     <h1 className='font-bold text-sm'>Total Grand</h1>
-                                    <h1 className='text-sm px-2 font-bold'>${order.totalgrand}</h1>
+                                    <h1 className='text-sm px-2 font-bold'><i className="fa fa-rupee text-sm p-1"></i>{order.totalgrand}</h1>
                                 </li>
                             </div>
                         </div>
