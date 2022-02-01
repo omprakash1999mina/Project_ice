@@ -11,26 +11,19 @@ useEffect(() => {
         const config = {
             headers: {
                 'Authorization': `Bearer ${atoken}`,
-                
             }
         }
-        // console.log(config);
         axios.get(API_URL+'/messages',config)
         .then(response => {
-            // console.log(response.data);
             setMessages(response.data);
-            
         }).catch(error =>{
             if(error.response){
-                // console.log(error.response.status);
                 console.log(error.response.data.message);
-                
             }
+            console.log(error);
         });
 }, []);
 
-    // console.log(messages)
-  
     return (
         <div className="bg-gray-100 ">
             {

@@ -16,8 +16,7 @@ class Register extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
-
-        this.state = { name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false }
+        this.state = { name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false, processing: false }
         this.intialstate = { ...this.state }
 
     }
@@ -75,12 +74,10 @@ class Register extends Component {
 
     submitHandler = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        this.setState({ processing: true })
         if (this.handleValidation() === true) {
-
             const config = {
                 headers: {
-
                     'Accept': 'application/json',
                     'Content-Type': 'multipart/form-data'
                 }
@@ -95,12 +92,10 @@ class Register extends Component {
                 formdata.append('repeat_password', this.state.repeat_password);
                 formdata.append('image', this.state.image);
             }
-            // console the all filled deatils in formdata
-
             axios.post(API_URL + "register", formdata, config)
                 .then(response => {
                     error_message = false;
-                    this.setState({ submited: true, confirm: true });
+                    this.setState({ submited: true, confirm: true, processing: false });
                     const resdata = {
                         atoken: response.data.access_token,
                         rtoken: response.data.refresh_token,
@@ -109,16 +104,18 @@ class Register extends Component {
                     window.localStorage.setItem('userSetting', userSetting);
                 })
                 .catch(error => {
-                    this.setState({ confirm: true })
                     if (error.response) {
                         console.log(error.response);
                         error_message = true;
                         res_error = error.response.data.message
                     }
-
+                    this.setState({ confirm: true, processing: false })
                 })
-
         }
+        else {
+            this.setState({ processing: false })
+        }
+
 
     }
     handleImagePreview = (e) => {
@@ -148,7 +145,7 @@ class Register extends Component {
 
 
     render() {
-        const { name, age, gender, repeat_password, email, password, confirm, error_image, error_age, error_gender, error_email, error_name, error_password, error_repassword, submited, } = this.state;
+        const { processing, name, age, gender, repeat_password, email, password, confirm, error_image, error_age, error_gender, error_email, error_name, error_password, error_repassword, submited, } = this.state;
         return (
             <div>
                 <section className=" pt-32 text-gray-600 body-font">
@@ -159,7 +156,6 @@ class Register extends Component {
                         </div>
                         <div className="text- lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
                             <h2 className="text-gray-900 text-lg font-medium text-center title-font mb-2">Sign Up</h2>
-
                             <div>
                                 <label className="text-xs font-bold uppercase">
                                     Photo
@@ -168,25 +164,18 @@ class Register extends Component {
                                     <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
                                         {url !== null ?
                                             <img alt="" src={this.state.imgsrc} />
-
                                             :
-
                                             <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                                             </svg>
-
                                         }
-
                                     </span>
-
                                 </div>
                                 <div className="pt-4">
                                     <input className={`${error_image ? 'border-red-500' : 'border-gray-300'} shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`} ref="file" type="file" name="user[image]" multiple={true} onChange={this.handleImagePreview} />
                                     {error_image && <p className="text-red-500 text-xs italic">Please choose a profile photo.</p>}
                                 </div>
-
                             </div>
-
                             <div className="relative mb-4">
                                 <label htmlFor="full-name" className="leading-7 text-xs font-bold uppercase">Full Name</label>
                                 {<input type="text" value={name} name="name" onChange={this.changeHandler} placeholder="Name" className={`${error_name ? 'border-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'} w-full bg-white rounded border  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`} />}
@@ -201,7 +190,6 @@ class Register extends Component {
                                     <option value="Female">Female</option>
                                     <option value="Transgender">Transgender</option>
                                 </select>
-
                                 {error_gender && <p className="text-red-500  text-xs italic">Please choose correct gender.</p>}
                             </div>
 
@@ -228,8 +216,17 @@ class Register extends Component {
                                 {<input type="email" value={email} name="email" onChange={this.changeHandler} placeholder="Email" className={` ${error_email ? 'border-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'} w-full bg-white rounded border  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`} />}
                                 {error_email && <p className="text-red-500  text-xs italic">Email can not be empty.</p>}
                             </div>
-                            <button onClick={this.submitHandler} className="text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded text-lg">Register Now</button>
-
+                            {processing ?
+                                <button type="button" className="inline-flex items-center justify-center border border-white text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 text-lg rounded-lg cursor-not-allowed" disabled>
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </button>
+                                :
+                                <button onClick={this.submitHandler} className="text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-700 rounded text-lg">Register Now</button>
+                            }
                             <p className="text-xs text-gray-500 mt-3">if you already have an account <Link className="text-blue-800 ml-2" to="/login"> Sign_in </Link> .</p>
                         </div>
                     </div>
@@ -256,26 +253,21 @@ class Register extends Component {
                                             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
                                         </svg>
                                     }
-                                    {!submited && <h2 className="text-xl pt-4 ">Error in Connection !</h2>}
+                                    {!submited && <h2 className="text-xl text-red-400 pt-4 ">Error in Registeration !</h2>}
                                     {submited && <h2 className="text-xl text-green-400 pt-4 ">Successfully Registered !!</h2>}
+                                    {submited && <h2 className="text-sm text-gray-500 ">Thanks for registering yourself, now go back and login for ordering products, Have a nice day !</h2>}
                                     {!submited && <p className="text-sm text-gray-500 px-8"> {error_message && userMessage()} </p>}
                                 </div>
-
                                 <div className="pb-3 px-3 justify-end mt-2 text-center space-x-4 md:block">
-                                    {submited && <Link to="/login" className="mb-2 bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">Go Back</Link>}
-                                    {!submited && <button onClick={(e) => { this.setState({ confirm: false }) || this.submitHandler(e) }} className="mb-2  bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-green-500">Retry</button>}
-                                    {!submited && <button onClick={() => { this.setState(this.intialstate) }} className="mb-2  bg-green-400 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-green-500">Cancle</button>}
+                                    {submited && <Link to="/login" className="mb-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Login Now</Link>}
+                                    {!submited && <button onClick={(e) => { this.setState({ confirm: false }) || this.submitHandler(e) }} className="mb-2  bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Retry</button>}
+                                    {!submited && <button onClick={() => { this.setState(this.intialstate) }} className="mb-2  bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Cancle</button>}
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 }
-
-
             </div>
-
-
         )
     }
 }
