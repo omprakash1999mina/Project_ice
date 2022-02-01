@@ -15,6 +15,7 @@ export class Orders extends Component {
 
         } catch (error) {
             console.log(error);
+            this.props.history.push('/notauthorized')
         }
     }
 
@@ -32,7 +33,7 @@ export class Orders extends Component {
                 }
             }
             let promises = [];
-            orders.map(order => {
+            orders.forEach(order => {
                 const data = JSON.stringify({ ids: Object.keys(order.items) })
                 promises.push(axios.post(API_URL + 'products/cart-items', data, config)
                     .then(response => {
@@ -47,8 +48,8 @@ export class Orders extends Component {
             await Promise.all(promises).then(() => this.setState({ products: dataFetched, ready: true }))
             // console.log(dataFetched);
         } catch (error) {
-            window.alert("Opp's there is some problem, So please contact to the teachnical team or leave a message through contact-us section !!");
-            this.props.history.push('/error')
+            // window.alert("Opp's there is some problem, So please contact to the teachnical team or leave a message through contact-us section !!");
+            this.props.history.push('/notauthorized')
             console.log(error);
         }
         return;
@@ -77,8 +78,7 @@ export class Orders extends Component {
         })
     }
     render() {
-        const { data, ready, products} = this.state;
-        // console.log(products);
+        const { data, ready, products } = this.state;
         return (
             <section className='px-2 my-24'>
                 <p className='font-serif border-b-2 font-medium py-2 md:p-4 px-2'>Order Summary</p>
@@ -87,32 +87,19 @@ export class Orders extends Component {
                     data.map(order => {
                         return (
                             <div key={order._id}>
-                                <div onClick={() => this.producthandler(order, products[order._id])} id='desktopmenu' className='relative bg-gray-100 flex flex-row justify-between m-4 p-4 rounded-lg shadow-lg hover:shadow-xl'>
+                                <section onClick={() => this.producthandler(order, products[order._id])} id='desktopmenu' className='hidden sm:flex relative bg-gray-100 flex-row justify-between m-4 p-4 rounded-lg shadow-lg hover:shadow-xl'>
                                     <span className="bg-gray-500 rounded text-white px-3 py-1 tracking-widest text-xs absolute left-0 top-0 rounded-bl">OrderID : OD{order._id}</span>
-                                    <div className="flex justify-center p-4 items-center">
-                                        <div className="flex justify-center box-content h-16 w-32 items-center">
-                                            <img className='h' src='images/pizza.png' alt="products" />
-                                            {/* <img className='h' src={products[0][0].image } alt="products" /> */}
-
+                                    <div className="flex flex-row justify-center p-4 items-center">
+                                        <div className="flex flex-row justify-center box-content w-28 items-center">
+                                            <img className='object-scale-down object-center' src={products[order._id][0].image} alt="products" />
                                         </div>
-                                        <div className='flex flex-col '>
-                                            <p className='font-sans font-bold px-4 py-2'>Vanilla ...</p>
+                                        <div className='flex flex-col justify-center w-36'>
+                                            <p className='font-sans truncate font-bold px-4 py-2'>{products[order._id][0].name} ...</p>
                                             <p className='font-sans font-bold px-4 '>items : {this.totalItems(order.items)}</p>
                                         </div>
                                     </div>
                                     <div className='flex flex-col justify-center'>
-                                        {
-                                            // loading ?
-                                            //     <div type="button" className="inline-flex items-center justify-center text-sm font-medium rounded-full cursor-not-allowed" disabled>
-                                            //         <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                                            //             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            //             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                            //         </svg>
-                                            //         Processing...
-                                            //     </div>
-                                            //     :
-                                            <h1 className='font-bold text-sm'>${order.totalgrand}</h1>
-                                        }
+                                        <h1 className='font-bold text-sm'>${order.totalgrand}</h1>
                                     </div>
                                     <div className='flex flex-col items-start m-4'>
                                         <div className='flex items-center'>
@@ -124,7 +111,26 @@ export class Orders extends Component {
                                         <h1 className='text-left pl-4 pt-2 font-bold text-sm'>At : {this.formatTime(order.createdAt)}</h1>
                                         <h1 className='text-left pl-4 font-bold text-sm'>On : {this.formatDate(order.createdAt)}</h1>
                                     </div>
-                                </div>
+                                </section>
+                                <section id='mobilemenu' onClick={() => this.producthandler(order, products[order._id])} className='visible sm:hidden relative bg-gray-100 m-2 p-2 rounded-lg shadow-lg hover:shadow-xl'>
+                                    <span className="bg-gray-500 rounded text-white px-3 py-1 font-mono text-xs absolute left-0 top-0">OrderID : OD{order._id}</span>
+                                    <div className="flex justify-between items-center mt-6">
+                                        <div className="flex justify-center box-content items-center w-1/3">
+                                            <img className='w-28 object-scale-down object-center' src={products[order._id][0].image} alt="products" />
+                                        </div>
+                                        <div className='flex flex-col justify-center w-2/3 pl-4'>
+                                            <div className='flex items-center'>
+                                                <div className="w-2 h-2 rounded-full bg-green-300" ></div>
+                                                <h1 className='font-bold text-left text-xs pl-1'>Order {order.status} on : {this.formatDate(order.createdAt)}</h1>
+                                            </div>
+                                            <div className='pl-3'>
+                                                <p className='text-xs truncate font-bold w-2/3'>{products[order._id][0].name}</p>
+                                                <p className='text-xs font-bold  '>items : {this.totalItems(order.items)}</p>
+                                                <p className='font-bold text-xs'> Price : ${order.totalgrand}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                         )
                     })

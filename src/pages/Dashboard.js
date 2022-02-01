@@ -1,34 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AdminContext } from '../AdminContext';
-import axios from "axios";
 import { useLocation } from 'react-router-dom';
-import '../styles/loader.css';
+import Loader from "../components/Loader";
+import NotAuthorized from "../components/NotAuthorized";
+import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
-
-// const API_URL = env.API_URL;
 
 let id;
 let img_error = true;
 
 const Dashboard = props => {
-    // console.log(props); this page re rendered 3 time currently
     const { role, setRole } = useContext(AdminContext);
     let _role = { ...role }; // { items: {}}
     const { history } = props;
-
     // const fake = useDispatch();
-
     const [data, setdata] = useState(false);
-
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        try {
-            getalldata();
-
-        } catch (error) {
-            console.log(error)
-        }
+        getalldata();
     }, []);
 
     try {
@@ -36,123 +26,96 @@ const Dashboard = props => {
         if (location.state.id) {
             id = location.state.id;
         }
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log(error)
         id = 'error';
+        props.history.push('/notauthorized')
     }
-    // console.log(id);
 
     const getalldata = () => {
-        const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${atoken}`,
-                'Content-Type': 'application/json'
+        try {
+            const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${atoken}`,
+                    'Content-Type': 'application/json'
 
+                }
             }
+
+            axios.get(API_URL + 'users/' + id, config)
+                .then(response => {
+                    if (response.data.role === 'admin') {
+                        _role = 'admin';
+                        setRole(_role);
+                    }
+                    const data = response.data;
+                    setdata(data);
+
+                })
+
+                .catch(error => {
+                    if (error.response) {
+                        let error_message = error.response.data.message;
+                        props.history.push('/notauthorized');
+                        console.log(error_message);
+                    }
+                });
+
+        } catch (error) {
+            console.log(error)
+            props.history.push('/notauthorized')
         }
-
-        axios.get(API_URL + 'users/' + id, config)
-            .then(response => {
-                // console.log(response.data);
-                if (response.data.role === 'admin') {
-                    _role = 'admin';
-                    setRole(_role);
-                }
-                const data = response.data;
-                setdata(data);
-
-            })
-
-            .catch(error => {
-                if (error.response) {
-                    // console.log(error.response.status);
-                    let error_message = error.response.data.message;
-                    props.history.push('/notAuthorized');
-                    console.log(error_message);
-                    // console.log(error.response.headers);
-
-                }
-            });
     }
 
 
     function handlelogout(e) {
         e.preventDefault();
-        let res_error;
-        const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-        // console.log(rtoken)
-
-        axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
-            .then(response => {
-                res_error = false;
-                _role = 'customer';
-                setRole(_role);
-                setdata(false);
-                history.replace();
-                id = 'error';
-                // console.log(response);
-                if (res_error === false) {
-
-                    props.history.push({
-                        pathname: '/',
-                    })
-                    //  window.localStorage.removeItem('userSetting');
-                    window.localStorage.clear();
-
-                }
-
-            })
-            .catch(error => {
-                if (error.response) {
-                    // console.log(error.response.status);
-                    // console.log(error.response.headers);
-                    res_error = true;
-                    console.log("error response : " + error.response);
-                    window.localStorage.clear();
-
-                }
-            })
-
-
+        try {
+            let res_error;
+            const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+            axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
+                    res_error = false;
+                    _role = 'customer';
+                    setRole(_role);
+                    setdata(false);
+                    history.replace();
+                    id = 'error';
+                    if (res_error === false) {
+                        props.history.push({
+                            pathname: '/',
+                        })
+                        window.localStorage.clear();
+                    }
+                })
+                .catch(error => {
+                    if (error.response) {
+                        res_error = true;
+                        console.log(error.response);
+                        window.localStorage.clear();
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+            props.history.push('/notauthorized')
+        }
     }
     if (data.image) {
         img_error = false;
-        // console.log(data.image)
     }
 
 
     return (
         <>
-            {!id ? <div>
-                <section className="text-black-600 h-screen body-font">
-                    <div className="container px-5 pt-24 mx-auto flex flex-wrap">
-                        <div className="lg:w-2/3 mx-auto">
-                            <div className="flex flex-wrap w-full bg-white py-32 px-10 relative mb-4">
-                                <div className="text-center relative z-10 w-full">
-                                    <h2 className="text-7xl text-gray-900 font-black title-font mb-2">
-                                        403
-                                    </h2>
-                                    <p className="leading-relaxed">You are not Authorized to access this .</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-
-                :
-
-                <div>
+            {!data && <Loader />}
+            {!id ? <NotAuthorized />
+                : <div>
                     <div className="flex flex-wrap justify-center pt-20 ">
-                        {/* <img className="rounded-full border border-gray-100 shadow-sm" src="https://randomuser.me/api/portraits/women/81.jpg" alt="user image" /> */}
-
                         <div className="mt-1 flex items-center">
                             <span className="inline-block h-24 w-24 rounded-full overflow-hidden bg-gray-100">
                                 {img_error === false ?
                                     <img className="rounded-full border border-gray-100" src={data.image} alt="Profile pic" />
-
                                     :
                                     <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -163,7 +126,6 @@ const Dashboard = props => {
                     </div>
 
                     <form >
-
                         <section className="text-gray-600 body-font">
                             <div className="container px-5 py-2 mx-auto">
                                 <div className="flex flex-col text-center w-full mb-20">
@@ -232,20 +194,6 @@ const Dashboard = props => {
                     </form>
                 </div>
 
-            }
- 
-            {!data &&
-                <div className="min-w-screen bg-gray-200 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
-                    <div className="bg-white border shadow-2xl py-2 px-5 rounded-lg flex items-center flex-col">
-                        <div className="loader-dots block relative w-20 h-5 mt-2">
-                            <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
-                            <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
-                            <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
-                            <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-green-500"></div>
-                        </div>
-                        <div className="text-gray-500 text-xs font-light mt-2 text-center">Please wait...</div>
-                    </div>
-                </div>
             }
         </>
 

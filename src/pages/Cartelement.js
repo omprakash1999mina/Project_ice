@@ -34,7 +34,7 @@ export class Cartelement extends Component {
             axios.post(API_URL + '/orders', data, config)
                 .then(response => {
                     // console.log(response.data);
-                    this.setState({ placed: true, payment: false , processing: false});
+                    this.setState({ placed: true, payment: false, processing: false });
 
                 }).catch(error => {
                     if (error.response) {
@@ -57,7 +57,7 @@ export class Cartelement extends Component {
             try {
                 this.setState({ processing: true })
                 const temp = { items: {}, totalItems: 0 }
-                const { cart, setCart } = this.context;
+                const { setCart } = this.context;
                 const { id, atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
                 const config = {
                     headers: {
@@ -86,6 +86,7 @@ export class Cartelement extends Component {
             } catch (error) {
                 window.alert("Opp's there is some problem, so please login again !!!!");
                 console.log(error);
+                this.props.history.push('/error')
             }
         }
 
@@ -192,7 +193,7 @@ export class Cartelement extends Component {
                             {!error && <h2 className="text-xl text-green-400 pt-4 ">Order Placed Successfully !!</h2>}
                             {!error && <p className="text-sm text-gray-500 px-8 p-2">go back to the cart page and check the order status or click here bellow .</p>}
                             {processing ?
-                                <button type="button" className="inline-flex items-center justify-center m-2 border border-white px-5 py-2 text-sm tracking-wider text-white shadow-lg bg-gray-700 rounded-full cursor-not-allowed" disabled>
+                                <button type="button" className="inline-flex items-center justify-center m-2 border border-white px-5 py-2 text-sm tracking-wider text-white shadow-lg bg-gray-700 rounded-lg cursor-not-allowed" disabled>
                                     <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

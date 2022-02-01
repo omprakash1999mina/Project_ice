@@ -31,10 +31,12 @@ const Cart = (props) => {
                             setLoading(false)
                         }
                     }).catch(error => {
+                        console.log(error);
+                        setLoading(false)
                         if (error.response) {
-                            window.alert("Opp's there is some problem, so please login again !!");
                             console.log(error.response.data.message);
-                            props.history.push('/login')
+                            window.alert("Opp's there is some problem, so please login again !!");
+                            props.history.push('/login');
                         }
                     });
             }
@@ -46,16 +48,18 @@ const Cart = (props) => {
                         setProducts(response.data);
                         setLoading(false)
                     }).catch(error => {
+                        console.log(error);
+                        setLoading(false)
                         if (error.response) {
                             window.alert("Opp's there is some problem, so please login again !!!");
-                            props.history.push('/login')
+                            props.history.push('/login');
                             console.log(error.response.data.message);
                         }
                     });
             }
         } catch (error) {
             window.alert("Opp's there is some problem, so please login again !!!!");
-            props.history.push('/login')
+            props.history.push('/login');
             console.log(error);
             setLogin(false);
         }

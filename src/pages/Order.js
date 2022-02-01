@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" }
@@ -20,21 +21,52 @@ export class Order extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
-        this.state = { time: '12:30 PM', date: '12 Jen 2022', open: false, status: 'placed', order: {}, products: {} }
+        this.state = { time: '12:30 PM', date: '12 Jen 2022', open: false, status: 'placed', order: {}, products: {}, processing: false }
     }
-    componentDidMount(){
+    componentDidMount() {
         try {
             const { order, items } = this.props.location.state;
-            console.log(items);
             this.setState({ subtotal: getTotal(items, order), open: true, time: formatTime(order.createdAt), date: formatDate(order.createdAt), status: order.status, order: order, products: items });
         } catch (error) {
-            this.props.history.push('/error')
+            this.props.history.push('/notauthorized')
             console.log(error);
         }
     }
+    handleBack = () => {
+        try {
+            this.setState({ processing: true })
+            const { id, atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${atoken}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+            axios.get(API_URL + 'orders/' + id, config)
+                .then(response => {
+                    const res = response.data;
+                    if (res.length > 0) {
+                        this.props.history.push({
+                            pathname: '/orders',
+                            state: res
+                        })
+                    }
+                }).catch(error => {
+                    if (error.response) {
+                        window.alert("Opp's there is some problem, so please login again !!");
+                        console.log(error.response.data.message);
+                    }
+                });
+        } catch (error) {
+            window.alert("Opp's there is some problem, so please login again !!!!");
+            console.log(error);
+            this.props.history.push('/notauthorized')
+        }
+
+    }
 
     render() {
-        const { subtotal, open, status, date, time, order, products } = this.state;
+        const { processing, subtotal, open, status, date, time, order, products } = this.state;
         return (
             <section className='px-2 pt-24'>
                 <p className='font-serif border-b-2 font-medium py-2 md:p-4 px-2'>Order Summary</p>
@@ -214,7 +246,17 @@ export class Order extends Component {
                             </ul>
                         </div>
                         <div className='flex flex-row justify-center items-center p-4 pb-10'>
-                            <Link to={'/cart'} className='bg-gray-600 hover:bg-gray-800 px-4 py-2 text-white shadow-md hover:shadow-lg rounded-lg'>Go Back</Link>
+                            {processing ?
+                                <button className="inline-flex items-center justify-center bg-gray-800 px-4 py-2 text-white shadow-lg rounded-lg cursor-not-allowed" disabled>
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </button>
+                                :
+                                <button onClick={this.handleBack} className='bg-gray-600 hover:bg-gray-800 px-4 py-2 text-white shadow-md hover:shadow-lg rounded-lg'>Go Back</button>
+                            }
                         </div>
                     </div>
                 }
@@ -276,7 +318,17 @@ export class Order extends Component {
                             </div>
                         </div>
                         <div className='flex flex-row justify-center items-center p-4 pb-10'>
-                            <Link to={'/cart'} className='bg-gray-600 hover:bg-gray-800 px-4 py-2 text-white shadow-md hover:shadow-lg rounded-lg'>Go Back</Link>
+                            {processing ?
+                                <button className="inline-flex items-center justify-center bg-gray-800 px-4 py-2 text-white shadow-lg rounded-lg cursor-not-allowed" disabled>
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </button>
+                                :
+                                <button onClick={this.handleBack} className='bg-gray-600 hover:bg-gray-800 px-4 py-2 text-white shadow-md hover:shadow-lg rounded-lg'>Go Back</button>
+                            }
                         </div>
                     </div>
                 }
