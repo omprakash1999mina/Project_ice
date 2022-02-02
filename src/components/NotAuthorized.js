@@ -5,11 +5,11 @@ export class NotAuthorized extends Component {
         super(props)
         this.state = { error: false }
     }
-    componentDidMount(){
-        if(this.props.location.state){
-            this.setState({error: this.props.location.state.error})
-        }
-    }
+    // componentDidMount(){
+    //     if(this.props.location){
+    //         this.setState({error: this.props.location.state.error})
+    //     }
+    // }
 
     render() {
         const { error } = this.state;

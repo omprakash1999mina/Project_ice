@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import { AdminContext } from "../AdminContext";
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -14,6 +15,7 @@ function userMessage() {
 let _id = 'errorinid';
 
 export class Login extends Component {
+    static contextType = AdminContext;
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
@@ -54,9 +56,9 @@ export class Login extends Component {
                     error_message = 0;
                     // console.log(response.data);
                     const resdata = {
+                        id: response.data.id,
                         atoken: response.data.access_token,
-                        rtoken: response.data.refresh_token,
-                        id: response.data.id
+                        rtoken: response.data.refresh_token
                     }
                     const userSetting = JSON.stringify(resdata);
                     // console.log(userSetting)
@@ -90,13 +92,15 @@ export class Login extends Component {
     }
 
     handlelogout = () => {
-        console.log('working');
         this.setState({ processing: true })
         try {
+            const {setRole} = this.context;
             const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
             axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     alreadyLogin = false;
+                    const _role = 'customer';
+                    setRole(_role);
                     window.localStorage.clear();
                     this.setState({ processing: false })
                 })

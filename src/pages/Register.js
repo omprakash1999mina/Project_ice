@@ -16,7 +16,7 @@ class Register extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
-        this.state = { name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false, processing: false }
+        this.state = {resdata: {} ,  name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false, processing: false }
         this.intialstate = { ...this.state }
     }
 
@@ -94,7 +94,15 @@ class Register extends Component {
             axios.post(API_URL + "register", formdata, config)
                 .then(response => {
                     error_message = false;
-                    this.setState({ submited: true, confirm: true, processing: false });
+                    const resdata = {
+                        id: response.data._id,
+                        atoken: response.data.access_token,
+                        rtoken: response.data.refresh_token
+                    }
+                    const userSetting = JSON.stringify(resdata);
+                    window.localStorage.setItem('userSetting', userSetting);
+                    // console.log(userSetting)
+                    this.setState({ submited: true, confirm: true, processing: false, resdata: resdata });
                 })
                 .catch(error => {
                     if (error.response) {
@@ -138,7 +146,7 @@ class Register extends Component {
 
 
     render() {
-        const { processing, name, age, gender, repeat_password, email, password, confirm, error_image, error_age, error_gender, error_email, error_name, error_password, error_repassword, submited, } = this.state;
+        const {resdata ,processing, name, age, gender, repeat_password, email, password, confirm, error_image, error_age, error_gender, error_email, error_name, error_password, error_repassword, submited, } = this.state;
         return (
             <div>
                 <section className=" pt-32 text-gray-600 body-font">
@@ -227,15 +235,11 @@ class Register extends Component {
 
 
                 {confirm &&
-
                     <div className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
                         <div className="absolute shadow-2xl rounded-2xl ">
-
                             <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
-
                                 <div className="text-center p-5 flex-auto justify-center">
                                     {submited === false ?
-
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-red-400 mx-auto " viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
@@ -252,7 +256,7 @@ class Register extends Component {
                                     {!submited && <p className="text-sm text-gray-500 px-8"> {error_message && userMessage()} </p>}
                                 </div>
                                 <div className="pb-3 px-3 justify-end mt-2 text-center space-x-4 md:block">
-                                    {submited && <Link to="/login" className="mb-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Login Now</Link>}
+                                    {submited && <button onClick={()=> this.props.history.push({pathname: '/dashboard', state: {id: resdata.id} })} className="mb-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Dashboard</button>}
                                     {!submited && <button onClick={(e) => { this.setState({ confirm: false }) || this.submitHandler(e) }} className="mb-2  bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Retry</button>}
                                     {!submited && <button onClick={() => { this.setState(this.intialstate) }} className="mb-2  bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Cancle</button>}
                                 </div>

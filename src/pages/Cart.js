@@ -9,6 +9,7 @@ const Cart = (props) => {
     const [products, setProducts] = useState([]);
     const [orders, setOrders] = useState(false);
     const [login, setLogin] = useState(true);
+    const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const { cart, setCart } = useContext(CartContext);
 
@@ -40,26 +41,30 @@ const Cart = (props) => {
                         }
                     });
             }
-            if (Object.keys(cart.items).length !== 0) {
-                const data = JSON.stringify({ ids: Object.keys(cart.items) })
-                setLoading(true)
-                axios.post(API_URL + 'products/cart-items', data, config)
-                    .then(response => {
-                        setProducts(response.data);
-                        setLoading(false)
-                    }).catch(error => {
-                        console.log(error);
-                        setLoading(false)
-                        if (error.response) {
-                            window.alert("Opp's there is some problem, so please login again !!!");
-                            props.history.push('/login');
-                            console.log(error.response.data.message);
-                        }
-                    });
-            }
         } catch (error) {
-            // setLoading(false)
             setLogin(false);
+            setLoading(false)
+        }
+
+        if (Object.keys(cart.items).length !== 0) {
+            setLoading(true)
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            const data = JSON.stringify({ ids: Object.keys(cart.items) })
+            axios.post(API_URL + 'products/cart-items', data, config)
+                .then(response => {
+                    setProducts(response.data);
+                    setLoading(false)
+                }).catch(error => {
+                    console.log(error);
+                    setLoading(false)
+                    if (error.response) {
+                        console.log(error.response.data.message);
+                    }
+                });
         }
 
     }, [cart]);
@@ -103,6 +108,18 @@ const Cart = (props) => {
         const updatedProductsList = products.filter((product) => product._id !== productId);
         setProducts(updatedProductsList);
     }
+    const handleOrdernow = () => {
+        if (login) {
+            props.history.push({
+                pathname: '/placeorders',
+                state: { items: cart.items, totalgrand: total }
+            })
+        }
+        else {
+            setModal(true);
+            console.log('you are not login ');
+        }
+    }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -110,13 +127,13 @@ const Cart = (props) => {
     return (
         <section>
             {loading && <Loader />}
-            {!login &&
+            {modal &&
                 <div className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
                     <div className="m-2 absolute shadow-2xl rounded-2xl ">
                         <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
                             <div className="text-center p-5 flex-auto justify-center">
                                 <svg fill="currentColor" className="w-16 h-16 flex items-center text-red-400 mx-auto" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z" />
+                                    <path fillRule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z" />
                                 </svg>
                                 <h2 className="text-xl text-red-400 font-bold py-4 ">You are Not Login !!</h2>
                                 <p className="text-sm text-gray-500 px-8 pb-4">Without login you can't order anything so please go to the login page or click here Down-below</p>
@@ -201,10 +218,7 @@ const Cart = (props) => {
                             <b>Grand Total:</b>  <i className="fa fa-rupee text-sm p-1"></i>{total}
                         </div>
                         <div className="text-right m-6 mt-4">
-                            {login ?
-                                <button onClick={() => props.history.push({ pathname: '/placeorders', state: { items: cart.items, totalgrand: total } })} className="bg-green-500 text-white px-4 py-2 rounded-full leading-none outline hover:shadow-lg hover:bg-green-600">Order Now</button>
-                                : <button onClick={() => props.history.push('/login')} className="bg-red-400 text-white px-4 py-2 rounded-full leading-none">Login First</button>
-                            }
+                            <button onClick={() => handleOrdernow()} className="bg-green-500 text-white px-4 py-2 rounded-full leading-none outline hover:shadow-lg hover:bg-green-600">Order Now</button>
                         </div>
                     </div >
             }

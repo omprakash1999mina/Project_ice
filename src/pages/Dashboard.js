@@ -11,7 +11,7 @@ let img_error = true;
 
 const Dashboard = props => {
     const { role, setRole } = useContext(AdminContext);
-    let _role = { ...role }; 
+    let _role = { ...role };
     const { history } = props;
     // const fake = useDispatch();
     const [data, setdata] = useState(false);
@@ -23,13 +23,14 @@ const Dashboard = props => {
 
     try {
         const location = useLocation();
+        console.log(location.state);
         if (location.state.id) {
             id = location.state.id;
         }
     } catch (error) {
         console.log(error)
         id = 'error';
-        props.history.push({pathname: '/notauthorized', error: error});
+        props.history.push({ pathname: '/notauthorized', error: error });
     }
 
     const getalldata = () => {
@@ -57,16 +58,15 @@ const Dashboard = props => {
                     console.log(error);
                     if (error.response) {
                         let error_message = error.response.data.message;
-                        props.history.push({pathname: '/notauthorized', error: error});
+                        props.history.push({ pathname: '/notauthorized', error: error });
                         console.log(error_message);
                     }
                 });
         } catch (error) {
             console.log(error)
-            props.history.push({pathname: '/notauthorized', error: error});
+            props.history.push({ pathname: '/notauthorized', error: error });
         }
     }
-
 
     function handlelogout(e) {
         e.preventDefault();
@@ -94,10 +94,11 @@ const Dashboard = props => {
                         console.log(error.response);
                         window.localStorage.clear();
                     }
+                    props.history.push({ pathname: '/notauthorized', error: error });
                 })
         } catch (error) {
             console.log(error)
-            props.history.push('/notauthorized')
+            props.history.push({ pathname: '/notauthorized', error: error });
         }
     }
     if (data.image) {
