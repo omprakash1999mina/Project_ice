@@ -2,6 +2,7 @@
 This application 
 ## Introduction
 In this project we are creating a ecommerce ice-cream parlour website with user login system .
+<br/>project is live  on [https://www.opdevelopers.live](https://www.opdevelopers.live)
 ## Steps
 ### 1.
 ```properties
@@ -14,7 +15,7 @@ create a .env file
 
 ### 3.
 ```properties
-add variable REACT_APP_API_URL=writeYourApiUrl ( in my case REACT_APP_API_URL=https://rest-apis-by-opdevelopers.herokuapp.com/api/ )
+add variable API_URL=writeYourApiUrl ( in my case API_URL=https://apis.opdevelopers.live/api/ )
 ``` 
  
 ## Available Scripts
