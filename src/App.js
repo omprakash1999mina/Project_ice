@@ -5,7 +5,7 @@ import { getRole, storeRole,getCart, storeCart } from './helpers';
 // import SingleProduct from './pages/SingleProduct';
 // import Loader from './pages/Loader';
 import Home from './pages/Home';
-import AddProducts from './pages/AddProducts';
+import AddProducts from './pages/addProducts';
 import Payments from './pages/Admin/Payments';
 import ProductsList from './pages/Admin/ProductsList';
 import Message from './pages/Admin/Message';
