@@ -15,7 +15,7 @@ function userMessage() {
 }
 
 
-export class AddProducts extends Component {
+export class AddProduct extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0,0);
@@ -349,4 +349,4 @@ export class AddProducts extends Component {
     }
 }
 
-export default AddProducts;
+export default AddProduct;
