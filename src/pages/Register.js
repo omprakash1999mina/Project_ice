@@ -88,7 +88,6 @@ class Register extends Component {
                 formdata.append('gender', this.state.gender);
                 formdata.append('email', this.state.email);
                 formdata.append('password', this.state.password);
-                formdata.append('repeat_password', this.state.repeat_password);
                 formdata.append('image', this.state.image);
             }
             axios.post(API_URL + "register", formdata, config)
@@ -153,7 +152,7 @@ class Register extends Component {
                     <div className="container px-5 pb-24 mx-auto flex flex-wrap items-center">
                         <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
                             <h1 className="title-font font-medium text-3xl text-gray-900">Be a Member of our Royal_IITian's club and make orders fluently with exciting offers !!</h1>
-                            <p className="leading-relaxed mt-4">Don’t let your ice cream melt and drip without getting the chance to eat it. Life is the same, you have to enjoy it before you lose it.</p>
+                            <p className="leading-relaxed mt-4">Don't let your ice cream melt and drip without getting the chance to eat it. Life is the same, you have to enjoy it before you lose it.</p>
                         </div>
                         <div className="text- lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
                             <h2 className="text-gray-900 text-lg font-medium text-center title-font mb-2">Sign Up</h2>
@@ -189,7 +188,7 @@ class Register extends Component {
                                     <option value="">-----Select Your Gender Type-----</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
-                                    <option value="Transgender">Transgender</option>
+                                    <option value="Others">Others</option>
                                 </select>
                                 {error_gender && <p className="text-red-500  text-xs italic">Please choose correct gender.</p>}
                             </div>
@@ -240,12 +239,12 @@ class Register extends Component {
                             <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
                                 <div className="text-center p-5 flex-auto justify-center">
                                     {submited === false ?
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-red-400 mx-auto " viewBox="0 0 16 16">
+                                        <svg  width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-red-400 mx-auto " viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                                         </svg>
                                         :
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-green-400 mx-auto" viewBox="0 0 16 16">
+                                        <svg  width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-green-400 mx-auto" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
                                         </svg>

@@ -30,6 +30,7 @@ import Cartelement from './pages/Cartelement';
 import Orders from './pages/Orders';
 import Order from './pages/Order';
 import test from './pages/test';
+import ForgotPassword from './pages/ForgotPassword';
 
 const App = () => { 
     const [ role, setRole ] = useState('customer');
@@ -82,7 +83,7 @@ const App = () => {
                             <Route path="/cart" component={Cart} exact></Route>
                             <Route path="/updateprofile" component={UpdateProfile} exact></Route>
                             <Route path="/terms" component={Terms} exact></Route>
-                            <Route path="/error" component={Maintenance} exact></Route>
+                            <Route path="/maintenance" component={Maintenance} exact></Route>
                             <Route path="/RefundPolicy" component={RefundPolicy} exact></Route>
                             <Route path="/support" component={Contact} exact></Route>
                             <Route path="/loader" component={Loader} exact></Route>
@@ -91,6 +92,7 @@ const App = () => {
                             <Route path="/order" component={Order} />
                             <Route path="/test" component={test} />
                             <Route path="/notauthorized" component={NotAuthorized} />
+                            <Route path="/resetpassword" component={ForgotPassword} />
                             <Route path="*" component={NotFound} />
                     </Switch>
                 </CartContext.Provider>

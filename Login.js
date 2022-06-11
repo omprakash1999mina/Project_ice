@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { AdminContext } from "../AdminContext";
 import axios from "axios";
-import { withSnackbar } from 'notistack';
 const API_URL = process.env.REACT_APP_API_URL;
 
+let error_message;
 let alreadyLogin = false;
+let res_error;
+function userMessage() {
+    error_message = `* ${res_error} please try again with correct details and if forgot then  reset your email or password  !!`;
+    return error_message;
+}
+
 let _id = 'errorinid';
 
 export class Login extends Component {
@@ -15,6 +21,7 @@ export class Login extends Component {
         window.scrollTo(0, 0);
         this.state = { email: '', password: '', processing: false }
         this.initialstate = { ...this.state }
+
         try {
             const { id } = JSON.parse(window.localStorage.getItem('userSetting'));
             _id = id;
@@ -46,6 +53,7 @@ export class Login extends Component {
 
             axios.post(API_URL + "login", data, config)
                 .then(response => {
+                    error_message = 0;
                     // console.log(response.data);
                     const resdata = {
                         id: response.data.id,
@@ -71,12 +79,11 @@ export class Login extends Component {
                     }
 
                     if (error.response) {
-                        this.props.enqueueSnackbar("Invalid email or password !", {
-                            variant: 'error',
-                        });
+                        error_message = 1;
                         setTimeout(() => {
                             this.setState(this.initialstate);
                         }, 10);
+                        res_error = error.response.data.message;
                     }
                 })
         } catch (err) {
@@ -87,7 +94,7 @@ export class Login extends Component {
     handlelogout = () => {
         this.setState({ processing: true })
         try {
-            const { setRole } = this.context;
+            const {setRole} = this.context;
             const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
             axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
@@ -126,6 +133,9 @@ export class Login extends Component {
                             <h2 className="text-center text-4xl text-gray-900 font-display font-semibold lg:text-center xl:text-5xl xl:text-bold">Log in</h2>
                             <div className="mt-12">
                                 <form onSubmit={this.submitHandler}>
+                                    <div className="py-2 text-red-600 ">
+                                        {error_message === 1 ? userMessage() : ""}
+                                    </div>
                                     <div>
                                         <div className="text-sm font-bold text-gray-700 tracking-wide">Email Address</div>
                                         <input className="w-full text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="email" name="email" value={email} onChange={this.changeHandler} placeholder="example@gmail.com" />
@@ -247,6 +257,6 @@ export class Login extends Component {
     }
 }
 
-export default withSnackbar(Login);
+export default Login;
 
 

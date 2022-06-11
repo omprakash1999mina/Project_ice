@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import Loader from "../components/Loader";
 import NotAuthorized from "../components/NotAuthorized";
 import axios from "axios";
+import utils from "../utils";
+import { useSnackbar } from 'notistack';
 const API_URL = process.env.REACT_APP_API_URL;
 
 let id;
@@ -15,10 +17,12 @@ const Dashboard = props => {
     const { history } = props;
     // const fake = useDispatch();
     const [data, setdata] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getalldata();
+        // getalldata();
+        loginHandler();
     }, []);
 
     try {
@@ -33,14 +37,23 @@ const Dashboard = props => {
         props.history.push({ pathname: '/notauthorized', error: error });
     }
 
+
+    const loginHandler = () => {
+        const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+        const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+        console.log('handler working');
+        // Add a request interceptor
+
+    }
+
     const getalldata = () => {
         try {
-            const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+            const userData = JSON.parse(window.localStorage.getItem('userSetting'));
+            let access_token = userData.atoken;
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${atoken}`,
+                    'Authorization': `Bearer ${access_token}`,
                     'Content-Type': 'application/json'
-
                 }
             }
 
@@ -52,14 +65,22 @@ const Dashboard = props => {
                     }
                     const data = response.data;
                     setdata(data);
-
                 })
                 .catch(error => {
-                    console.log(error);
-                    if (error.response) {
-                        let error_message = error.response.data.message;
-                        props.history.push({ pathname: '/notauthorized', error: error });
-                        console.log(error_message);
+                    // console.log(error);
+                    if (error.response && error.response.status === 401) {
+                        access_token = utils.getNewAccessToken(userData.rtoken)
+                        if (!access_token) {
+                            enqueueSnackbar("Session expire please login again !", {
+                                variant: 'error',
+                            });
+                        }
+                    }
+                    else {
+                        enqueueSnackbar("Error accured server under Maintenance !", {
+                            variant: 'error',
+                        });
+                        props.history.push({ pathname: '/maintenance', error: error });
                     }
                 });
         } catch (error) {

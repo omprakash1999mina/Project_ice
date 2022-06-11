@@ -145,7 +145,7 @@ export default class Contact extends Component {
                             
                         </div>
                         <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-                        <a href='/' className="text-indigo-500">op1999mina@gmail.com</a>
+                        <a href='/' className="text-indigo-500">omprakash.bairwa.iitbhu20@gmail.com</a>
                         <p className="leading-normal my-5">49 A Meenawala St.
                             <br/>Jhotwara Jaipur ,india
                         </p>

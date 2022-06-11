@@ -21,7 +21,7 @@ class Menubar extends Component {
 
     render() {
         return (
-            <div className='relative'>
+            <div className='relative'> 
                 <div className="bg-gray-800  shadow-xl md:relative z-10 w-full md:w-48">
 
                     <div className="md:w-48  md:fixed md:left-0  content-center md:content-start text-left justify-between">
