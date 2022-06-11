@@ -11,7 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const ForgotPassword = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [processing, setProcessing] = React.useState(false);
-    const [showOTP, setShowOTP] = React.useState(false);
+    const [showOTP, setShowOTP] = React.useState(true);
     const [showPass, setShowPass] = React.useState(false);
     const [email, setEmail] = React.useState(false);
     const dispatch = useDispatch();
@@ -55,9 +55,9 @@ const ForgotPassword = () => {
     }
     // render() {
     return (
-        <>
+        <div className=" pt-32 pb-12 lg:pb-0 lg:w-1/2 xl:max-w-screen-sm">
             {
-                !showOTP &&
+                (!showOTP && !showPass) &&
                 <div className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
                     < div className="my-2 mx-4 absolute shadow-2xl rounded-2xl " >
                         <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
@@ -92,7 +92,7 @@ const ForgotPassword = () => {
             }
             {showOTP && <OtpContainer state={{ setShowPass, setShowOTP }} />}
             {showPass && <NewPassword state={{ setShowPass, setShowOTP }} />}
-        </>
+        </div>
     )
 }
 

@@ -1,14 +1,24 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, userOTP } from '../states/User/UserSlice';
+import { useHistory } from "react-router-dom";
 
 const OtpContainer = ({ state }) => {
+    const history = useHistory();
     const { setShowPass, setShowOTP } = state;
     const [counter, setCounter] = React.useState(59);
     const [processing, setProcessing] = React.useState(false);
     const userData = useSelector(getUser);
     const dispatch = useDispatch();
     const allInputs = ["first", "second", "third", "fourth", "fifth", "sixth"]
+
+    const handleResend = (e) => {
+        e.preventDefault()
+        if (!counter) {
+            history.push("/resetpassword");
+            setShowOTP(false);
+        }
+    }
 
     const handleVerifyOtp = (e) => {
         e.preventDefault()
@@ -50,13 +60,13 @@ const OtpContainer = ({ state }) => {
                         </svg>
                         <h2 className="text-lg sm:text-xl font-bold py-4 ">OTP Verification</h2>
                         <p className="text-xs sm:text-sm text-gray-500 px-8 pb-2">We've sent the OTP to your Email({userData.userEmail})</p>
-                        <div class="flex flex-row justify-center text-center px-2 py-2">
-                            <input required type='tel' onChange={() => handleChange("second")} className="m-2 border-2 border-gray-300 h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="first" maxlength="1" />
-                            <input required type='tel' onChange={() => handleChange("third")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="second" maxlength="1" />
-                            <input required type='tel' onChange={() => handleChange("fourth")} className="m-2 border-2 border-gray-300 h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="third" maxlength="1" />
-                            <input required type='tel' onChange={() => handleChange("fifth")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="fourth" maxlength="1" />
-                            <input required type='tel' onChange={() => handleChange("sixth")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="fifth" maxlength="1" />
-                            <input required type='tel' onChange={() => handleChange("sixth")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="sixth" maxlength="1" />
+                        <div className="flex flex-row justify-center text-center px-2 py-2">
+                            <input required type='tel' onChange={() => handleChange("second")} className="m-2 border-2 border-gray-300 h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="first" maxLength="1" />
+                            <input required type='tel' onChange={() => handleChange("third")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="second" maxLength="1" />
+                            <input required type='tel' onChange={() => handleChange("fourth")} className="m-2 border-2 border-gray-300 h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="third" maxLength="1" />
+                            <input required type='tel' onChange={() => handleChange("fifth")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="fourth" maxLength="1" />
+                            <input required type='tel' onChange={() => handleChange("sixth")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="fifth" maxLength="1" />
+                            <input required type='tel' onChange={() => handleChange("sixth")} className="m-2 border-2 border-gray-300  h-7 w-7 sm:h-10 sm:w-10 text-center form-control rounded" id="sixth" maxLength="1" />
                         </div>
                         {processing ?
                             <div className="flex items-center justify-center">
@@ -71,7 +81,7 @@ const OtpContainer = ({ state }) => {
                             :
                             <button type='submit' onClick={(e) => handleVerifyOtp(e)} className="mt-4 px2 py-2 w-11/12 sm:w-4/5 bg-gray-600 border border-white text-sm sm:text-base shadow-md font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Next</button>
                         }
-                        <p className="text-xs sm:text-sm text-gray-500 px-8 py-2">If you did'nt get the email, ask to <button className={`${counter && 'cursor-not-allowed'} text-indigo-400`} >Resend</button> OTP <div className="inline-flex text-indigo-400"> {counter > 0 && (counter >= 10 ? `After 00:${counter}s` : `After 00:0${counter}s`)} </div></p>
+                        <p className="text-xs sm:text-sm text-gray-500 px-8 py-2">If you did'nt get the email, ask to <span onClick={(e) => handleResend(e)} className={`${counter ? 'cursor-not-allowed' : 'cursor-pointer'} outline-none outline-0 text-indigo-400`} >Resend</span> OTP <div className="inline-flex text-indigo-400"> {counter > 0 && (counter >= 10 ? `After 00:${counter}s` : `After 00:0${counter}s`)} </div></p>
                     </form>
                 </div>
             </div>

@@ -30,7 +30,7 @@ const Test = () => {
                             <input onChange={(e) => setPassword(e.target.value)} className="w-4/5 mt-2 text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="password" name="password" placeholder="New password" />
                             <input onChange={(e) => setConfirmPassword(e.target.value)} className="w-4/5 mt-2 text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="password" name="confirmPassword" placeholder="Confirm password" />
                             <div className="w-4/5 px-2 text-left text-red-500 text-xs italic">Password mismatch</div>
-                            {/* {error_password && <div className="w-4/5 px-2 text-left text-red-500 text-xs italic">Password mismatch</div>} */}
+                            {error_password && <div className="w-4/5 px-2 text-left text-red-500 text-xs italic">Password mismatch</div>}
                         </div>
                         {processing ?
                             <div className="flex items-center justify-center">

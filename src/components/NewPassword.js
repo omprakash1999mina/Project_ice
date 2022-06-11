@@ -61,7 +61,7 @@ const NewPassword = ({ state }) => {
             <div className="m-3 sm:my-2 sm:mx-4 absolute shadow-2xl rounded-2xl ">
                 <div className="w-full max-w-lg p-2 sm:p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
 
-                    <form className="text-center py-2 sm:p-5 flex-auto justify-center">
+                    <form className="text-center py-5 sm:p-5 flex-auto justify-center">
                         <img className="w-12 h-12 sm:w-16 sm:h-16 flex items-center text-gray-500 mx-auto" src={"/Forgot Password.svg"} fill="currentColor" alt='icon'></img>
                         <h2 className="text-lg sm:text-xl font-bold py-4 ">Forgot Password</h2>
                         <p className="text-xs sm:text-sm text-gray-500 px-8 pb-2">Your identity has been verified Set your New password</p>
