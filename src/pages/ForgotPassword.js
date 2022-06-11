@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [processing, setProcessing] = React.useState(false);
     const [showOTP, setShowOTP] = React.useState(false);
-    const [showPass, setShowPass] = React.useState(false);
+    const [showPass, setShowPass] = React.useState(true);
     const [email, setEmail] = React.useState(false);
     const dispatch = useDispatch();
 
@@ -55,20 +55,20 @@ const ForgotPassword = () => {
     }
     // render() {
     return (
-        <div className=" pt-32 pb-12 lg:pb-0 lg:w-1/2 xl:max-w-screen-sm">
+        <div className=" pt-32 w-full">
             {
                 (!showOTP && !showPass) &&
-                <div className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
-                    < div className="my-2 mx-4 absolute shadow-2xl rounded-2xl " >
-                        <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
+                <div className="pt-32 w-full sm:min-w-screen bg-gray-100 bg-opacity-0 sm:bg-opacity-50 sm:h-screen animated fadeIn faster  sm:fixed  sm:left-0 sm:top-0 flex justify-center items-center sm:inset-0 sm:z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
+                    < div className="my-2 mx-4 w-full absolute sm:shadow-2xl sm:rounded-2xl " >
+                        <div className="w-full max-w-lg p-5 relative mx-auto my-auto sm:rounded-2xl sm:shadow-2xl bg-white ">
 
-                            <form className="text-center p-5 flex-auto justify-center">
+                            <form className="w-full text-center p-5 flex-auto justify-center">
                                 <img className="w-16 h-16 flex items-center text-gray-500 mx-auto" src={"/Forgot Password.svg"} fill="currentColor" alt='password icon'></img>
-                                <h2 className="text-lg sm:text-xl font-bold py-4 ">Forgot Password</h2>
+                                <h2 className="text-xl font-bold py-4 ">Forgot Password</h2>
                                 {/* <p className="text-sm text-gray-500 px-8 pb-2">Please enter the email address you'd like your password reset information sent to</p> */}
                                 <p className="text-xs sm:text-sm  text-gray-500 px-8 pb-2">Please enter the email address associated with your Royal_IITians account </p>
                                 <div className="flex flex-row justify-center text-center">
-                                    <input required className="w-4/5 text-xs sm:text-base p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="email" name="email" onChange={(e) => handleChange(e)} placeholder="example@gmail.com" />
+                                    <input required className="w-4/5 text-sm sm:text-base p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="email" name="email" onChange={(e) => handleChange(e)} placeholder="example@gmail.com" />
                                 </div>
                                 {processing ?
                                     <div className="flex items-center justify-center">

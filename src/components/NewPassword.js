@@ -10,7 +10,7 @@ const NewPassword = ({ state }) => {
 
     const { setShowPass, setShowOTP } = state;
     const history = useHistory();
-    const { enqueueSnackbar } = useSnackbar(); 
+    const { enqueueSnackbar } = useSnackbar();
     const [password, setPassword] = React.useState(false);
     const [error_password, setError_Password] = React.useState(false);
     const [confirmPassword, setConfirmPassword] = React.useState(false);
@@ -57,13 +57,16 @@ const NewPassword = ({ state }) => {
     }
     // render() {
     return (
-        <div className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
-            <div className="m-3 sm:my-2 sm:mx-4 absolute shadow-2xl rounded-2xl ">
-                <div className="w-full max-w-lg p-2 sm:p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
+        <div className="pt-32 w-full sm:min-w-screen bg-gray-100 bg-opacity-0 sm:bg-opacity-50 sm:h-screen animated fadeIn faster  sm:fixed  sm:left-0 sm:top-0 flex justify-center items-center sm:inset-0 sm:z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
+            < div className="my-2 mx-4 w-full absolute sm:shadow-2xl sm:rounded-2xl " >
+                <div className="w-full max-w-lg p-5 relative mx-auto my-auto sm:rounded-2xl sm:shadow-2xl bg-white ">
+                    {/* // <div className="min-w-screen bg-gray-100 bg-opacity-50 h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id"> */}
+                    {/* <div className="m-3 sm:my-2 sm:mx-4 absolute shadow-2xl rounded-2xl ">
+                        <div className="w-full max-w-lg p-2 sm:p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white "> */}
 
                     <form className="text-center py-5 sm:p-5 flex-auto justify-center">
                         <img className="w-12 h-12 sm:w-16 sm:h-16 flex items-center text-gray-500 mx-auto" src={"/Forgot Password.svg"} fill="currentColor" alt='icon'></img>
-                        <h2 className="text-lg sm:text-xl font-bold py-4 ">Forgot Password</h2>
+                        <h2 className="text-xl font-bold py-4 ">Forgot Password</h2>
                         <p className="text-xs sm:text-sm text-gray-500 px-8 pb-2">Your identity has been verified Set your New password</p>
                         <div class="w-full mb-2 flex-auto justify-center text-center ">
                             <input required onChange={(e) => { setPassword(e.target.value); setError_Password(false) }} className="w-4/5 mt-2 tex-sm sm:text-lg p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="password" name="password" placeholder="New password" />
