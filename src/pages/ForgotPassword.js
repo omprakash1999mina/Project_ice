@@ -11,7 +11,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const ForgotPassword = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [processing, setProcessing] = React.useState(false);
-    const [showOTP, setShowOTP] = React.useState(true);
+    const [showOTP, setShowOTP] = React.useState(false);
     const [showPass, setShowPass] = React.useState(false);
     const [email, setEmail] = React.useState(false);
     const dispatch = useDispatch();
