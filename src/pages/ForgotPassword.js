@@ -66,7 +66,7 @@ const ForgotPassword = () => {
                                 <img className="w-16 h-16 flex items-center text-gray-500 mx-auto" src={"/Forgot Password.svg"} fill="currentColor" alt='password icon'></img>
                                 <h2 className="text-xl font-bold py-4 ">Forgot Password</h2>
                                 {/* <p className="text-sm text-gray-500 px-8 pb-2">Please enter the email address you'd like your password reset information sent to</p> */}
-                                <p className="text-xs sm:text-sm  text-gray-500 px-8 pb-2">Please enter the email address associated with your Royal_IITians account </p>
+                                <p className="text-xs sm:text-sm  text-gray-500 px-8 pb-4 sm:pb-2">Please enter the email address associated with your Royal_IITians account </p>
                                 <div className="flex flex-row justify-center text-center">
                                     <input required className="w-11/12 sm:w-4/5 text-sm sm:text-base p-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500 rounded-lg" type="email" name="email" onChange={(e) => handleChange(e)} placeholder="example@gmail.com" />
                                 </div>
