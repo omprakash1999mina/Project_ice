@@ -11,7 +11,7 @@ const Home = (props) => {
                 <div className="w-1/2">
                     <h6 className="md:text-lg text-sm"><em>Are you hungry?</em></h6>
                     <h1 className="text-2xl md:text-6xl font-bold">Don't wait !</h1>
-                    <button onClick={ ()=>{ props.history.push({ pathname: '/cart' })  } } className="md:px-6 md:py-2 px-4 py-2 animate-bounce rounded-full text-xs md:text-lg text-white font-bold md:mt-10 mt-4 bg-gray-600 hover:bg-yellow-600">Order Now</button>
+                    <button onClick={ ()=>{ props.history.push({ pathname: '/cart' })  } } className="md:px-6 md:py-2 px-4 py-2 animate-bounce rounded-full text-xs md:text-lg text-white font-bold md:mt-10 mt-4 bg-gray-600 hover:bg-gray-700">Order Now</button>
                 </div>
                 <div className="w-1/2">
                     <img className="md:w-4/5 w-auto" src="/images/pizza.png" alt="pizza" />
