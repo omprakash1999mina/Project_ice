@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [processing, setProcessing] = React.useState(false);
     const [showOTP, setShowOTP] = React.useState(false);
-    const [showPass, setShowPass] = React.useState(true);
+    const [showPass, setShowPass] = React.useState(false);
     const [email, setEmail] = React.useState(false);
     const dispatch = useDispatch();
 
