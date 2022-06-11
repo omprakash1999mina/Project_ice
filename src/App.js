@@ -27,7 +27,7 @@ import Loader from './components/Loader';
 import Ordersadmin from "./pages/Admin/Ordersadmin";
 import NotAuthorized from './components/NotAuthorized';
 import Cartelement from './pages/Cartelement';
-import Orders from './pages/Orders';
+import OrdersAll from './pages/OrdersAll';
 import Order from './pages/Order';
 import test from './pages/test';
 import ForgotPassword from './pages/ForgotPassword';
@@ -88,7 +88,7 @@ const App = () => {
                             <Route path="/support" component={Contact} exact></Route>
                             <Route path="/loader" component={Loader} exact></Route>
                             <Route path="/placeorders" component={Cartelement} />
-                            <Route path="/orders" component={Orders} />
+                            <Route path="/orders" component={OrdersAll} />
                             <Route path="/order" component={Order} />
                             <Route path="/test" component={test} />
                             <Route path="/notauthorized" component={NotAuthorized} />
