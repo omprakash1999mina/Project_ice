@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-op.png
 
 # testing
 /coverage
@@ -16,7 +15,6 @@ op.png
 # misc
 .DS_Store
 .env.local
-# .env
 .env
 .env.development.local
 .env.test.local
