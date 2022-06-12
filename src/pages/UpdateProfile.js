@@ -250,8 +250,7 @@ export class UpdateProfile extends Component {
                                                     <option value="">------Select Your Gender Type-----</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
-                                                    <option value="Transgender">Transgender</option>
-                                                    <option value="other">other</option>
+                                                    <option value="Other">Other</option>
                                                 </select>
                                             </p>
                                         </div>
