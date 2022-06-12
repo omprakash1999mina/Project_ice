@@ -15,12 +15,14 @@ const utils = {
         await axios.post(API_URL + 'refresh', data, config)
             .then(response => {
                 const data = response.data;
+                // console.log("token fetched successfully")
                 access_token = data.access_token;
             })
             .catch(error => {
-                // console.log(error);
+                console.log(error);
                 window.localStorage.clear();
             })
+
         return access_token;
     },
 }

@@ -15,14 +15,12 @@ const Dashboard = props => {
     const { role, setRole } = useContext(AdminContext);
     let _role = { ...role };
     const { history } = props;
-    // const fake = useDispatch();
     const [data, setdata] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        // getalldata();
-        loginHandler();
+        getalldata();
     }, []);
 
     try {
@@ -35,15 +33,6 @@ const Dashboard = props => {
         console.log(error)
         id = 'error';
         props.history.push({ pathname: '/notauthorized', error: error });
-    }
-
-
-    const loginHandler = () => {
-        const { atoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-        const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-        console.log('handler working');
-        // Add a request interceptor
-
     }
 
     const getalldata = () => {
@@ -66,15 +55,22 @@ const Dashboard = props => {
                     const data = response.data;
                     setdata(data);
                 })
-                .catch(error => {
+                .catch(async (error) => {
                     // console.log(error);
                     if (error.response && error.response.status === 401) {
-                        access_token = utils.getNewAccessToken(userData.rtoken)
+                        access_token = await utils.getNewAccessToken(userData.rtoken)
+                        const resdata = {
+                            atoken: access_token
+                        }
+                        const userSetting = JSON.stringify(resdata);
+                        window.localStorage.setItem('userSetting', userSetting);
+
                         if (!access_token) {
                             enqueueSnackbar("Session expire please login again !", {
                                 variant: 'error',
                             });
                         }
+                        getalldata();
                     }
                     else {
                         enqueueSnackbar("Error accured server under Maintenance !", {
