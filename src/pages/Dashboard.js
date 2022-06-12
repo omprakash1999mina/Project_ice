@@ -25,7 +25,7 @@ const Dashboard = props => {
 
     try {
         const location = useLocation();
-        console.log(location.state);
+        // console.log(location.state);
         if (location.state.id) {
             id = location.state.id;
         }
