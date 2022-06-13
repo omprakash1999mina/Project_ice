@@ -1,5 +1,17 @@
+
+import { initializeApp } from 'firebase/app';
+import { getStorage} from "firebase/storage";
 import axios from "axios";
+
 const API_URL = process.env.REACT_APP_API_URL;
+
+const FIREBASE_API_KEY = process.env.REACT_APP_API_URL;
+const FIREBASE_APP_ID = process.env.REACT_APP_API_URL;
+const FIREBASE_AUTH_DOMAIN = process.env.REACT_APP_API_URL;
+const FIREBASE_MEASUREMENT_ID = process.env.REACT_APP_API_URL;
+const FIREBASE_MESSAGING_SENDER_ID = process.env.REACT_APP_API_URL;
+const FIREBASE_PROJECT_ID = process.env.REACT_APP_API_URL;
+const FIREBASE_STORAGE_BUCKET = process.env.REACT_APP_API_URL;
 
 const utils = {
     async getNewAccessToken(refresh_token) {
@@ -25,6 +37,20 @@ const utils = {
 
         return access_token;
     },
+    firebaseConfig(path, image) {
+        const firebaseConfig = {
+            apiKey: `${FIREBASE_API_KEY}`,
+            authDomain: `${FIREBASE_AUTH_DOMAIN}`,
+            projectId: `${FIREBASE_PROJECT_ID}`,
+            storageBucket: `${FIREBASE_STORAGE_BUCKET}`,
+            messagingSenderId: `${FIREBASE_MESSAGING_SENDER_ID}`,
+            appId: `${FIREBASE_APP_ID}`,
+            measurementId: `${FIREBASE_MEASUREMENT_ID}`
+        };
+        const app = initializeApp(firebaseConfig);
+
+        const storage = getStorage(app);
+    }
 }
 
 export default utils;

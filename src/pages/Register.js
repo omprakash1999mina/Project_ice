@@ -81,6 +81,7 @@ class Register extends Component {
                     'Content-Type': 'multipart/form-data'
                 }
             }
+
             if (this.state.image_file !== null) {
                 formdata = new FormData();
                 formdata.append('name', this.state.name);
@@ -88,7 +89,7 @@ class Register extends Component {
                 formdata.append('gender', this.state.gender);
                 formdata.append('email', this.state.email);
                 formdata.append('password', this.state.password);
-                formdata.append('image', this.state.image);
+                formdata.append('imageLink', this.state.image);
             }
             axios.post(API_URL + "register", formdata, config)
                 .then(response => {
