@@ -9,7 +9,6 @@ const API_URL = process.env.REACT_APP_API_URL;
 let error_message;
 let res_error;
 let url = null;
-let formdata;
 function userMessage() {
     error_message = `*  ${res_error} please try again with correct details !!`;
     return error_message;

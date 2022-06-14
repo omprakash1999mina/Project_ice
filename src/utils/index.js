@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'firebase/app';
-import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
+import { uploadBytesResumable, ref } from "firebase/storage";
 import { getStorage } from "firebase/storage";
 // import {storage} from 'firebase'
 import axios from "axios";
