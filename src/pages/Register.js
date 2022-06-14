@@ -235,7 +235,7 @@ class Register extends Component {
 
                             <div className="relative mb-4">
                                 <label htmlFor="age" className="leading-7 text-xs font-bold uppercase">Age</label>
-                                {<input type="number" value={age} name="age" onChange={this.changeHandler} placeholder="Age" className={`${error_age ? 'border-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'} w-full bg-white rounded border  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`} />}
+                                {<input type="tel" value={age} name="age" onChange={this.changeHandler} placeholder="Age" className={`${error_age ? 'border-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'} w-full bg-white rounded border  text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`} />}
                                 {error_age && <p className="text-red-500  text-xs italic">Age can not be empty or invalid.</p>}
                             </div>
 
