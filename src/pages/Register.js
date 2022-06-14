@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { getDownloadURL } from "firebase/storage";
+import utils from '../utils/index';
+import { withSnackbar } from 'notistack';
 const API_URL = process.env.REACT_APP_API_URL;
 
 let error_message;
@@ -16,7 +19,7 @@ class Register extends Component {
     constructor(props) {
         super(props)
         window.scrollTo(0, 0);
-        this.state = {resdata: {} ,  name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false, processing: false }
+        this.state = { resdata: {}, name: '', age: '', gender: '', email: '', password: '', repeat_password: '', image: null, imgsrc: null, error_image: false, error_name: false, error_email: false, error_age: false, error_gender: false, error_password: false, error_repassword: false, confirm: false, submited: false, processing: false }
         this.intialstate = { ...this.state }
     }
 
@@ -71,25 +74,28 @@ class Register extends Component {
         return true;
     }
 
-    submitHandler = (e) => {
-        e.preventDefault();
-        this.setState({ processing: true })
-        if (this.handleValidation() === true) {
-            const config = {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'multipart/form-data'
-                }
+    registerHandler = (imageLink) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
             }
+        }
+        if (imageLink) {
+            // formdata = new FormData();
+            // formdata.append('name', this.state.name);
+            // formdata.append('age', this.state.age);
+            // formdata.append('gender', this.state.gender);
+            // formdata.append('email', this.state.email);
+            // formdata.append('password', this.state.password);
+            // formdata.append('image', imageLink);
 
-            if (this.state.image_file !== null) {
-                formdata = new FormData();
-                formdata.append('name', this.state.name);
-                formdata.append('age', this.state.age);
-                formdata.append('gender', this.state.gender);
-                formdata.append('email', this.state.email);
-                formdata.append('password', this.state.password);
-                formdata.append('imageLink', this.state.image);
+            const formdata = {
+                name: this.state.name,
+                age: this.state.age,
+                gender: this.state.gender,
+                email: this.state.email,
+                password: this.state.password,
+                image: imageLink
             }
             axios.post(API_URL + "register", formdata, config)
                 .then(response => {
@@ -102,6 +108,10 @@ class Register extends Component {
                     const userSetting = JSON.stringify(resdata);
                     window.localStorage.setItem('userSetting', userSetting);
                     // console.log(userSetting)
+
+                    this.props.enqueueSnackbar("Successfully registered", {
+                        variant: 'success',
+                    });
                     this.setState({ submited: true, confirm: true, processing: false, resdata: resdata });
                 })
                 .catch(error => {
@@ -112,6 +122,36 @@ class Register extends Component {
                     }
                     this.setState({ confirm: true, processing: false })
                 })
+        }
+        else {
+            this.props.enqueueSnackbar("Failed to upload image", {
+                variant: 'error',
+            });
+        }
+    }
+
+    submitHandler = async (e) => {
+        e.preventDefault();
+        this.setState({ processing: true });
+
+        if (this.handleValidation() === true) {
+
+            const path = 'USERS';
+            const uploadTask = utils.uploadImage(path, this.state.image);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => { },
+                (error) => {
+                    console.log(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                        console.log(url);
+                        this.registerHandler(url);
+                    })
+                }
+            );
         }
         else {
             this.setState({ processing: false })
@@ -146,7 +186,7 @@ class Register extends Component {
 
 
     render() {
-        const {resdata ,processing, name, age, gender, repeat_password, email, password, confirm, error_image, error_age, error_gender, error_email, error_name, error_password, error_repassword, submited, } = this.state;
+        const { resdata, processing, name, age, gender, repeat_password, email, password, confirm, error_image, error_age, error_gender, error_email, error_name, error_password, error_repassword, submited, } = this.state;
         return (
             <div>
                 <section className=" pt-32 text-gray-600 body-font">
@@ -240,12 +280,12 @@ class Register extends Component {
                             <div className="w-full max-w-lg p-5 relative mx-auto my-auto rounded-2xl shadow-2xl bg-white ">
                                 <div className="text-center p-5 flex-auto justify-center">
                                     {submited === false ?
-                                        <svg  width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-red-400 mx-auto " viewBox="0 0 16 16">
+                                        <svg width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-red-400 mx-auto " viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                                         </svg>
                                         :
-                                        <svg  width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-green-400 mx-auto" viewBox="0 0 16 16">
+                                        <svg width="16" height="16" fill="currentColor" className="w-16 h-16 flex items-center text-green-400 mx-auto" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
                                         </svg>
@@ -256,7 +296,7 @@ class Register extends Component {
                                     {!submited && <p className="text-sm text-gray-500 px-8"> {error_message && userMessage()} </p>}
                                 </div>
                                 <div className="pb-3 px-3 justify-end mt-2 text-center space-x-4 md:block">
-                                    {submited && <button onClick={()=> this.props.history.push({pathname: '/dashboard', state: {id: resdata.id} })} className="mb-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Dashboard</button>}
+                                    {submited && <button onClick={() => this.props.history.push({ pathname: '/dashboard', state: { id: resdata.id } })} className="mb-2 bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Dashboard</button>}
                                     {!submited && <button onClick={(e) => { this.setState({ confirm: false }) || this.submitHandler(e) }} className="mb-2  bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Retry</button>}
                                     {!submited && <button onClick={() => { this.setState(this.intialstate) }} className="mb-2  bg-gray-500 border border-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-lg hover:shadow-lg hover:bg-gray-700">Cancle</button>}
                                 </div>
@@ -269,4 +309,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default withSnackbar(Register);

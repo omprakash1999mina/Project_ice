@@ -34,7 +34,6 @@ export class Login extends Component {
         const config = {
             headers: {
                 'Content-Type': 'application/json'
-
             }
         }
 

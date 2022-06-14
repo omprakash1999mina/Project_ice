@@ -1,17 +1,19 @@
 
 import { initializeApp } from 'firebase/app';
-import { getStorage} from "firebase/storage";
+import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
+// import {storage} from 'firebase'
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const FIREBASE_API_KEY = process.env.REACT_APP_API_URL;
-const FIREBASE_APP_ID = process.env.REACT_APP_API_URL;
-const FIREBASE_AUTH_DOMAIN = process.env.REACT_APP_API_URL;
-const FIREBASE_MEASUREMENT_ID = process.env.REACT_APP_API_URL;
-const FIREBASE_MESSAGING_SENDER_ID = process.env.REACT_APP_API_URL;
-const FIREBASE_PROJECT_ID = process.env.REACT_APP_API_URL;
-const FIREBASE_STORAGE_BUCKET = process.env.REACT_APP_API_URL;
+const FIREBASE_API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
+const FIREBASE_APP_ID = process.env.REACT_APP_FIREBASE_APP_ID;
+const FIREBASE_AUTH_DOMAIN = process.env.REACT_APP_FIREBASE_AUTH_DOMAIN;
+const FIREBASE_MEASUREMENT_ID = process.env.REACT_APP_FIREBASE_MEASUREMENT_ID;
+const FIREBASE_MESSAGING_SENDER_ID = process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID;
+const FIREBASE_PROJECT_ID = process.env.REACT_APP_FIREBASE_PROJECT_ID;
+const FIREBASE_STORAGE_BUCKET = process.env.REACT_APP_FIREBASE_STORAGE_BUCKET;
 
 const utils = {
     async getNewAccessToken(refresh_token) {
@@ -37,7 +39,8 @@ const utils = {
 
         return access_token;
     },
-    firebaseConfig(path, image) {
+    uploadImage(path, image) {
+
         const firebaseConfig = {
             apiKey: `${FIREBASE_API_KEY}`,
             authDomain: `${FIREBASE_AUTH_DOMAIN}`,
@@ -48,8 +51,13 @@ const utils = {
             measurementId: `${FIREBASE_MEASUREMENT_ID}`
         };
         const app = initializeApp(firebaseConfig);
-
         const storage = getStorage(app);
+
+        const imageName = `${new Date().getTime()}${image.name}`;
+        const storageRef = ref(storage, `${path}/${new Date().getTime()}${imageName}`);
+        const uploadTask = uploadBytesResumable(storageRef, image);
+        
+        return uploadTask;
     }
 }
 
