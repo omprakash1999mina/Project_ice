@@ -204,7 +204,7 @@ const NavBar = props => {
                                             {_role !== 'admin' && <span className="text-center text-green-700 block border-b-2 border-bg-gray-300 px-4 py-2 text-sm" >Controls</span>}
                                             {isLogin === true && <Link to={{ pathname: '/dashboard', state: { id: _id } }} onClick={() => setDropdownActivest(false)} className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1">Profile</Link>}
                                             <Link to="/support" onClick={() => setDropdownActivest(false)} className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-2">Support</Link>
-                                            <Link to="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">License</Link>
+                                            <Link to="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">licence</Link>
                                             <Link to="#" onClick={shareHandler} className=" text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-3">Share </Link>
                                             {isLogin === false && <Link to={'/login'} onClick={() => setDropdownActivest(false)} className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-4">Login</Link>}
                                             <Link to="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-5">Download App</Link>
