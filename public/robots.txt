@@ -1,0 +1,6 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /admin
