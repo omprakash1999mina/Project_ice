@@ -40,7 +40,7 @@ const utils = {
         return access_token;
     },
     uploadImage(path, image) {
-
+        console.log(image)
         const firebaseConfig = {
             apiKey: `${FIREBASE_API_KEY}`,
             authDomain: `${FIREBASE_AUTH_DOMAIN}`,

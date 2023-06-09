@@ -247,5 +247,3 @@ export class Login extends Component {
 }
 
 export default withSnackbar(Login);
-
-

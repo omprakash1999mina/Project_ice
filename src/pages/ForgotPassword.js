@@ -59,7 +59,8 @@ const ForgotPassword = () => {
             {
                 (!showOTP && !showPass) &&
                 <div className="pt-32 w-full sm:min-w-screen bg-gray-100 bg-opacity-0 sm:bg-opacity-50 sm:h-screen animated fadeIn faster  sm:fixed  sm:left-0 sm:top-0 flex justify-center items-center sm:inset-0 sm:z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
-                    < div className="my-2 mx-4 w-full absolute sm:shadow-2xl sm:rounded-2xl " >
+                    < div className="my-2 mx-4 w-full absolute  sm:rounded-2xl" >
+                    {/* < div className="my-2 mx-4 w-full absolute sm:shadow-2xl sm:rounded-2xl " > */}
                         <div className="w-full sm:max-w-lg p-5 relative mx-auto my-auto sm:rounded-2xl sm:shadow-2xl bg-white ">
 
                             <form className="w-full text-center p-5 flex-auto justify-center">

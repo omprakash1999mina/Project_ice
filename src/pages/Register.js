@@ -175,6 +175,7 @@ class Register extends Component {
         }
 
         let image_as_files = e.target.files[0]
+        console.log(image_as_files)
         this.setState({
             image: image_as_files,
         })

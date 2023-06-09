@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build build",
     "test": "react-scripts build test",
     "eject": "react-scripts eject"
