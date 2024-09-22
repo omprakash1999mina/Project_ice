@@ -98,7 +98,7 @@ const App = () => {
                 </CartContext.Provider>
                 </AdminContext.Provider>
 
-                    // <Footer/>
+                    {/*<Footer/>*/}
             
             </Router>
         </>
