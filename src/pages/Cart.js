@@ -27,7 +27,7 @@ const Cart = (props) => {
                 axios.get(API_URL + 'orders/' + id, config)
                     .then(response => {
                         const res = response.data;
-                        if (res.length > 0) {
+                        if (res.length >= 0) {
                             setOrders(response.data);
                             setLoading(false)
                         }
