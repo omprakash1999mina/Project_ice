@@ -27,7 +27,7 @@ class Ordersadmin extends Component {
 
             }
         }
-        axios.get(API_URL + '/orders', config)
+        axios.get(API_URL + 'orders', config)
             .then(response => {
                 // console.log(response.data);
                 this.setState({orders:response.data});

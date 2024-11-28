@@ -31,7 +31,7 @@ export class Cartelement extends Component {
                 address: `${this.state.address}, ${this.state.city}, ${this.state.state}, ${this.state.postalcode}`
             }
             // console.log(data.address);
-            axios.post(API_URL + '/orders', data, config)
+            axios.post(API_URL + 'orders', data, config)
                 .then(response => {
                     // console.log(response.data);
                     this.setState({ placed: true, payment: false, processing: false });

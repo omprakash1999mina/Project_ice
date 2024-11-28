@@ -96,7 +96,7 @@ export class Login extends Component {
         try {
             const {setRole} = this.context;
             const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-            axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
+            axios.post(API_URL + 'logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     alreadyLogin = false;
                     const _role = 'customer';

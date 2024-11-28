@@ -90,7 +90,7 @@ const Dashboard = props => {
         try {
             let res_error;
             const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-            axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
+            axios.post(API_URL + 'logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
                 .then(response => {
                     res_error = false;
                     _role = 'customer';

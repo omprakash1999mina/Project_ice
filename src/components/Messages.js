@@ -12,7 +12,7 @@ const Messages = () => {
                 'Authorization': `Bearer ${atoken}`,
             }
         }
-        axios.get(API_URL + '/messages', config)
+        axios.get(API_URL + 'messages', config)
             .then(response => {
                 setMessages(response.data);
             }).catch(error => {
