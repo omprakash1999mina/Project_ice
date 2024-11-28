@@ -113,6 +113,7 @@ export class Login extends Component {
             this.props.enqueueSnackbar("Logout successfully.", {
                 variant: 'success',
             });
+            this.props.history.push('/')
         } catch (error) {
             console.log(error)
             this.props.history.push('/notauthorized')
