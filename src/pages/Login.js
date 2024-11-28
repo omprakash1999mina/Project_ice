@@ -43,7 +43,7 @@ export class Login extends Component {
                 password: this.state.password,
             }
 
-            axios.post(API_URL + "login", data, config)
+            axios.post(API_URL + "/login", data, config)
                 .then(response => {
                     // console.log(response.data);
                     const resdata = {
@@ -85,30 +85,35 @@ export class Login extends Component {
 
     handlelogout = () => {
         this.setState({ processing: true })
-        try {
-            const { setRole } = this.context;
-            const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
-            axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
-                .then(response => {
-                    alreadyLogin = false;
-                    const _role = 'customer';
-                    setRole(_role);
-                    window.localStorage.clear();
-                    this.setState({ processing: false })
-                })
-                .catch(error => {
-                    alreadyLogin = false;
-                    if (error.response) {
-                        console.log(error.response);
-                        window.localStorage.clear();
-                        this.props.history.push('/notauthorized')
-                    }
-                    this.setState({ processing: false })
-                })
-        } catch (error) {
-            console.log(error)
-            this.props.history.push('/notauthorized')
-        }
+        // try {
+        //     const { setRole } = this.context;
+        //     const { rtoken } = JSON.parse(window.localStorage.getItem('userSetting'));
+        //     axios.post(API_URL + '/logout', { refresh_token: rtoken }, { headers: { 'Content-Type': 'application/json' } })
+        //         .then(response => {
+        //             alreadyLogin = false;
+        //             const _role = 'customer';
+        //             setRole(_role);
+        //             window.localStorage.clear();
+        //             this.setState({ processing: false })
+        //         })
+        //         .catch(error => {
+        //             alreadyLogin = false;
+        //             if (error.response) {
+        //                 console.log(error.response);
+        //                 window.localStorage.clear();
+        //                 // this.props.history.push('/notauthorized')
+        //             }
+        //             this.props.history.push('/')
+        //             this.setState({ processing: false })
+        //         })
+        // } catch (error) {
+        //     console.log(error)
+        //     this.props.history.push('/notauthorized')
+        // }
+        alreadyLogin = false;
+        setRole('customer');
+        window.localStorage.clear();
+        this.setState({ processing: false })
     }
 
     changeHandler = (e) => {
