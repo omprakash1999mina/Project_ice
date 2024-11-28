@@ -110,6 +110,9 @@ export class Login extends Component {
             setRole('customer');
             window.localStorage.clear();
             this.setState({ processing: false })
+            this.props.enqueueSnackbar("Logout successfully.", {
+                variant: 'success',
+            });
         } catch (error) {
             console.log(error)
             this.props.history.push('/notauthorized')
