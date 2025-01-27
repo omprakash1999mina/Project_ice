@@ -22,16 +22,16 @@ const Home = (props) => {
             <Products />
         </div>
             <Contact />
-            {/*<section ref={ref} className="text-gray-600 body-font ">
+            <section ref={ref} className="text-gray-600 body-font ">
             <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
                 <h2 className="sm:text-3xl text-2xl font-bold uppercase title-font mb-4 text-gray-900" >Our Founder</h2>
                 <div className="mt-1 flex items-center">
                     <span className="inline-block overflow-hidden ">
                         <img className="object-cover" alt="Founder" src="/images/op.png" />
                     </span>
-                </div>*/}
-                {/* <img className="sm:w- mb-10 object-cover object-center rounded" alt="hero" src="/images/op.png"/> */}
-                {/* <div className="text-center lg:w-2/3 w-full">
+                </div>
+                <img className="sm:w- mb-10 object-cover object-center rounded" alt="hero" src="/images/op.png"/>
+                <div className="text-center lg:w-2/3 w-full">
                 <h1 className="title-font sm:text-2xl text-2xl mb-4 font-medium text-gray-900">Om Prakash Bairwa</h1>
                 
                 <div className='p-4'>
@@ -48,7 +48,7 @@ const Home = (props) => {
                 </p>
                 </div>
             </div>
-            </section> */}
+            </section>
            
        </section>
     )
