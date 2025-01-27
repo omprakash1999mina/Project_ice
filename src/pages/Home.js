@@ -30,7 +30,7 @@ const Home = (props) => {
                         <img className="object-cover" alt="Founder" src="/images/op.png" />
                     </span>
                 </div>
-                <img className="sm:w- mb-10 object-cover object-center rounded" alt="hero" src="/images/op.png"/>
+                {/* <img className="sm:w- mb-10 object-cover object-center rounded" alt="hero" src="/images/op.png"/> */}
                 <div className="text-center lg:w-2/3 w-full">
                 <h1 className="title-font sm:text-2xl text-2xl mb-4 font-medium text-gray-900">Om Prakash Bairwa</h1>
                 
